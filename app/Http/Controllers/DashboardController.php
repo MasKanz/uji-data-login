@@ -20,4 +20,14 @@ class DashboardController extends Controller
     {
         return view('dashboard.customer');
     }
+
+    public function ceo()
+    {
+        return view('dashboard.ceo');
+    }
+
+    public function marketing()
+    {
+        return view('dashboard.marketing');
+    }
 }

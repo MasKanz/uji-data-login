@@ -25,4 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->middleware('admin');
     Route::get('/customer/dashboard', [DashboardController::class, 'customer'])->middleware('customer');
+    Route::get('/ceo/dashboard', [DashboardController::class, 'ceo'])->middleware('ceo');
+    Route::get('/marketing/dashboard', [DashboardController::class, 'marketing'])->middleware('marketing');
 });

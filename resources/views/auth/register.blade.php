@@ -51,8 +51,9 @@
         <input type="password" name="password" placeholder="Password" required>
         <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
         <select name="role">
-            <option value="customer">Customer</option>
             <option value="admin">Admin</option>
+            <option value="marketing">Marketing</option>
+            <option value="ceo">CEO</option>
         </select>
         <button type="submit">Register</button>
     </form>
