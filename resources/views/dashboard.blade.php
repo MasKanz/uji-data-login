@@ -60,6 +60,7 @@
             @csrf
             <button type="submit" class="logout">Logout</button>
         </form>
+        <a href="/">Kembali</a>
     </div>
 </div>
 
