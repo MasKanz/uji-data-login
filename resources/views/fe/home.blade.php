@@ -38,13 +38,13 @@
 
 <body class="index-page">
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
+  <header id="header" class="header d-flex align-items-center sticky-top" style="background: linear-gradient(168deg, rgba(226, 226, 226, 0.97) 0%, rgba(247,247,247,1) 23%, rgba(255,255,255,1) 91%);">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Vesperr</h1>
+        <h1 class="sitename">KA-redit</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -89,7 +89,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h1>Grow your business with Vesperr</h1>
+            <h1>Kredit motor gampang dengan KA-redit</h1>
             <p>We are team of talented designers making websites with Bootstrap</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">Get Started</a>
@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img">
-            <img src="{{asset('fe/img/hero-img.png')}}" class="img-fluid animated" alt="">
+            <img src="{{asset('fe/img/motorbike-hero.jpg')}}" class="img-fluid animated" alt="">
           </div>
         </div>
       </div>
