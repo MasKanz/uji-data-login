@@ -90,7 +90,7 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1>Kredit motor gampang dengan KA-redit</h1>
-            <p>We are team of talented designers making websites with Bootstrap</p>
+            <p>Mau kredit motor? Di sini aja tempatnya</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">Get Started</a>
               <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"></a>
@@ -112,27 +112,27 @@
         <div class="row gy-4">
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-1.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/2560px-Yamaha_Motor_Logo_(full).svg.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-2.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/Honda_Logo.svg.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-3.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/Kawasaki_Logo.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-4.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/Vespa_Logo.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-5.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/Suzuki_Logo.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{asset('fe/img/clients/client-6.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('fe/img/clients/TVS_Logo.png')}}" class="img-fluid" alt="">
           </div><!-- End Client Item -->
 
         </div>
