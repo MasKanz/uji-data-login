@@ -9,12 +9,12 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-        <li><a href="/" class="active">Beranda<br></a></li>
-        <li><a href="/shop">Produk</a></li>
-        <li><a href="#services">Pengajuan Kredit</a></li>
-        <li><a href="#portfolio">Pembayaran</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="/" @if($title === 'Home') class="active" @endif>Beranda<br></a></li>
+        <li><a href="/shop"  @if($title === 'Shop') class="active" @endif>Produk</a></li>
+        <li><a href="/pengajuan_kredit"  @if($title === 'Pengajuan') class="active" @endif>Pengajuan Kredit</a></li>
+        <li><a href="/pembayaran"  @if($title === 'Pembayaran') class="active" @endif>Pembayaran</a></li>
+        <li><a href="/abouts"  @if($title === 'Abouts') class="active" @endif>About</a></li>
+        <li><a href="/contacts"  @if($title === 'Contacts') class="active" @endif>Contact</a></li>
 
           <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>

@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AboutController;
+
 
 
 Route::get('/', [HomeController::class, 'index']);
@@ -15,6 +18,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/contacts', [ContactController::class, 'index']);
+Route::get('/abouts', [AboutController::class, 'index']);
 
 use App\Http\Middleware\CheckUserRole;
 
