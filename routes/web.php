@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\PembayaranController;
 
 
 
@@ -20,6 +22,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/abouts', [AboutController::class, 'index']);
+Route::get('/pengajuan', [PengajuanController::class, 'index']);
+Route::get('/pembayaran', [PembayaranController::class, 'index']);
 
 use App\Http\Middleware\CheckUserRole;
 
