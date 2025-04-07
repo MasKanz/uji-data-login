@@ -7,8 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PembayaranController;
+
 
 
 
@@ -24,6 +26,11 @@ Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/abouts', [AboutController::class, 'index']);
 Route::get('/pengajuan', [PengajuanController::class, 'index']);
 Route::get('/pembayaran', [PembayaranController::class, 'index']);
+Route::get('/daftar', [PelangganController::class, 'page_daftar'])->name('daftar');
+Route::post('/daftar', [PelangganController::class, 'daftar']);
+Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk');
+Route::post('/masuk', [PelangganController::class, 'masuk']);
+Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth');
 
 use App\Http\Middleware\CheckUserRole;
 
