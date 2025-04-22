@@ -11,7 +11,7 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        return view('fe.pembayaran', [
+        return view('pembayaran.pembayaran', [
             'title' => 'Pembayaran',
         ]);
     }

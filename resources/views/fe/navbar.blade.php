@@ -37,7 +37,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
-    <a class="btn-getstarted" href="index.html#about">Login / Register</a>
+    <a class="btn-getstarted" href="/masuk">Login / Register</a>
 
     </div>
   </header>

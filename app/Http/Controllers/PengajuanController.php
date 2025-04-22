@@ -11,7 +11,7 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        return view('fe.pengajuan', [
+        return view('pengajuan.pengajuan', [
             'title' => 'Pengajuan',
         ]);
     }
