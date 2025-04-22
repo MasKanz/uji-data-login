@@ -11,7 +11,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('fe.contacts',[
+        return view('fe.contact.contacts',[
             'title' => 'Contacts',
         ]);
     }

@@ -11,7 +11,7 @@ class ProductPageController extends Controller
      */
     public function index()
     {
-        return view ('product.product', [
+        return view ('fe.product.product', [
             'title' => 'Shop',
         ]);
     }
