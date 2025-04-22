@@ -10,7 +10,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PembayaranController;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\CheckUserRole;
 
 
 
@@ -31,17 +32,11 @@ Route::post('/daftar', [PelangganController::class, 'daftar']);
 Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk');
 Route::post('/masuk', [PelangganController::class, 'masuk']);
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth');
+Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 
-use App\Http\Middleware\CheckUserRole;
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->middleware(CheckUserRole::class . ':admin');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->middleware('admin');
-    Route::get('/customer/dashboard', [DashboardController::class, 'customer'])->middleware('customer');
-    Route::get('/ceo/dashboard', [DashboardController::class, 'ceo'])->middleware('ceo');
-    Route::get('/marketing/dashboard', [DashboardController::class, 'marketing'])->middleware('marketing');
 });

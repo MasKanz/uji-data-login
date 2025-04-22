@@ -11,23 +11,4 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 
-    public function admin()
-    {
-        return view('dashboard.admin');
-    }
-
-    public function customer()
-    {
-        return view('dashboard.customer');
-    }
-
-    public function ceo()
-    {
-        return view('dashboard.ceo');
-    }
-
-    public function marketing()
-    {
-        return view('dashboard.marketing');
-    }
 }
