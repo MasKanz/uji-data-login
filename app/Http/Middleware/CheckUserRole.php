@@ -11,7 +11,16 @@ class CheckUserRole
     public function handle(Request $request, Closure $next, $role)
     {
         if (!Auth::check() || Auth::user()->role !== $role) {
-            abort(403, 'Unauthorized');
+
+            if (!Auth::check()) {
+                return redirect()->intended('/login');
+            } elseif (Auth::user()->role === 'admin') {
+                return redirect()->intended('/admin');
+            } elseif (Auth::user()->role === 'marketing') {
+                return redirect()->intended('/marketing');
+            } elseif (Auth::user()->role === 'ceo') {
+                return redirect()->intended('/ceo');
+            }
         }
         return $next($request);
     }

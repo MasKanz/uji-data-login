@@ -5,3 +5,9 @@
 @section('header')
     @include('be.header')
 @endsection
+@section('dailysales')
+    @include('be.dailysales')
+@endsection
+@section('monthlysales')
+    @include('be.monthlysales')
+@endsection
