@@ -18,24 +18,14 @@
             <h3 class="mb-5">Sign in</h3>
 
             <form method="POST" action="{{ url('/masuk') }}">
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="namaPelanggan" class="form-control form-control-lg" placeholder="Name"/>
-            </div>
+                @csrf
+                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="namaPelanggan" nama="nama_pelanggan" class="form-control form-control-lg" placeholder="Nama" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="emailPelanggan" nama="email" class="form-control form-control-lg" placeholder="Email" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="nomorTelepon" nama="nomor_telp" class="form-control form-control-lg" placeholder="Nomor Telepon" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunciPelanggan" nama="katakunci" class="form-control form-control-lg" placeholder="Password" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="konfirmasiKatakunci" nama="konfirmasi" class="form-control form-control-lg" placeholder=" Konfirmasi Password" required/></div>
 
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="emailPelanggan" class="form-control form-control-lg" placeholder="Email"/>
-            </div>
-
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="katakunciPelanggan" class="form-control form-control-lg" placeholder="Password" />
-            </div>
-
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="nomorTelepon" class="form-control form-control-lg" placeholder="Nomor Telepon"/>
-            </div>
-
-
-            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block px-5" type="submit">Login</button>
+                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block px-5" type="submit">Register</button>
 
             </form>
 

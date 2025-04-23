@@ -29,10 +29,10 @@ class PelangganController extends Controller
             'email' => 'required|string|email|max:255|unique:pelanggan',
             'katakunci' => 'required|string|min:8|max:15|confirmed',
             'no_telp' => 'required|string|max:15',
-            'alamat1' => 'required|string|max:255',
-            'kota1' => 'required|string|max:255',
-            'propinsi1' => 'required|string|max:255',
-            'kodepos1' => 'required|string|max:255',
+            'alamat1' => 'string|max:255',
+            'kota1' => 'string|max:255',
+            'propinsi1' => 'string|max:255',
+            'kodepos1' => 'string|max:255',
             'alamat2' => 'string|max:255',
             'kota2' => 'string|max:255',
             'propinsi2' => 'string|max:255',
@@ -64,6 +64,11 @@ class PelangganController extends Controller
             'kodepos3' => $request->kodepos3,
             'foto' => $request->foto,
         ]);
+
+        Auth::login($pelanggan);
+
+        return redirect('/masuk');
+
     }
 
     /**
