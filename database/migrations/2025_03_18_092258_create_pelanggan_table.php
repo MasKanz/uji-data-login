@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('katakunci', 15);
             $table->string('no_telp', 15);
-            $table->string('alamat1');
-            $table->string('kota1');
-            $table->string('propinsi1');
-            $table->string('kodepos1');
+            $table->string('alamat1')->nullable();
+            $table->string('kota1')->nullable();
+            $table->string('propinsi1')->nullable();
+            $table->string('kodepos1')->nullable();
             $table->string('alamat2')->nullable();
             $table->string('kota2')->nullable();
             $table->string('propinsi2')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('kota3')->nullable();
             $table->string('propinsi3')->nullable();
             $table->string('kodepos3')->nullable();
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

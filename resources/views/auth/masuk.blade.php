@@ -18,14 +18,9 @@
             <h3 class="mb-5">Sign in</h3>
 
             <form method="POST" action="{{ url('/masuk') }}">
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Email"/>
-            </div>
-
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Password" />
-            </div>
-
+            @csrf
+            <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Email"/></div>
+            <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Password" /></div>
 
             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block px-5" type="submit">Login</button>
 

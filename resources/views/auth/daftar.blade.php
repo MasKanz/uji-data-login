@@ -17,13 +17,13 @@
 
             <h3 class="mb-5">Sign in</h3>
 
-            <form method="POST" action="{{ url('/masuk') }}">
+            <form method="POST" action="{{ url('/daftar') }}">
                 @csrf
-                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="namaPelanggan" nama="nama_pelanggan" class="form-control form-control-lg" placeholder="Nama" required/></div>
-                <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="emailPelanggan" nama="email" class="form-control form-control-lg" placeholder="Email" required/></div>
-                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="nomorTelepon" nama="nomor_telp" class="form-control form-control-lg" placeholder="Nomor Telepon" required/></div>
-                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunciPelanggan" nama="katakunci" class="form-control form-control-lg" placeholder="Password" required/></div>
-                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="konfirmasiKatakunci" nama="konfirmasi" class="form-control form-control-lg" placeholder=" Konfirmasi Password" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="nama_pelanggan" name="nama_pelanggan" class="form-control form-control-lg" placeholder="Nama" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci" name="katakunci" class="form-control form-control-lg" placeholder="Password" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci_confirmation" name="katakunci_confirmation" class="form-control form-control-lg" placeholder=" Konfirmasi Password" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="no_telp" name="no_telp" class="form-control form-control-lg" placeholder="Nomor Telepon" required/></div>
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block px-5" type="submit">Register</button>
 
