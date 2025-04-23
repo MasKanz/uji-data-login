@@ -19,22 +19,18 @@
 
             <form method="POST" action="{{ url('/masuk') }}">
             <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="namaPelanggan">Nama Pelanggan</label>
               <input type="text" id="namaPelanggan" class="form-control form-control-lg" placeholder="Name"/>
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="emailPelanggan">Email</label>
               <input type="email" id="emailPelanggan" class="form-control form-control-lg" placeholder="Email"/>
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="katakunciPelanggan">Password</label>
               <input type="password" id="katakunciPelanggan" class="form-control form-control-lg" placeholder="Password" />
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="nomorTelepon">Nomor Telepon</label>
               <input type="text" id="nomorTelepon" class="form-control form-control-lg" placeholder="Nomor Telepon"/>
             </div>
 

@@ -117,9 +117,9 @@
               </div>
               <div class="col-md-12">
                 <ul class="breadcrumb mb-0">
-                  <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
                   <li class="breadcrumb-item"><a href="javascript: void(0)">Dashboard</a></li>
-                  <li class="breadcrumb-item" aria-current="page">Home</li>
+                  <!-- <li class="breadcrumb-item" aria-current="page"></li> -->
                 </ul>
               </div>
             </div>
@@ -141,48 +141,15 @@
         @yield('monthlysales')
         <!-- Monthly Sales end -->
 
-          <!-- [ year  sales section ] start -->
-          <div class="col-md-12 col-xl-4">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="mb-4">Yearly Sales</h6>
-                <div class="row d-flex align-items-center">
-                  <div class="col-9">
-                    <h3 class="f-w-300 d-flex align-items-center m-b-0"
-                      ><i class="feather icon-arrow-up text-success f-30 m-r-10"></i>$8.638.32</h3
-                    >
-                  </div>
-                  <div class="col-3 text-end">
-                    <p class="m-b-0">80%</p>
-                  </div>
-                </div>
-                <div class="progress m-t-30" style="height: 7px">
-                  <div
-                    class="progress-bar bg-brand-color-1"
-                    role="progressbar"
-                    style="width: 70%"
-                    aria-valuenow="70"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- [ year  sales section ] end -->
+        <!-- Yearly Sales start -->
 
-          <!-- [ worldLow section ] start -->
-          <div class="col-xl-8 col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <h5>Users From United States</h5>
-              </div>
-              <div class="card-body">
-                <div id="world-low" style="height: 450px"></div>
-              </div>
-            </div>
-          </div>
-          <!-- [ worldLow section ] end -->
+        @yield('yearlysales')
+        <!-- Yearly Sales end -->
+
+        <!-- World Low start -->
+
+        @yield('worldlow')
+        <!-- World Low end -->
 
           <!-- [ statistics year chart ] start -->
           <div class="col-xl-4 col-md-6">

@@ -11,3 +11,6 @@
 @section('monthlysales')
     @include('be.monthlysales')
 @endsection
+@section('yearlysales')
+    @include('be.yearlysales')
+@endsection
