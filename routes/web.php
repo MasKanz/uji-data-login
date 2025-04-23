@@ -12,6 +12,8 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\CheckUserRole;
+use App\Http\Controllers\MarketingController;
+use App\Http\Controllers\CeoController;
 
 
 
@@ -33,6 +35,9 @@ Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk');
 Route::post('/masuk', [PelangganController::class, 'masuk']);
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
+Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
+Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
+
 
 
 

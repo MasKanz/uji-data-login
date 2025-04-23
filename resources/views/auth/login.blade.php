@@ -48,6 +48,9 @@
         @csrf
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
+        @error('password')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
         <button type="submit">Login</button>
     </form>
     <p>Belum punya akun? <a href="{{ url('/register') }}">Daftar di sini</a></p>

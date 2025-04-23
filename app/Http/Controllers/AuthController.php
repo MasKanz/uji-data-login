@@ -52,7 +52,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard');
+            // return redirect()->intended('/dashboard');
+            if ($request->user()->role === 'admin') {
+                return redirect()->intended('/admin');
+            } elseif ($request->user()->role === 'marketing') {
+                return redirect()->intended('/marketing');
+            } elseif ($request->user()->role === 'ceo') {
+                return redirect()->intended('/ceo');
+            }
         }
 
         return back()->withErrors(['email' => 'Email atau password salah']);
@@ -64,4 +71,6 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+
 }

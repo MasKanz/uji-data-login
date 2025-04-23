@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class CeoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('be.admin.index', [
-            'title' => 'Admin'
+        return view('be.ceo.index', [
+            'title' => 'Ceo'
         ]);
     }
 
