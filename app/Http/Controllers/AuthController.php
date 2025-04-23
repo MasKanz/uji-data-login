@@ -35,6 +35,10 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect('/login');
+
+        return back()->withErrors(['email' => 'Email atau password salah']);
+        return back()->withErrors(['password' => 'Pastikan password minimal 8 karakter']);
+
     }
 
     // Menampilkan form login

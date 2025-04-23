@@ -48,7 +48,7 @@ class PelangganController extends Controller
         $pelanggan = Pelanggan::create([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email' => $request->email,
-            'katakunci' => $request->katakunci,
+            'katakunci' => Hash::make($request->katakunci),
             'no_telp' => $request->no_telp,
             // 'alamat1' => $request->alamat1,
             // 'kota1' => $request->kota1,
@@ -103,7 +103,12 @@ class PelangganController extends Controller
             'katakunci' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        // if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
+        //     return redirect()->intended('/');
+        // }
+
+        if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
+            $request->session()->regenerate();
             return redirect()->intended('/');
         }
 

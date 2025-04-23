@@ -17,12 +17,23 @@
 
             <h3 class="mb-5">Sign in</h3>
 
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
             <form method="POST" action="{{ url('/masuk') }}">
             @csrf
             <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" required/></div>
             <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci" name="katakunci" class="form-control form-control-lg" placeholder="Password" required/></div>
 
             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block px-5" type="submit">Login</button>
+
 
             </form>
 

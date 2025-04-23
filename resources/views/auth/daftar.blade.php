@@ -17,6 +17,16 @@
 
             <h3 class="mb-5">Sign in</h3>
 
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
             <form method="POST" action="{{ url('/daftar') }}">
                 @csrf
                 <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="nama_pelanggan" name="nama_pelanggan" class="form-control form-control-lg" placeholder="Nama" required/></div>
