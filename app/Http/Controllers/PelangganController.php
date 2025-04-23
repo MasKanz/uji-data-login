@@ -104,7 +104,7 @@ class PelangganController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/home');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah']);
@@ -113,6 +113,6 @@ class PelangganController extends Controller
     public function keluar()
     {
         Auth::logout();
-        return redirect('/masuk');
+        return redirect('/home');
     }
 }
