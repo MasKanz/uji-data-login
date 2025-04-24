@@ -117,7 +117,14 @@
               </div>
               <div class="col-md-12">
                 <ul class="breadcrumb mb-0">
+
+                  @if(auth()->user()->role === 'admin')
                   <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+                  @elseif(auth()->user()->role === 'marketing')
+                  <li class="breadcrumb-item"><a href="/marketing">Marketing</a></li>
+                  @elseif(auth()->user()->role === 'ceo')
+                  <li class="breadcrumb-item"><a href="/ceo">CEO</a></li>
+                  @endif
                   <li class="breadcrumb-item"><a href="javascript: void(0)">Dashboard</a></li>
                   <!-- <li class="breadcrumb-item" aria-current="page"></li> -->
                 </ul>

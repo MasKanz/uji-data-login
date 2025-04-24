@@ -37,7 +37,11 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
+    @if(Auth::guard('pelanggan')->check())
+    <a class="btn-getstarted" href="/profilepelanggan">Profile</a>
+    @else
     <a class="btn-getstarted" href="/masuk">Login / Register</a>
+    @endif
 
     </div>
   </header>

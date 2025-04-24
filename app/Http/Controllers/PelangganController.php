@@ -120,4 +120,11 @@ class PelangganController extends Controller
         Auth::logout();
         return redirect('/home');
     }
+
+    public function profilePelanggan() {
+        return view('fe.profile.profile', [
+            'title' => 'Profile',
+            'pelanggan' => Pelanggan::where('id', Auth::guard('pelanggan')->user()->id)->first()
+        ]);
+    }
 }

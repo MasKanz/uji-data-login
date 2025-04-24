@@ -37,6 +37,7 @@ Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
 Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
+Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->middleware('auth');
 
 
 
