@@ -117,7 +117,7 @@ class PelangganController extends Controller
 
     public function keluar()
     {
-        Auth::logout();
+        Auth::guard('pelanggan')->logout();
         return redirect('/home');
     }
 

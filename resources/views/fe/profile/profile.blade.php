@@ -3,12 +3,7 @@
     @include('fe.navbar')
 @endsection
 @section('profile')
-
-
-<body>
-
-</body>
-
+    @include('fe.profile')
 @endsection
 
 

@@ -163,7 +163,9 @@
     <!-- /Portfolio Section -->
 
 
-
+    <!-- Profile -->
+@yield('profile')
+    <!-- /Profile -->
 
 
     @yield('faq')

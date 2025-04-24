@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\CheckUserRole;
 use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\CeoController;
+use App\Http\Middleware\CheckPelanggan;
 
 
 
@@ -37,7 +38,9 @@ Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
 Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
-Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->middleware('auth');
+Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->middleware(CheckPelanggan::class);
+Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth:pelanggan');
+
 
 
 
