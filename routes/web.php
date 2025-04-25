@@ -15,6 +15,7 @@ use App\Http\Middleware\CheckUserRole;
 use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\CeoController;
 use App\Http\Middleware\CheckPelanggan;
+use App\Http\Middleware\LoginUserCheck;
 
 
 
@@ -23,7 +24,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/shop', [ProductPageController::class, 'index']);
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware(LoginUserCheck::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/contacts', [ContactController::class, 'index']);

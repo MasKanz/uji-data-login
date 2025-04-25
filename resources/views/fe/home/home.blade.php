@@ -8,6 +8,6 @@
 @section('testimonies')
     @include('fe.testimonies')
 @endsection
-@section('faq')
+<!-- @section('faq')
     @include('fe.faq')
-@endsection
+@endsection -->

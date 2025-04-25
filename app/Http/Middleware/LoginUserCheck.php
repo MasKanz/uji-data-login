@@ -4,17 +4,22 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserRole
-{
-    public function handle(Request $request, Closure $next, $role)
-    {
-        if (!Auth::check() || Auth::user()->role !== $role) {
 
-            if (!Auth::check()) {
-                return redirect()->intended('/login');
-            } elseif (Auth::user()->role === 'admin') {
+class LoginUserCheck
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (Auth::check()) {
+
+            if (Auth::user()->role === 'admin') {
                 return redirect()->intended('/admin');
             } elseif (Auth::user()->role === 'marketing') {
                 return redirect()->intended('/marketing');
@@ -26,4 +31,3 @@ class CheckUserRole
         return $next($request);
     }
 }
-
