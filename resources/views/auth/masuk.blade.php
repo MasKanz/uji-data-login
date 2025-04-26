@@ -44,6 +44,11 @@
               </p>
             </div>
 
+            <div style="padding:10px 10px; border-radius: 20px;">
+              <p class="mb-0"><a href="/" class="text-black-50 fw-bold">Kembali</a>
+              </p>
+            </div>
+
           </div>
         </div>
       </div>

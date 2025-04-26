@@ -1,7 +1,7 @@
 <header id="header" class="header d-flex align-items-center sticky-top" style="background: linear-gradient(168deg, rgba(226, 226, 226, 0.97) 0%, rgba(247,247,247,1) 23%, rgba(255,255,255,1) 91%);">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="/home" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename">KA-redit</h1>

@@ -16,15 +16,14 @@ use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\CeoController;
 use App\Http\Middleware\CheckPelanggan;
 use App\Http\Middleware\LoginUserCheck;
-
-
+use App\Http\Middleware\MasukPelangganCheck;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/shop', [ProductPageController::class, 'index']);
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware(LoginUserCheck::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/contacts', [ContactController::class, 'index']);
@@ -33,7 +32,7 @@ Route::get('/pengajuan', [PengajuanController::class, 'index']);
 Route::get('/pembayaran', [PembayaranController::class, 'index']);
 Route::get('/daftar', [PelangganController::class, 'page_daftar'])->name('daftar');
 Route::post('/daftar', [PelangganController::class, 'daftar']);
-Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk');
+Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk')->middleware(MasukPelangganCheck::class);
 Route::post('/masuk', [PelangganController::class, 'masuk']);
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
