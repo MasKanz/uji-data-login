@@ -1,0 +1,79 @@
+<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Lengkapi Alamat Anda</h2>
+    <form action="{{ route('pelanggan.updateAlamat') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <!-- Alamat 1 -->
+        <div class="mb-4">
+            <label>Alamat 1</label>
+            <input type="text" name="alamat1" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kota 1</label>
+            <input type="text" name="kota1" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Propinsi 1</label>
+            <input type="text" name="propinsi1" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kode Pos 1</label>
+            <input type="text" name="kodepos1" class="w-full border rounded p-2">
+        </div>
+
+        <!-- Alamat 2 -->
+        <div class="mb-4">
+            <label>Alamat 2</label>
+            <input type="text" name="alamat2" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kota 2</label>
+            <input type="text" name="kota2" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Propinsi 2</label>
+            <input type="text" name="propinsi2" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kode Pos 2</label>
+            <input type="text" name="kodepos2" class="w-full border rounded p-2">
+        </div>
+
+        <!-- Alamat 3 -->
+        <div class="mb-4">
+            <label>Alamat 3</label>
+            <input type="text" name="alamat3" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kota 3</label>
+            <input type="text" name="kota3" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Propinsi 3</label>
+            <input type="text" name="propinsi3" class="w-full border rounded p-2">
+        </div>
+
+        <div class="mb-4">
+            <label>Kode Pos 3</label>
+            <input type="text" name="kodepos3" class="w-full border rounded p-2">
+        </div>
+
+        <!-- Upload Foto -->
+        <div class="mb-4">
+            <label>Upload Foto</label>
+            <input type="file" name="foto" class="w-full border rounded p-2">
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+            Simpan Data
+        </button>
+    </form>
+</div>

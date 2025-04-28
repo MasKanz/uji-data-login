@@ -40,7 +40,8 @@ Route::get('/marketing', [MarketingController::class, 'index'])->middleware(Chec
 Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
 Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->middleware(CheckPelanggan::class);
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth:pelanggan');
-
+Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
+Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
 
 
 

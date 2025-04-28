@@ -38,7 +38,21 @@
     </nav>
 
     @if(Auth::guard('pelanggan')->check())
-    <a class="btn-getstarted" href="/profilepelanggan">Profile</a>
+    <div class="btn-group" style="padding: 0 10px 0 10px;">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Profile
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="/profilepelanggan">Halaman Profile</a></li>
+    <li><a class="dropdown-item" href="/updatepelanggan">Lengkapi Alamat</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <form method="POST" action="{{ url('/keluar') }}">
+        @csrf
+        <button type="submit" class="btn keluar">Logout</button>
+    </form>
+  </ul>
+</div>
     @else
     <a class="btn-getstarted" href="/masuk">Login / Register</a>
     @endif

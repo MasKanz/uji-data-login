@@ -172,6 +172,8 @@
 
     @yield('contact')
 
+    @yield('update')
+
 
   </main>
 
