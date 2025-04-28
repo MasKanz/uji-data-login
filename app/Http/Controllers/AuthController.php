@@ -77,5 +77,17 @@ class AuthController extends Controller
         // return redirect()->intended('/login');
     }
 
+    public function updateUserPage()
+    {
+        $users = User::all(); // Fetch all users
+        return view('be.admin.userupdate', compact('users'));
+    }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
+    }
 }

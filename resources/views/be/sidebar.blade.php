@@ -1,28 +1,24 @@
 <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
+      <div class="m-header">
 
         @if (auth()->user()->role == 'admin')
-        <div class="m-header">
       <a href="/admin" class="b-brand text-primary">
-        <!-- ========   Change your logo from here   ============ -->
+<!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
         <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
       </a>
         @elseif (auth()->user()->role == 'ceo')
-        <div class="m-header">
-      <a href="/ceo" class="b-brand text-primary">
+      <a href="/admin" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
         <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
-      </a>
         @elseif (auth()->user()->role == 'marketing')
-        <div class="m-header">
       <a href="/marketing" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
         <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
-      </a>
         @endif
 
     </div>
@@ -31,12 +27,43 @@
         <li class="pc-item pc-caption">
           <label>Navigation</label>
         </li>
+        @if (auth()->user()->role == 'admin')
         <li class="pc-item">
-          <a href="../dashboard/index.html" class="pc-link">
+          <a href="/admin" class="pc-link">
             <span class="pc-micon">
               <i data-feather="home"></i>
             </span>
             <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+
+        @elseif (auth()->user()->role == 'ceo')
+        <li class="pc-item">
+          <a href="/ceo" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="home"></i>
+            </span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+
+        @elseif (auth()->user()->role == 'marketing')
+        <li class="pc-item">
+          <a href="/marketing" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="home"></i>
+            </span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+        @endif
+
+        <li class="pc-item">
+          <a href="/users" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="users"></i>
+            </span>
+            <span class="pc-mtext">User Management</span>
           </a>
         </li>
 

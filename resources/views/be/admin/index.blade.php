@@ -14,3 +14,15 @@
 @section('yearlysales')
     @include('be.yearlysales')
 @endsection
+@section('statisticyear')
+    @include('be.statisticyear')
+@endsection
+@section('socialmedia')
+    @include('be.socialmedia')
+@endsection
+@section('ratinglist')
+    @include('be.ratinglist')
+@endsection
+@section('recentusers')
+    @include('be.recentusers')
+@endsection

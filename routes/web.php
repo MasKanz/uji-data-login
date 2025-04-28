@@ -42,7 +42,8 @@ Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan']
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth:pelanggan');
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
-
+Route::get('/users', [AuthController::class, 'updateUserPage'])->name('users');
+Route::delete('/users/{id}', [AuthController::class, 'destroy'])->name('users.destroy');
 
 
 

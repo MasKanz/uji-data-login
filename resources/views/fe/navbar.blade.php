@@ -41,7 +41,7 @@
     <div class="btn-group" style="padding: 0 10px 0 10px;">
   <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         @if(Auth::guard('pelanggan')->user()->foto)
-        <img src="{{ asset('storage/' . Auth::guard('pelanggan')->user()->foto) }}" alt="Foto Pelanggan" width="20" style="border-radius: 50%">        {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
+        <img src="{{ asset('storage/' . Auth::guard('pelanggan')->user()->foto) }}" alt="Foto Pelanggan" width="30" style="border-radius: 50%">
         @else
         {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
         @endif

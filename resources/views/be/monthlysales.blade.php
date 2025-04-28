@@ -5,9 +5,9 @@
                 <h6 class="mb-4">Monthly Sales</h6>
                 <div class="row d-flex align-items-center">
                   <div class="col-9">
-                    <h3 class="f-w-300 d-flex align-items-center m-b-0"
-                      ><i class="feather icon-arrow-down text-danger f-30 m-r-10"></i>$2.942.32</h3
-                    >
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                      <i class="feather icon-arrow-down text-danger f-30 m-r-10"></i>$2.942.32
+                    </h3>
                   </div>
                   <div class="col-3 text-end">
                     <p class="m-b-0">36%</p>
