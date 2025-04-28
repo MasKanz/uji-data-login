@@ -1,12 +1,30 @@
 <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
-    <div class="m-header">
-      <a href="../dashboard/index.html" class="b-brand text-primary">
+
+        @if (auth()->user()->role == 'admin')
+        <div class="m-header">
+      <a href="/admin" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
         <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
       </a>
+        @elseif (auth()->user()->role == 'ceo')
+        <div class="m-header">
+      <a href="/ceo" class="b-brand text-primary">
+        <!-- ========   Change your logo from here   ============ -->
+        <h3 style="color: white;">KA-redit</h3>
+        <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
+      </a>
+        @elseif (auth()->user()->role == 'marketing')
+        <div class="m-header">
+      <a href="/marketing" class="b-brand text-primary">
+        <!-- ========   Change your logo from here   ============ -->
+        <h3 style="color: white;">KA-redit</h3>
+        <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
+      </a>
+        @endif
+
     </div>
     <div class="navbar-content">
       <ul class="pc-navbar">

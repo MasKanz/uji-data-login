@@ -40,21 +40,25 @@
     @if(Auth::guard('pelanggan')->check())
     <div class="btn-group" style="padding: 0 10px 0 10px;">
   <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        @if(Auth::guard('pelanggan')->user()->nama_pelanggan)
-        {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
+        @if(Auth::guard('pelanggan')->user()->foto)
+        <img src="{{ asset('storage/' . Auth::guard('pelanggan')->user()->foto) }}" alt="Foto Pelanggan" width="20" style="border-radius: 50%">        {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
         @else
-        Profile
+        {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
         @endif
   </button>
   <ul class="dropdown-menu">
+    <li style="text-align: center;"><img src="{{ asset('storage/' . Auth::guard('pelanggan')->user()->foto) }}" alt="Foto Pelanggan" width="100" style="border-radius: 10%;"></li>
     <li><a class="dropdown-item" href="/profilepelanggan">Halaman Profile</a></li>
     <li><a class="dropdown-item" href="/updatepelanggan">Lengkapi Alamat</a></li>
     <li><a class="dropdown-item" href="#">Something else here</a></li>
     <li><hr class="dropdown-divider"></li>
-    <form method="POST" action="{{ url('/keluar') }}">
+    <li style="text-align: center;">
+      <form method="POST" action="{{ url('/keluar') }}">
         @csrf
-        <button type="submit" class="btn keluar">Logout</button>
+        <button type="submit" class="btn btn-danger keluar" style="width: 80%;">Logout</button>
     </form>
+    </li>
+
   </ul>
 </div>
     @else

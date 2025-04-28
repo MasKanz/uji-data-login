@@ -31,7 +31,7 @@
 <div class="button-container" data-aos="fade-up">
     <form method="POST" action="{{ url('/keluar') }}">
     @csrf
-    <button type="submit" class="keluar">Logout</button>
+    <button type="submit" class="btn btn-danger keluar">Logout</button>
     </form>
 </div>
 
