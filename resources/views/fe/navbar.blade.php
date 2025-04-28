@@ -40,7 +40,11 @@
     @if(Auth::guard('pelanggan')->check())
     <div class="btn-group" style="padding: 0 10px 0 10px;">
   <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    Profile
+        @if(Auth::guard('pelanggan')->user()->nama_pelanggan)
+        {{ Auth::guard('pelanggan')->user()->nama_pelanggan }}
+        @else
+        Profile
+        @endif
   </button>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="/profilepelanggan">Halaman Profile</a></li>

@@ -121,12 +121,6 @@ class PelangganController extends Controller
         return redirect()->back();
     }
 
-    public function profilePelanggan() {
-        return view('fe.profile.profile', [
-            'title' => 'Profile',
-            'pelanggan' => Pelanggan::where('id', Auth::guard('pelanggan')->user()->id)->first()
-        ]);
-    }
 
     public function updatePage() {
         return view('fe.profile.updatealamat', [
@@ -142,9 +136,20 @@ class PelangganController extends Controller
             'kota1' => 'nullable|string|max:255',
             'propinsi1' => 'nullable|string|max:255',
             'kodepos1' => 'nullable|string|max:20',
+
+            'alamat2' => 'nullable|string|max:255',
+            'kota2' => 'nullable|string|max:255',
+            'propinsi2' => 'nullable|string|max:255',
+            'kodepos2' => 'nullable|string|max:20',
+
+            'alamat3' => 'nullable|string|max:255',
+            'kota3' => 'nullable|string|max:255',
+            'propinsi3' => 'nullable|string|max:255',
+            'kodepos3' => 'nullable|string|max:20',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        /** @var \App\Models\Pelanggan $pelanggan */
         $pelanggan = Auth::guard('pelanggan')->user();
 
         if ($request->hasFile('foto')) {
@@ -152,23 +157,29 @@ class PelangganController extends Controller
             $pelanggan->foto = $path;
         }
 
-        $pelanggan->alamat1 = $request->alamat1;
-        $pelanggan->kota1 = $request->kota1;
-        $pelanggan->propinsi1 = $request->propinsi1;
-        $pelanggan->kodepos1 = $request->kodepos1;
-
-        $pelanggan->alamat2 = $request->alamat2;
-        $pelanggan->kota2 = $request->kota2;
-        $pelanggan->propinsi2 = $request->propinsi2;
-        $pelanggan->kodepos2 = $request->kodepos2;
-
-        $pelanggan->alamat3 = $request->alamat3;
-        $pelanggan->kota3 = $request->kota3;
-        $pelanggan->propinsi3 = $request->propinsi3;
-        $pelanggan->kodepos3 = $request->kodepos3;
-
-        $pelanggan->save();
+        $pelanggan->update([
+            'alamat1' => $request->alamat1,
+            'kota1' => $request->kota1,
+            'propinsi1' => $request->propinsi1,
+            'kodepos1' => $request->kodepos1,
+            'alamat2' => $request->alamat2,
+            'kota2' => $request->kota2,
+            'propinsi2' => $request->propinsi2,
+            'kodepos2' => $request->kodepos2,
+            'alamat3' => $request->alamat3,
+            'kota3' => $request->kota3,
+            'propinsi3' => $request->propinsi3,
+            'kodepos3' => $request->kodepos3,
+        ]);
 
         return redirect()->back()->with('success', 'Data alamat berhasil diperbarui!');
+    }
+
+
+    public function profilePelanggan() {
+        return view('fe.profile.profile', [
+            'title' => 'Profile',
+            'pelanggan' => Pelanggan::where('id', Auth::guard('pelanggan')->user()->id)->first()
+        ]);
     }
 }

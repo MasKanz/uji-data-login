@@ -6,22 +6,22 @@
         <!-- Alamat 1 -->
         <div class="mb-4">
             <label>Alamat 1</label>
-            <input type="text" name="alamat1" class="w-full border rounded p-2">
+            <input type="text" name="alamat1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
             <label>Kota 1</label>
-            <input type="text" name="kota1" class="w-full border rounded p-2">
+            <input type="text" name="kota1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
-            <label>Propinsi 1</label>
-            <input type="text" name="propinsi1" class="w-full border rounded p-2">
+            <label>Provinsi 1</label>
+            <input type="text" name="propinsi1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
             <label>Kode Pos 1</label>
-            <input type="text" name="kodepos1" class="w-full border rounded p-2">
+            <input type="text" name="kodepos1" class="w-full border rounded p-2" required>
         </div>
 
         <!-- Alamat 2 -->
@@ -36,7 +36,7 @@
         </div>
 
         <div class="mb-4">
-            <label>Propinsi 2</label>
+            <label>Provinsi 2</label>
             <input type="text" name="propinsi2" class="w-full border rounded p-2">
         </div>
 
@@ -57,7 +57,7 @@
         </div>
 
         <div class="mb-4">
-            <label>Propinsi 3</label>
+            <label>Provinsi 3</label>
             <input type="text" name="propinsi3" class="w-full border rounded p-2">
         </div>
 
