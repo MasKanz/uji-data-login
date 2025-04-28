@@ -4,6 +4,7 @@
     <div class="m-header">
       <a href="../dashboard/index.html" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
+        <h3 style="color: white;">KA-redit</h3>
         <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
       </a>
     </div>
@@ -20,7 +21,7 @@
             <span class="pc-mtext">Dashboard</span>
           </a>
         </li>
-        
+
 
       </ul>
       <!-- <div class="card pc-user-card my-3 bg-white bg-opacity-10">

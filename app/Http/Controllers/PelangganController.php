@@ -81,7 +81,17 @@ class PelangganController extends Controller
 
         Auth::login($pelanggan);
 
-        return redirect('/masuk');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'katakunci' => 'required'
+        ]);
+
+        if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        return redirect('/home');
 
     }
 
@@ -172,7 +182,7 @@ class PelangganController extends Controller
             'kodepos3' => $request->kodepos3,
         ]);
 
-        return redirect()->back()->with('success', 'Data alamat berhasil diperbarui!');
+        return redirect()->intended('/profilepelanggan')->with('success', 'Data alamat berhasil diperbarui!');
     }
 
 
