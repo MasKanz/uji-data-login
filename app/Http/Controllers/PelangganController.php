@@ -29,19 +29,6 @@ class PelangganController extends Controller
             'email' => 'required|string|email|max:255|unique:pelanggan',
             'katakunci' => 'required|string|min:8|max:15|confirmed',
             'no_telp' => 'required|string|max:15',
-            // 'alamat1' => 'string|max:255',
-            // 'kota1' => 'string|max:255',
-            // 'propinsi1' => 'string|max:255',
-            // 'kodepos1' => 'string|max:255',
-            // 'alamat2' => 'string|max:255',
-            // 'kota2' => 'string|max:255',
-            // 'propinsi2' => 'string|max:255',
-            // 'kodepos2' => 'string|max:255',
-            // 'alamat3' => 'string|max:255',
-            // 'kota3' => 'string|max:255',
-            // 'propinsi3' => 'string|max:255',
-            // 'kodepos3' => 'string|max:255',
-            // 'foto' => 'required|string',
 
         ]);
 
@@ -50,33 +37,7 @@ class PelangganController extends Controller
             'email' => $request->email,
             'katakunci' => Hash::make($request->katakunci),
             'no_telp' => $request->no_telp,
-            // 'alamat1' => $request->alamat1,
-            // 'kota1' => $request->kota1,
-            // 'propinsi1' => $request->propinsi1,
-            // 'kodepos1' => $request->kodepos1,
-            // 'alamat2' => $request->alamat2,
-            // 'kota2' => $request->kota2,
-            // 'propinsi2' => $request->propinsi2,
-            // 'kodepos2' => $request->kodepos2,
-            // 'alamat3' => $request->alamat3,
-            // 'kota3' => $request->kota3,
-            // 'propinsi3' => $request->propinsi3,
-            // 'kodepos3' => $request->kodepos3,
-            // 'foto' => $request->foto,
 
-            // 'alamat1' => null,
-            // 'kota1' => null,
-            // 'propinsi1' => null,
-            // 'kodepos1' => null,
-            // 'alamat2' => null,
-            // 'kota2' => null,
-            // 'propinsi2' => null,
-            // 'kodepos2' => null,
-            // 'alamat3' => null,
-            // 'kota3' => null,
-            // 'propinsi3' => null,
-            // 'kodepos3' => null,
-            // 'foto' => null,
         ]);
 
         Auth::login($pelanggan);
@@ -112,10 +73,6 @@ class PelangganController extends Controller
             'email' => 'required|email',
             'katakunci' => 'required'
         ]);
-
-        // if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
-        //     return redirect()->intended('/');
-        // }
 
         if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
             $request->session()->regenerate();

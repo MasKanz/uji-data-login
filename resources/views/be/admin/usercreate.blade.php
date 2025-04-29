@@ -2,6 +2,6 @@
 @section('sidebar')
     @include('be.sidebar')
 @endsection
-@section('userupdate')
-    @include('be.userupdate')
+@section('usercreate')
+    @include('be.usercreate')
 @endsection

@@ -1,0 +1,10 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('header')
+    @include('be.header')
+@endsection
+@section('users')
+    @include('be.users')
+@endsection

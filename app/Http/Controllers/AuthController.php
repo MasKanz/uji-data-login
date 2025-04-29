@@ -80,7 +80,7 @@ class AuthController extends Controller
     public function updateUserPage()
     {
         $users = User::all(); // Fetch all users
-        return view('be.admin.userupdate', compact('users'));
+        return view('be.admin.users', compact('users'));
     }
 
     public function destroy($id)
@@ -90,4 +90,61 @@ class AuthController extends Controller
 
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
+
+    // Menampilkan view create user
+    public function createUserPage()
+    {
+        return view('be.admin.usercreate');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:admin,marketing,ceo',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        return redirect()->intended('/users')->with('success', 'User created successfully.');
+    }
+
+    public function editUserPage($id)
+    {
+        $user = User::findOrFail($id);
+        return view('be.admin.userupdate', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'required|in:admin,marketing,ceo',
+        ]);
+
+        $request->merge(['password' => null, 'password_confirmation' => null]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('users')->with('success', 'User updated successfully.');
+    }
+
 }

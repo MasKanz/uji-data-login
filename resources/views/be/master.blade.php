@@ -185,6 +185,16 @@
         <!-- Recent Users end -->
 
 
+        <!-- Table Users start -->
+
+        @yield('users')
+        <!-- Table Users end -->
+
+        <!-- Create Users start -->
+
+        @yield('usercreate')
+        <!-- Create Users end -->
+
         <!-- Update Users start -->
 
         @yield('userupdate')

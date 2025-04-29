@@ -42,9 +42,12 @@ Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan']
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth:pelanggan');
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
-Route::get('/users', [AuthController::class, 'updateUserPage'])->name('users');
+Route::get('/users', [AuthController::class, 'updateUserPage'])->name('users')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/users/{id}', [AuthController::class, 'destroy'])->name('users.destroy');
-
+Route::get('/users/create', [AuthController::class, 'createUserPage'])->name('users.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/users', [AuthController::class, 'storeUser'])->name('users.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/users/{id}/edit', [AuthController::class, 'editUserPage'])->name('users.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/users/{id}', [AuthController::class, 'updateUser'])->name('users.update')->middleware(CheckUserRole::class . ':admin');
 
 
 
