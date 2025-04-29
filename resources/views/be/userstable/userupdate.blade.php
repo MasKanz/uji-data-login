@@ -24,17 +24,16 @@
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Blank if you don't want to change password" autocomplete="new-password">
+            <small class="form-text text-muted">Leave blank to keep the current password.</small>
         </div>
         <div class="mb-3">
-            <label for="password_confirmation" class="form-label" >Confirm Password</label>
+            <label for="password_confirmation" class="form-label">Confirm Password</label>
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Blank if you don't want to change password" autocomplete="new-password">
+            <small class="form-text text-muted">Leave blank to keep the current password.</small>
         </div>
         <div class="mb-3">
             <label for="role" class="form-label">Role</label>
             <select class="form-control" id="role" name="role" required>
-                <!-- <option value="admin">Admin</option>
-                <option value="marketing">Marketing</option>
-                <option value="ceo">CEO</option> -->
 
                 <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                 <option value="marketing" {{ $user->role === 'marketing' ? 'selected' : '' }}>Marketing</option>

@@ -37,6 +37,24 @@
           </a>
         </li>
 
+        <li class="pc-item">
+          <a href="/users" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="user"></i>
+            </span>
+            <span class="pc-mtext">User Management</span>
+          </a>
+        </li>
+
+        <li class="pc-item">
+          <a href="/pelanggans" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="users"></i>
+            </span>
+            <span class="pc-mtext">Pelanggan Management</span>
+          </a>
+        </li>
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">
@@ -57,15 +75,6 @@
           </a>
         </li>
         @endif
-
-        <li class="pc-item">
-          <a href="/users" class="pc-link">
-            <span class="pc-micon">
-              <i data-feather="users"></i>
-            </span>
-            <span class="pc-mtext">User Management</span>
-          </a>
-        </li>
 
 
       </ul>

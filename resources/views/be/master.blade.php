@@ -200,6 +200,21 @@
         @yield('userupdate')
         <!-- Update Users end -->
 
+        <!-- Table Pelanggans start -->
+
+        @yield('pelanggans')
+        <!-- Table Pelanggans end -->
+
+        <!-- Create Pelanggans start -->
+
+        @yield('pelanggancreate')
+        <!-- Create Pelanggans end -->
+
+        <!-- Update Pelanggans start -->
+
+        @yield('pelangganupdate')
+        <!-- Update Pelanggans end -->
+
         </div>
         <!-- [ Main Content ] end -->
       </div>

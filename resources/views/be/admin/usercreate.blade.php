@@ -3,5 +3,5 @@
     @include('be.sidebar')
 @endsection
 @section('usercreate')
-    @include('be.usercreate')
+    @include('be.userstable.usercreate')
 @endsection

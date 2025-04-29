@@ -113,7 +113,7 @@ class PelangganController extends Controller
             'kota3' => 'nullable|string|max:255',
             'propinsi3' => 'nullable|string|max:255',
             'kodepos3' => 'nullable|string|max:20',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif,svg',
         ]);
 
         /** @var \App\Models\Pelanggan $pelanggan */
@@ -148,5 +148,72 @@ class PelangganController extends Controller
             'title' => 'Profile',
             'pelanggan' => Pelanggan::where('id', Auth::guard('pelanggan')->user()->id)->first()
         ]);
+    }
+
+    public function showPelangganPage() {
+        $pelanggans = Pelanggan::all();
+        return view('be.admin.pelanggans', compact('pelanggans'));
+    }
+
+
+    public function destroy($id)
+    {
+        $user = Pelanggan::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function createPelangganPage()
+    {
+        return view('be.admin.pelanggancreate');
+    }
+
+    public function storePelanggan(Request $request)
+    {
+        $request->validate([
+            'nama_pelanggan' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:pelanggan',
+            'katakunci' => 'required|string|min:8|max:15|confirmed',
+            'no_telp' => 'required|string|max:15',
+        ]);
+
+        Pelanggan::create([
+            'nama_pelanggan' => $request->nama_pelanggan,
+            'email' => $request->email,
+            'katakunci' => Hash::make($request->katakunci),
+            'no_telp' => $request->no_telp,
+        ]);
+
+        return redirect()->intended('/pelanggans')->with('success', 'Pelanggan berhasil ditambahkan.');
+    }
+
+    public function editPelangganPage($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('be.admin.pelangganupdate', compact('pelanggan'));
+    }
+
+    public function updatePelanggan(Request $request, $id)
+    {
+        $request->validate([
+            'nama_pelanggan' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'katakunci' => 'nullable|string|min:8|confirmed',
+            'no_telp' => 'required|string|max:15',
+        ]);
+
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->nama_pelanggan = $request->nama_pelanggan;
+        $pelanggan->email = $request->email;
+        $pelanggan->no_telp = $request->no_telp;
+
+        if ($request->filled('katakunci')) {
+            $pelanggan->katakunci = Hash::make($request->katakunci);
+        }
+
+        $pelanggan->save();
+
+        return redirect()->route('pelanggans')->with('success', 'Pelanggan berhasil diperbarui');
     }
 }

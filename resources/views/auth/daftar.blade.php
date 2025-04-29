@@ -31,7 +31,7 @@
                 @csrf
                 <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="nama_pelanggan" name="nama_pelanggan" class="form-control form-control-lg" placeholder="Nama" required/></div>
                 <div data-mdb-input-init class="form-outline mb-4"><input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" required/></div>
-                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci" name="katakunci" class="form-control form-control-lg" placeholder="Password" required/></div>
+                <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci" name="katakunci" class="form-control form-control-lg" placeholder="Password" required autocomplete="new-password"/></div>
                 <div data-mdb-input-init class="form-outline mb-4"><input type="password" id="katakunci_confirmation" name="katakunci_confirmation" class="form-control form-control-lg" placeholder=" Konfirmasi Password" required/></div>
                 <div data-mdb-input-init class="form-outline mb-4"><input type="text" id="no_telp" name="no_telp" class="form-control form-control-lg" placeholder="Nomor Telepon" required/></div>
 

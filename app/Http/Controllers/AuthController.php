@@ -131,8 +131,6 @@ class AuthController extends Controller
             'role' => 'required|in:admin,marketing,ceo',
         ]);
 
-        $request->merge(['password' => null, 'password_confirmation' => null]);
-
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -143,6 +141,7 @@ class AuthController extends Controller
         }
 
         $user->save();
+
 
         return redirect()->route('users')->with('success', 'User updated successfully.');
     }

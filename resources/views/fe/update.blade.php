@@ -69,7 +69,7 @@
         <!-- Upload Foto -->
         <div class="mb-4">
             <label>Upload Foto</label>
-            <input type="file" name="foto" class="w-full border rounded p-2">
+            <input type="file" name="foto" class="w-full border rounded p-2" accept="image/*">
         </div>
 
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">

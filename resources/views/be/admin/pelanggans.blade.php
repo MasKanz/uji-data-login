@@ -5,6 +5,6 @@
 @section('header')
     @include('be.header')
 @endsection
-@section('users')
-    @include('be.userstable.users')
+@section('pelanggans')
+    @include('be.pelangganstable.pelanggans')
 @endsection
