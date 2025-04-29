@@ -161,7 +161,7 @@ class PelangganController extends Controller
         $user = Pelanggan::findOrFail($id);
         $user->delete();
 
-        return redirect()->back()->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'Pelanggan berhasil dihapus.');
     }
 
     public function createPelangganPage()

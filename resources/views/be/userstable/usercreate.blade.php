@@ -29,3 +29,27 @@
         <button type="submit" class="btn btn-primary">Create User</button>
     </form>
 </div>
+
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "@foreach ($errors->all() as $error) {{ $error }} @endforeach",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif

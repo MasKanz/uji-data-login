@@ -79,6 +79,8 @@
   })(window, document, 'clarity', 'script', 'gkn6wuhrtb');
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
   <!-- [Head] end -->
   <!-- [Body] Start -->
@@ -253,6 +255,7 @@
     <script src="{{asset('be/assets/js/script.js')}}"></script>
     <script src="{{asset('be/assets/js/theme.js')}}"></script>
     <script src="{{asset('be/assets/js/plugins/feather.min.js')}}"></script>
+
 
 
     <script>

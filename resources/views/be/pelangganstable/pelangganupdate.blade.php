@@ -1,18 +1,11 @@
 <div class="container mt-5">
+
+
     <h2>Update Pelanggan : {{ $pelanggan->name }} </h2>
     <form action="{{ route('pelanggans.update', $pelanggan->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="mb-3">
             <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
             <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan" value="{{ $pelanggan->nama_pelanggan }}" required>
@@ -39,3 +32,27 @@
         <a href="{{ route('pelanggans') }}" class="btn btn-danger">Back</a>
     </form>
 </div>
+
+
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "@foreach ($errors->all() as $error) {{ $error }} @endforeach",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
