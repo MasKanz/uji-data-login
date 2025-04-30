@@ -1,7 +1,11 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('content')
+
 <div class="container mt-5">
     <h2>Pelanggan Management</h2>
-
-
     <div class="col-md-4">
         <a href="{{ route('pelanggans.create') }}" class="btn btn-primary m-2">
             <i data-feather="user-plus"> </i>Tambahkan Pelanggan
@@ -145,3 +149,4 @@
         });
     </script>
     @endif
+@endsection

@@ -217,6 +217,12 @@
         @yield('pelangganupdate')
         <!-- Update Pelanggans end -->
 
+
+        <!-- Content start -->
+
+        @yield('content')
+        <!-- Content end -->
+
         </div>
         <!-- [ Main Content ] end -->
       </div>

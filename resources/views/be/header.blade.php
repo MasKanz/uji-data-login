@@ -162,8 +162,8 @@
               <img src="{{asset('be/assets/images/user/avatar-2.jpg')}}" alt="user-image" class="user-avtar wid-35" />
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="text-white mb-1">Carson Darrin 🖖</h6>
-              <span class="text-white text-opacity-75">carson.darrin@company.io</span>
+              <h6 class="text-white mb-1">{{ Auth::user()->name }} 🖖</h6>
+              <span class="text-white text-opacity-75">{{ Auth::user()->email }}</span>
             </div>
           </div>
         </div>

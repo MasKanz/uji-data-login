@@ -1,6 +1,10 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('content')
+
 <div class="container mt-5">
-
-
     <h2>Update Pelanggan : {{ $pelanggan->name }} </h2>
     <form action="{{ route('pelanggans.update', $pelanggan->id) }}" method="POST">
         @csrf
@@ -56,3 +60,4 @@
         });
     </script>
     @endif
+@endsection

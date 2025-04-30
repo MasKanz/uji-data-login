@@ -55,6 +55,15 @@
           </a>
         </li>
 
+        <li class="pc-item">
+          <a href="/motors" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="shopping-cart"></i>
+            </span>
+            <span class="pc-mtext">Motor Management</span>
+          </a>
+        </li>
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">

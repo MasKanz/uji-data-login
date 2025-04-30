@@ -1,3 +1,8 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('content')
 <div class="container mt-5">
     <h2>Update User : {{ $user->name }} </h2>
     <form action="{{ route('users.update', $user->id) }}" method="POST">
@@ -59,3 +64,4 @@
         });
     </script>
     @endif
+@endsection

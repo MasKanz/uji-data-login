@@ -17,7 +17,10 @@ use App\Http\Controllers\CeoController;
 use App\Http\Middleware\CheckPelanggan;
 use App\Http\Middleware\LoginUserCheck;
 use App\Http\Middleware\MasukPelangganCheck;
+use App\Http\Controllers\MotorController;
 
+
+// Front Page
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/shop', [ProductPageController::class, 'index']);
@@ -30,6 +33,7 @@ Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->midd
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
 
 
+// Pelanggan Auth
 Route::get('/daftar', [PelangganController::class, 'page_daftar'])->name('daftar');
 Route::post('/daftar', [PelangganController::class, 'daftar']);
 Route::get('/masuk', [PelangganController::class, 'page_masuk'])->name('masuk')->middleware(MasukPelangganCheck::class);
@@ -38,6 +42,7 @@ Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth
 Route::post('/keluar', [PelangganController::class, 'keluar'])->middleware('auth:pelanggan');
 
 
+// Dashboard Users Auth
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware(LoginUserCheck::class);
@@ -45,11 +50,13 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 
+// Dashboard
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
 Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
 
 
+// Admin's Dashboard Users Management
 Route::get('/users', [AuthController::class, 'updateUserPage'])->name('users')->middleware(CheckUserRole::class . ':admin');
 Route::get('/users/create', [AuthController::class, 'createUserPage'])->name('users.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/users', [AuthController::class, 'storeUser'])->name('users.store')->middleware(CheckUserRole::class . ':admin');
@@ -58,12 +65,20 @@ Route::put('/users/{id}', [AuthController::class, 'updateUser'])->name('users.up
 Route::delete('/users/{id}', [AuthController::class, 'destroy'])->name('users.destroy');
 
 
+// Admin's Pelanggan Management
 Route::get('/pelanggans', [PelangganController::class, 'showPelangganPage'])->name('pelanggans')->middleware(CheckUserRole::class . ':admin');
 Route::get('/pelanggans/create', [PelangganController::class, 'createPelangganPage'])->name('pelanggans.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/pelanggans', [PelangganController::class, 'storePelanggan'])->name('pelanggans.store')->middleware(CheckUserRole::class . ':admin');
 Route::get('/pelanggans/{id}/edit', [PelangganController::class, 'editPelangganPage'])->name('pelanggans.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/pelanggans/{id}', [PelangganController::class, 'updatePelanggan'])->name('pelanggans.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/pelanggans/{id}', [PelangganController::class, 'destroy'])->name('pelanggans.destroy');
+
+
+// Admin's Motor Management
+Route::get('/motors', [MotorController::class, 'index'])->name('motors')->middleware(CheckUserRole::class . ':admin');
+Route::get('/motors/create', [MotorController::class, 'createMotorPage'])->name('motors.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/motors', [MotorController::class, 'storeMotor'])->name('motors.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/motors/{id}', [MotorController::class, 'showMotorDetail'])->name('motors.detail')->middleware(CheckUserRole::class . ':admin');
 
 
 Route::middleware('auth')->group(function () {

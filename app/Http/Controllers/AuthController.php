@@ -80,7 +80,7 @@ class AuthController extends Controller
     public function updateUserPage()
     {
         $users = User::all(); // Fetch all users
-        return view('be.admin.users', compact('users'));
+        return view('be.userstable.users', compact('users'));
     }
 
     public function destroy($id)
@@ -94,7 +94,7 @@ class AuthController extends Controller
     // Menampilkan view create user
     public function createUserPage()
     {
-        return view('be.admin.usercreate');
+        return view('be.userstable.usercreate');
     }
 
     public function storeUser(Request $request)
@@ -119,7 +119,7 @@ class AuthController extends Controller
     public function editUserPage($id)
     {
         $user = User::findOrFail($id);
-        return view('be.admin.userupdate', compact('user'));
+        return view('be.userstable.userupdate', compact('user'));
     }
 
     public function updateUser(Request $request, $id)

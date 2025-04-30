@@ -1,3 +1,8 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('content')
 <div class="container mt-5">
     <h2>Create New User</h2>
     <form action="{{ route('users.store') }}" method="POST">
@@ -27,6 +32,8 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Create User</button>
+        <a href="/users" class="btn btn-danger">Kembali</a>
+
     </form>
 </div>
 
@@ -53,3 +60,4 @@
         });
     </script>
     @endif
+@endsection

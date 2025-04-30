@@ -72,8 +72,9 @@
             <input type="file" name="foto" class="w-full border rounded p-2" accept="image/*">
         </div>
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded btn btn-primary">
             Simpan Data
         </button>
+        <a href="/profilepelanggan" class="btn btn-danger py-2 px-4">Kembali</a>
     </form>
 </div>

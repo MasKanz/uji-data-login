@@ -1,7 +1,10 @@
+@extends('be.master')
+@section('sidebar')
+    @include('be.sidebar')
+@endsection
+@section('content')
+
 <div class="container mt-5">
-
-
-
     <h2>Tambahkan Pelanggan Baru</h2>
     <form action="{{ route('pelanggans.store') }}" method="POST">
         @csrf
@@ -26,6 +29,8 @@
             <input type="text" class="form-control" id="no_telp" name="no_telp" required>
         </div>
         <button type="submit" class="btn btn-primary">Tambahkan Pelanggan</button>
+        <a href="/pelanggans" class="btn btn-danger">Kembali</a>
+
     </form>
 </div>
 
@@ -52,3 +57,4 @@
         });
     </script>
     @endif
+@endsection

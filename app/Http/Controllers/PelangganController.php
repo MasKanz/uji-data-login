@@ -152,7 +152,7 @@ class PelangganController extends Controller
 
     public function showPelangganPage() {
         $pelanggans = Pelanggan::all();
-        return view('be.admin.pelanggans', compact('pelanggans'));
+        return view('be.pelangganstable.pelanggans', compact('pelanggans'));
     }
 
 
@@ -166,7 +166,7 @@ class PelangganController extends Controller
 
     public function createPelangganPage()
     {
-        return view('be.admin.pelanggancreate');
+        return view('be.pelangganstable.pelanggancreate');
     }
 
     public function storePelanggan(Request $request)
@@ -191,7 +191,7 @@ class PelangganController extends Controller
     public function editPelangganPage($id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
-        return view('be.admin.pelangganupdate', compact('pelanggan'));
+        return view('be.pelangganstable.pelangganupdate', compact('pelanggan'));
     }
 
     public function updatePelanggan(Request $request, $id)
