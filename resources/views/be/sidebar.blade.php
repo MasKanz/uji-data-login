@@ -64,6 +64,15 @@
           </a>
         </li>
 
+        <li class="pc-item">
+          <a href="/jenis-motors" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="slack"></i>
+            </span>
+            <span class="pc-mtext">Jenis Motor Management</span>
+          </a>
+        </li>
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">

@@ -79,7 +79,19 @@ Route::get('/motors', [MotorController::class, 'index'])->name('motors')->middle
 Route::get('/motors/create', [MotorController::class, 'createMotorPage'])->name('motors.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/motors', [MotorController::class, 'storeMotor'])->name('motors.store')->middleware(CheckUserRole::class . ':admin');
 Route::get('/motors/{id}', [MotorController::class, 'showMotorDetail'])->name('motors.detail')->middleware(CheckUserRole::class . ':admin');
+Route::get('/motors/{id}/edit', [MotorController::class, 'editMotorPage'])->name('motors.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/motors/{id}', [MotorController::class, 'updateMotor'])->name('motors.update')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/motors/{id}', [MotorController::class, 'destroy'])->name('motors.destroy')->middleware(CheckUserRole::class . ':admin');
 
+
+// Admin's Jenis Motor Management
+Route::get('/jenis-motors', [MotorController::class, 'indexJenisMotor'])->name('jenis-motors')->middleware(CheckUserRole::class . ':admin');
+Route::get('/jenis-motors/create', [MotorController::class, 'createJenisMotorPage'])->name('jenis-motors.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/jenis-motors', [MotorController::class, 'storeJenisMotor'])->name('jenis-motors.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/jenis-motors/{id}/edit', [MotorController::class, 'editJenisMotorPage'])->name('jenis-motors.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/jenis-motors/{id}', [MotorController::class, 'updateJenisMotor'])->name('jenis-motors.update')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/jenis-motors/{id}', [MotorController::class, 'destroyJenisMotor'])->name('jenis-motors.destroy')->middleware(CheckUserRole::class . ':admin');
+Route::get('/jenis-motors/{id}', [MotorController::class, 'showJenisMotorDetail'])->name('jenis-motors.detail')->middleware(CheckUserRole::class . ':admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

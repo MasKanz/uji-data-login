@@ -113,4 +113,36 @@ class MotorController extends Controller
         $motor->delete();
         return redirect()->route('be.motor.index')->with('success', 'Data motor berhasil dihapus.');
     }
+
+    public function indexJenisMotor() {
+        $jenisList = JenisMotor::all();
+        return view('be.motor.indexjenis', compact('jenisList'));
+    }
+
+    public function createJenisMotorPage()
+    {
+        return view('be.motor.createjenis');
+    }
+
+
+    public function storeJenisMotor(Request $request)
+    {
+        $request->validate([
+            'merk' => 'required|unique:jenis_motor, merk',
+            'jenis' => 'required|in:Bebek, Skuter, Dual Sport, Naked Sport, Sport Bike, Retro, Cruiser, Sport Touring, Dirt Bike, Motocross, Scrambler, ATV, Motor Adventure, Lainnya',
+            'deskripsi_jenis' => 'required',
+            'image_url' => 'required',
+            'warna' => 'required',
+        ]);
+
+        $jenisList = new JenisMotor($request->except(['foto1', 'foto2', 'foto3']));
+
+        // Handle upload foto
+        $jenisList->foto1 = $request->file('image_url')->store('foto_jenis_motor', 'public');
+
+
+        $jenisList->save();
+
+        return redirect()->route('be.jenis-motor.index')->with('success', 'Jenis motor berhasil ditambahkan.');
+    }
 }
