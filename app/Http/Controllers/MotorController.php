@@ -128,21 +128,46 @@ class MotorController extends Controller
     public function storeJenisMotor(Request $request)
     {
         $request->validate([
-            'merk' => 'required|unique:jenis_motor, merk',
-            'jenis' => 'required|in:Bebek, Skuter, Dual Sport, Naked Sport, Sport Bike, Retro, Cruiser, Sport Touring, Dirt Bike, Motocross, Scrambler, ATV, Motor Adventure, Lainnya',
+            'merk' => 'required',
+            'jenis' => 'required|in:Bebek,Skuter,Dual Sport,Naked Sport,Sport Bike,Retro,Cruiser,Sport Touring,Dirt Bike,Motocross,Scrambler,ATV,Motor Adventure,Lainnya',
             'deskripsi_jenis' => 'required',
-            'image_url' => 'required',
-            'warna' => 'required',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $jenisList = new JenisMotor($request->except(['foto1', 'foto2', 'foto3']));
 
         // Handle upload foto
-        $jenisList->foto1 = $request->file('image_url')->store('foto_jenis_motor', 'public');
 
+        if ($request->hasFile('image_url')) {
+            $jenisList->image_url = $request->file('image_url')->store('foto_jenis_motor', 'public');
+        }
 
         $jenisList->save();
 
-        return redirect()->route('be.jenis-motor.index')->with('success', 'Jenis motor berhasil ditambahkan.');
+        return redirect()->route('be.motor.indexjenis')->with('success', 'Jenis motor berhasil ditambahkan.');
+    }
+
+
+    public function updateJenisMotor(Request $request, $id)
+    {
+        $request->validate([
+            'merk' => 'required',
+            'jenis' => 'required|in:Bebek,Skuter,Dual Sport,Naked Sport,Sport Bike,Retro,Cruiser,Sport Touring,Dirt Bike,Motocross,Scrambler,ATV,Motor Adventure,Lainnya',
+            'deskripsi_jenis' => 'required',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $jenisList = JenisMotor::findOrFail($id);
+        $jenisList->merk = $request->merk;
+        $jenisList->jenis = $request->jenis;
+        $jenisList->deskripsi_jenis = $request->deskripsi_jenis;
+
+        if ($request->hasFile('image_url')) {
+            $jenisList->image_url = $request->file('image_url')->store('foto_jenis_motor', 'public');
+        }
+
+        $jenisList->save();
+
+        return redirect()->route('be.motor.indexjenis')->with('success', 'Jenis Motor berhasil diperbarui');
     }
 }

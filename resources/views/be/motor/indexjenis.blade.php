@@ -30,7 +30,7 @@
                 <td>{{ $jenis_motor->merk }}</td>
                 <td>{{ $jenis_motor->jenis }}</td>
                 <td>{{ $jenis_motor->deskripsi_jenis }}</td>
-                <td>{{ $jenis_motor->image_url }}</td>
+                <td><button class="btn" style=""><img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $jenis_motor->image_url }}"></button></td>
 
                 <td>
                     <form action="{{ route('jenis-motors.edit', $jenis_motor->id) }}" method="GET">
@@ -51,6 +51,22 @@
     </table>
 </div>
 
+
+<!-- Jenis Motor Foto -->
+
+
+<div class="modal fade" id="detailsModal{{ $jenis_motor->image_url }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $jenis_motor->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="100%">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if(session('success'))
     <script>

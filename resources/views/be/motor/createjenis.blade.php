@@ -6,15 +6,15 @@
 
 <div class="container mt-5">
     <h2>Tambahkan Jenis Motor Baru</h2>
-    <form action="{{ route('jenis-motors.store') }}" method="POST">
+    <form action="{{ route('jenis-motors.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="merk" class="form-label">Merk</label>
             <input type="text" class="form-control" id="merk" name="merk" required>
         </div>
         <div class="mb-3">
-            <label for="Jenis" class="form-label">Jenis</label>
-            <select name="Jenis" id="Jenis" class="form-control" required>
+            <label for="jenis" class="form-label">Jenis</label>
+            <select name="jenis" id="jenis" class="form-control" required>
             <option value="Bebek">Bebek</option>
             <option value="Skuter">Skuter</option>
             <option value="Dual Sport">Dual Sport</option>
@@ -33,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label for="deskripsi_jenis" class="form-label">Deskripsi Jenis</label>
-            <input type="number" class="form-control" id="deskripsi_jenis" name="deskripsi_jenis" required>
+            <input type="textarea" class="form-control" id="deskripsi_jenis" name="deskripsi_jenis" required>
         </div>
         <div class="mb-3">
             <label for="image_url" class="form-label">Image Url</label>
