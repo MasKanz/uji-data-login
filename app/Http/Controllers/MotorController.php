@@ -107,7 +107,7 @@ class MotorController extends Controller
     }
 
     // Hapus motor
-    public function destroy($id)
+    public function destroyMotor($id)
     {
         $motor = Motor::findOrFail($id);
         $motor->delete();
@@ -144,9 +144,14 @@ class MotorController extends Controller
 
         $jenisList->save();
 
-        return redirect()->route('be.motor.indexjenis')->with('success', 'Jenis motor berhasil ditambahkan.');
+        return redirect()->route('jenis-motors')->with('success', 'Jenis motor berhasil ditambahkan.');
     }
 
+    public function editJenisMotorPage($id)
+    {
+        $jenis_motor = JenisMotor::findOrFail($id);
+        return view('be.motor.editjenis', compact('jenis_motor'));
+    }
 
     public function updateJenisMotor(Request $request, $id)
     {
@@ -154,7 +159,7 @@ class MotorController extends Controller
             'merk' => 'required',
             'jenis' => 'required|in:Bebek,Skuter,Dual Sport,Naked Sport,Sport Bike,Retro,Cruiser,Sport Touring,Dirt Bike,Motocross,Scrambler,ATV,Motor Adventure,Lainnya',
             'deskripsi_jenis' => 'required',
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image_url' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $jenisList = JenisMotor::findOrFail($id);
@@ -168,6 +173,13 @@ class MotorController extends Controller
 
         $jenisList->save();
 
-        return redirect()->route('be.motor.indexjenis')->with('success', 'Jenis Motor berhasil diperbarui');
+        return redirect()->route('jenis-motors')->with('success', 'Jenis Motor berhasil diperbarui');
+    }
+
+    public function destroyJenisMotor($id)
+    {
+        $jenis_motor = JenisMotor::findOrFail($id);
+        $jenis_motor->delete();
+        return redirect()->route('jenis-motors')->with('success', 'Jenis motor berhasil dihapus.');
     }
 }

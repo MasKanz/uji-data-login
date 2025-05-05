@@ -81,7 +81,7 @@ Route::post('/motors', [MotorController::class, 'storeMotor'])->name('motors.sto
 Route::get('/motors/{id}', [MotorController::class, 'showMotorDetail'])->name('motors.detail')->middleware(CheckUserRole::class . ':admin');
 Route::get('/motors/{id}/edit', [MotorController::class, 'editMotorPage'])->name('motors.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/motors/{id}', [MotorController::class, 'updateMotor'])->name('motors.update')->middleware(CheckUserRole::class . ':admin');
-Route::delete('/motors/{id}', [MotorController::class, 'destroy'])->name('motors.destroy')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/motors/{id}', [MotorController::class, 'destroyMotor'])->name('motors.destroy')->middleware(CheckUserRole::class . ':admin');
 
 
 // Admin's Jenis Motor Management
