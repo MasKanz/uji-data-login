@@ -15,7 +15,7 @@
             <input type="text" class="form-control" id="merk" name="merk" value="{{ $jenis_motor->merk }}" required>
         </div>
         <div class="mb-3">
-            <label for="jenis" class="form-label">Id Jenis</label>
+            <label for="jenis" class="form-label">Jenis</label>
             <select class="form-control" id="jenis" name="jenis" required>
                 <option value="Bebek" {{ $jenis_motor->role === 'Bebek' ? 'selected' : '' }}>Bebek</option>
                 <option value="Skuter" {{ $jenis_motor->role === 'Skuter' ? 'selected' : '' }}>Skuter</option>

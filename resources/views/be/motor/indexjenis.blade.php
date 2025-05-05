@@ -30,7 +30,7 @@
                 <td>{{ $jenis_motor->merk }}</td>
                 <td>{{ $jenis_motor->jenis }}</td>
                 <td>{{ $jenis_motor->deskripsi_jenis }}</td>
-                <td><button class="btn" style=""><img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $jenis_motor->image_url }}"></button></td>
+                <td><button class="btn"><img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $jenis_motor->image_url }}"></button></td>
 
                 <td>
                     <form action="{{ route('jenis-motors.edit', $jenis_motor->id) }}" method="GET">

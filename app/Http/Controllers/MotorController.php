@@ -33,16 +33,19 @@ class MotorController extends Controller
             'warna' => 'required',
             'kapasitas_mesin' => 'required',
             'tahun_produksi' => 'required',
-            'foto1' => 'required|image',
-            'foto2' => 'nullable|image',
-            'foto3' => 'nullable|image',
+            'foto1' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'foto2' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'foto3' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'stok' => 'required|integer',
         ]);
 
         $motor = new Motor($request->except(['foto1', 'foto2', 'foto3']));
 
         // Handle upload foto
-        $motor->foto1 = $request->file('foto1')->store('foto_motor', 'public');
+
+        if ($request->hasFile('foto1')) {
+            $motor->foto1 = $request->file('foto1')->store('foto_motor', 'public');
+        }
         if ($request->hasFile('foto2')) {
             $motor->foto2 = $request->file('foto2')->store('foto_motor', 'public');
         }
@@ -52,7 +55,7 @@ class MotorController extends Controller
 
         $motor->save();
 
-        return redirect()->route('be.motor.index')->with('success', 'Data motor berhasil ditambahkan.');
+        return redirect()->route('motors')->with('success', 'Data motor berhasil ditambahkan.');
     }
 
     // Menampilkan detail motor
@@ -63,7 +66,7 @@ class MotorController extends Controller
     }
 
     // Menampilkan form edit motor
-    public function edit($id)
+    public function editMotorPage($id)
     {
         $motor = Motor::findOrFail($id);
         $jenisList = JenisMotor::all();
@@ -71,7 +74,7 @@ class MotorController extends Controller
     }
 
     // Update data motor
-    public function update(Request $request, $id)
+    public function updateMotor(Request $request, $id)
     {
         $motor = Motor::findOrFail($id);
 
@@ -83,9 +86,9 @@ class MotorController extends Controller
             'warna' => 'required',
             'kapasitas_mesin' => 'required',
             'tahun_produksi' => 'required',
-            'foto1' => 'nullable|image',
-            'foto2' => 'nullable|image',
-            'foto3' => 'nullable|image',
+            'foto1' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'foto2' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'foto3' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'stok' => 'required|integer',
         ]);
 
@@ -103,7 +106,7 @@ class MotorController extends Controller
 
         $motor->save();
 
-        return redirect()->route('be.motor.index')->with('success', 'Data motor berhasil diperbarui.');
+        return redirect()->route('motors')->with('success', 'Data motor berhasil diperbarui.');
     }
 
     // Hapus motor
@@ -111,7 +114,7 @@ class MotorController extends Controller
     {
         $motor = Motor::findOrFail($id);
         $motor->delete();
-        return redirect()->route('be.motor.index')->with('success', 'Data motor berhasil dihapus.');
+        return redirect()->route('motors')->with('success', 'Data motor berhasil dihapus.');
     }
 
     public function indexJenisMotor() {
@@ -131,7 +134,7 @@ class MotorController extends Controller
             'merk' => 'required',
             'jenis' => 'required|in:Bebek,Skuter,Dual Sport,Naked Sport,Sport Bike,Retro,Cruiser,Sport Touring,Dirt Bike,Motocross,Scrambler,ATV,Motor Adventure,Lainnya',
             'deskripsi_jenis' => 'required',
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp',
         ]);
 
         $jenisList = new JenisMotor($request->except(['foto1', 'foto2', 'foto3']));
@@ -159,7 +162,7 @@ class MotorController extends Controller
             'merk' => 'required',
             'jenis' => 'required|in:Bebek,Skuter,Dual Sport,Naked Sport,Sport Bike,Retro,Cruiser,Sport Touring,Dirt Bike,Motocross,Scrambler,ATV,Motor Adventure,Lainnya',
             'deskripsi_jenis' => 'required',
-            'image_url' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image_url' => 'image|mimes:jpeg,png,jpg,webp',
         ]);
 
         $jenisList = JenisMotor::findOrFail($id);

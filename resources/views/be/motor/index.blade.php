@@ -41,9 +41,9 @@
                 <td>{{ $motor->warna }}</td>
                 <td>{{ $motor->kapasitas_mesin }}</td>
                 <td>{{ $motor->tahun_produksi }}</td>
-                <td>{{ $motor->foto1 }}</td>
-                <td>{{ $motor->foto2 }}</td>
-                <td>{{ $motor->foto3 }}</td>
+                <td><button class="btn"><img src="{{ asset('storage/' . $motor->foto1) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $motor->foto1 }}"></button></td>
+                <td><button class="btn"><img src="{{ asset('storage/' . $motor->foto2) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $motor->foto2 }}"></button></td>
+                <td><button class="btn"><img src="{{ asset('storage/' . $motor->foto3) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $motor->foto3 }}"></button></td>
                 <td>{{ $motor->stok }}</td>
                 <td>
                     <form action="{{ route('motors.edit', $motor->id) }}" method="GET">
@@ -59,6 +59,48 @@
                     </form>
                 </td>
             </tr>
+
+            <div class="modal fade" id="detailsModal{{ $motor->foto1 }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $motor->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{ asset('storage/' . $motor->foto1) }}" alt="Foto Jenis Motor" width="100%">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="detailsModal{{ $motor->foto2 }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $motor->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{ asset('storage/' . $motor->foto2) }}" alt="Foto Jenis Motor" width="100%">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="detailsModal{{ $motor->foto3 }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $motor->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{ asset('storage/' . $motor->foto3) }}" alt="Foto Jenis Motor" width="100%">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             @endforeach
         </tbody>
     </table>

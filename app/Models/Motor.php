@@ -28,7 +28,7 @@ class Motor extends Model
     /**
      * Relasi ke tabel jenis_motor
      */
-    public function jenis()
+    public function jenisMotor()
     {
         return $this->belongsTo(JenisMotor::class, 'idjenis');
     }

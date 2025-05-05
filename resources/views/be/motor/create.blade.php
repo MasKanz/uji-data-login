@@ -6,7 +6,7 @@
 
 <div class="container mt-5">
     <h2>Tambahkan Motor Baru</h2>
-    <form action="{{ route('motors.store') }}" method="POST">
+    <form action="{{ route('motors.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Nama Motor</label>
@@ -14,7 +14,12 @@
         </div>
         <div class="mb-3">
             <label for="idjenis" class="form-label">Id Jenis</label>
-            <input type="number" class="form-control" id="idjenis" name="idjenis" required>
+            <select class="form-control" id="idjenis" name="idjenis" required>
+                <option value="" disabled selected>Pilih Jenis Motor</option>
+                @foreach ($jenisList as $jenis_motor)
+                    <option value="{{ $jenis_motor->id }}">{{ $jenis_motor->merk }} - {{ $jenis_motor->jenis }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="mb-3">
             <label for="harga_jual" class="form-label">Harga Jual</label>
@@ -42,17 +47,17 @@
         </div>
         <div class="mb-3">
             <label for="foto2" class="form-label">Foto 2</label>
-            <input type="file" class="form-control" id="foto2" name="foto2" accept="image/*" required>
+            <input type="file" class="form-control" id="foto2" name="foto2" accept="image/*">
         </div>
         <div class="mb-3">
             <label for="foto3" class="form-label">Foto 3</label>
-            <input type="file" class="form-control" id="foto3" name="foto3" accept="image/*" required>
+            <input type="file" class="form-control" id="foto3" name="foto3" accept="image/*">
         </div>
         <div class="mb-3">
             <label for="stok" class="form-label">Stok</label>
             <input type="text" class="form-control" id="stok" name="stok" required>
         </div>
-        <button type="submit" class="btn btn-primary">Tambahkan Pelanggan</button>
+        <button type="submit" class="btn btn-primary">Tambahkan Motor</button>
         <a href="/motors" class="btn btn-danger">Kembali</a>
 
     </form>
