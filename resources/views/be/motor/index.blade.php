@@ -46,17 +46,31 @@
                 <td><button class="btn"><img src="{{ asset('storage/' . $motor->foto3) }}" alt="Foto Jenis Motor" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $motor->foto3 }}"></button></td>
                 <td>{{ $motor->stok }}</td>
                 <td>
-                    <form action="{{ route('motors.edit', $motor->id) }}" method="GET">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn btn-warning btn-sm">Update</button>
-                    </form>
+                    <div style="width: 100%">
+                        <div>
+                            <form action="{{ route('motors.detail', $motor->id) }}" method="GET">
+                                @csrf
+                                @method('GET')
+                                <button type="submit" class="btn btn-success btn-sm" style="width: 100%;">Details</button>
+                            </form>
+                        </div>
 
-                    <form action="{{ route('motors.destroy', $motor->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                        <div style="display: flex;">
+
+                            <form action="{{ route('motors.edit', $motor->id) }}" method="GET" style="width: 50%; display: inline-flex;">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-warning btn-sm" style="width: 100%;">Update</button>
+                            </form>
+
+                            <form action="{{ route('motors.destroy', $motor->id) }}" method="POST" style="width: 50%; display: inline-flex;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" style="width: 100%;">Delete</button>
+                            </form>
+                        </div>
+
+                    </div>
                 </td>
             </tr>
 
