@@ -75,6 +75,12 @@ class PelangganController extends Controller
         ]);
 
         if (Auth::guard('pelanggan')->attempt(['email' => $credentials['email'], 'password' => $credentials['katakunci']])) {
+
+            if (!Auth::guard('pelanggan')->user()->active) {
+                Auth::guard('pelanggan')->logout();
+                return back()->withErrors(['email' => 'Akun Anda nonaktif.']);
+            }
+
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
@@ -215,5 +221,14 @@ class PelangganController extends Controller
         $pelanggan->save();
 
         return redirect()->route('pelanggans')->with('success', 'Pelanggan berhasil diperbarui');
+    }
+
+
+    public function toggleAktif($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->active = !$pelanggan->active;
+        $pelanggan->save();
+        return back()->with('success', 'Status pelanggan berhasil diubah');
     }
 }

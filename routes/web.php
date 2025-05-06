@@ -63,6 +63,8 @@ Route::post('/users', [AuthController::class, 'storeUser'])->name('users.store')
 Route::get('/users/{id}/edit', [AuthController::class, 'editUserPage'])->name('users.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/users/{id}', [AuthController::class, 'updateUser'])->name('users.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/users/{id}', [AuthController::class, 'destroy'])->name('users.destroy');
+Route::patch('/users/{id}/toggle-active', [AuthController::class, 'toggleActive'])->name('users.toggleActive');
+
 
 
 // Admin's Pelanggan Management
@@ -72,6 +74,8 @@ Route::post('/pelanggans', [PelangganController::class, 'storePelanggan'])->name
 Route::get('/pelanggans/{id}/edit', [PelangganController::class, 'editPelangganPage'])->name('pelanggans.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/pelanggans/{id}', [PelangganController::class, 'updatePelanggan'])->name('pelanggans.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/pelanggans/{id}', [PelangganController::class, 'destroy'])->name('pelanggans.destroy');
+Route::patch('/pelanggans/{id}/toggle-aktif', [PelangganController::class, 'toggleAktif'])->name('pelanggans.toggleAktif');
+
 
 
 // Admin's Motor Management

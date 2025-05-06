@@ -2,6 +2,9 @@
 @section('sidebar')
     @include('be.sidebar')
 @endsection
+@section('header')
+    @include('be.header')
+@endsection
 @section('content')
 <div class="container mt-5">
     <h2>Update User : {{ $user->name }} </h2>

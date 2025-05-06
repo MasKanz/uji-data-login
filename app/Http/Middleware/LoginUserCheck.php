@@ -19,6 +19,13 @@ class LoginUserCheck
     {
         if (Auth::check()) {
 
+            if (!Auth::user()->active) {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Your account is nonactive.']);
+
+
+            }
+
             if (Auth::user()->role === 'admin') {
                 return redirect()->intended('/admin');
             } elseif (Auth::user()->role === 'marketing') {
@@ -27,6 +34,7 @@ class LoginUserCheck
                 return redirect()->intended('/ceo');
             }
         }
+            // ...lanjutkan proses login
 
         return $next($request);
     }

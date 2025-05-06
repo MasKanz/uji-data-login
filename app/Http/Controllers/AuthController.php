@@ -57,6 +57,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // return redirect()->intended('/dashboard');
+
+            if (!Auth::user()->active) {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Akun Anda nonaktif.']);
+            }
+            
             if ($request->user()->role === 'admin') {
                 return redirect()->intended('/admin');
             } elseif ($request->user()->role === 'marketing') {
@@ -145,5 +151,15 @@ class AuthController extends Controller
 
         return redirect()->route('users')->with('success', 'User updated successfully.');
     }
+
+
+    public function toggleActive($id)
+    {
+        $user = User::findOrFail($id);
+        $user->active = !$user->active;
+        $user->save();
+        return back()->with('success', 'User status updated successfully.');
+    }
+
 
 }

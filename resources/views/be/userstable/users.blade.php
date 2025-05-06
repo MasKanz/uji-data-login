@@ -2,6 +2,9 @@
 @section('sidebar')
     @include('be.sidebar')
 @endsection
+@section('header')
+    @include('be.header')
+@endsection
 @section('content')
 <div class="container mt-5">
     <h2>User Management</h2>
@@ -31,17 +34,29 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>
-                    <form action="{{ route('users.edit', $user->id) }}" method="GET">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn btn-warning btn-sm">Update</button>
-                    </form>
 
-                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                <form action="{{ route('users.toggleActive', $user->id) }}" method="POST" style="width: 100%">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-sm {{ $user->active ? 'btn-danger' : 'btn-success' }}" style="width: 100%;">
+                        {{ $user->active ? 'Nonaktifkan' : 'Aktifkan' }}
+                    </button>
+                </form>
+
+                    <div style="width: 100%; display: flex;">
+
+                        <form action="{{ route('users.edit', $user->id) }}" method="GET" style="width: 50%; display: inline-flex;">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-warning btn-sm" style="width: 100%;">Update</button>
+                        </form>
+
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="width: 50%; display: inline-flex;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" style="width: 100%;">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @endforeach

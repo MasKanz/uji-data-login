@@ -2,6 +2,9 @@
 @section('sidebar')
     @include('be.sidebar')
 @endsection
+@section('header')
+    @include('be.header')
+@endsection
 @section('content')
 
 <div class="container mt-5">
@@ -37,6 +40,14 @@
                     <div>
                         <button type="submit" class="btn btn-success btn-sm" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $pelanggan->id }}">Details</button>
                     </div>
+
+                    <form action="{{ route('pelanggans.toggleAktif', $pelanggan->id) }}" method="POST" style="width: 100%">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm {{ $pelanggan->active ? 'btn-danger' : 'btn-success' }}" style="width: 100%;">
+                            {{ $pelanggan->active ? 'Nonaktifkan' : 'Aktifkan' }}
+                        </button>
+                    </form>
 
                     <div style="display: flex;">
 

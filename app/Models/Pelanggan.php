@@ -30,6 +30,7 @@ class Pelanggan extends Authenticatable
         'propinsi3',
         'kodepos3',
         'foto',
+        'active',
     ];
 
     protected $hidden = [

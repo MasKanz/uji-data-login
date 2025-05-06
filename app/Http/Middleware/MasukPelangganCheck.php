@@ -17,6 +17,12 @@ class MasukPelangganCheck
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard('pelanggan')->check()) {
+
+            if (!Auth::guard('pelanggan')->user()->active) {
+                Auth::guard('pelanggan')->logout();
+                return back()->withErrors(['email' => 'Your account is nonactive.']);
+            }
+
             // return redirect()->back();
             return redirect()->intended('/profilepelanggan');
         }
