@@ -81,6 +81,21 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+.carousel-img {
+    height: 500px;           /* Set your desired height */
+    object-fit: cover;       /* or 'contain' if you want the whole image visible */
+    object-position: center; /* Center the image */
+}
+
+.carousel-img {
+    height: 350px;
+    max-width: 500px;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center;
+}
+</style>
   </head>
   <!-- [Head] end -->
   <!-- [Body] Start -->

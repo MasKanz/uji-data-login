@@ -46,6 +46,22 @@
                     </form>
                 </td>
             </tr>
+
+            <div class="modal fade" id="detailsModal{{ $jenis_motor->image_url }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $jenis_motor->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="100%">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @endforeach
+
         </tbody>
     </table>
 </div>
@@ -54,19 +70,6 @@
 <!-- Jenis Motor Foto -->
 
 
-<div class="modal fade" id="detailsModal{{ $jenis_motor->image_url }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ $jenis_motor->id }}" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img src="{{ asset('storage/' . $jenis_motor->image_url) }}" alt="Foto Jenis Motor" width="100%">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
 @if(session('success'))
     <script>
