@@ -178,6 +178,8 @@
 
     @yield('update')
 
+    @yield('content')
+
 
   </main>
 
