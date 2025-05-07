@@ -14,4 +14,9 @@ class MetodeBayar extends Model
         'no_rekening',
         'url_logo',
     ];
+
+    function kredit()
+    {
+        return $this->hasMany(Kredit::class, 'id_metode_bayar');
+    }
 }

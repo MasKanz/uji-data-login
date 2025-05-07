@@ -46,4 +46,16 @@ class PengajuanKredit extends Model
     {
         return $this->belongsTo(JenisCicilan::class, 'id_jenis_cicilan');
     }
+
+    // Relasi ke asuransi
+    public function asuransi()
+    {
+        return $this->belongsTo(Asuransi::class, 'id_asuransi');
+    }
+
+    // Relasi ke kredit
+    public function kredit()
+    {
+        return $this->hasOne(Kredit::class, 'id_pengajuan_kredit');
+    }
 }

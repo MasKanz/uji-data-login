@@ -43,7 +43,12 @@ class Pelanggan extends Authenticatable
     ];
 
     public function getAuthPassword()
-{
-    return $this->katakunci;
-}
+    {
+        return $this->katakunci;
+    }
+
+    public function pengajuanKredit()
+    {
+        return $this->hasMany(PengajuanKredit::class, 'id_pelanggan');
+    }
 }

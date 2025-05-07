@@ -32,4 +32,13 @@ class Motor extends Model
     {
         return $this->belongsTo(JenisMotor::class, 'idjenis');
     }
+
+    /**
+     * Relasi ke tabel pengajuan_kredit
+     */
+
+    public function pengajuanKredit()
+    {
+        return $this->hasMany(PengajuanKredit::class, 'id_motor');
+    }
 }
