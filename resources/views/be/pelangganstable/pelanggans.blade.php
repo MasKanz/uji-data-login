@@ -33,7 +33,7 @@
                 <td>{{ $pelanggan->email }}</td>
                 <td>{{ $pelanggan->no_telp }}</td>
 
-                <td><button class="btn" style=""><img src="{{ asset('storage/' . $pelanggan->foto) }}" alt="Foto Pelanggan" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $pelanggan->foto }}"></button></td>
+                <td><button class="btn"><img src="{{ asset('storage/' . $pelanggan->foto) }}" alt="Foto Pelanggan" width="70" data-bs-toggle="modal" data-bs-target="#detailsModal{{ $pelanggan->foto }}"></button></td>
 
 
                 <td>
@@ -138,7 +138,7 @@
 
 
 
-@if(session('success'))
+    @if(session('success'))
     <script>
         Swal.fire({
             icon: 'success',

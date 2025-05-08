@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PengajuanKredit;
 use App\Models\Motor;
 use App\Models\JenisCicilan;
+use App\Models\Asuransi;
 use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
@@ -17,7 +18,8 @@ class PengajuanController extends Controller
     {
         $motors = Motor::all();
         $jenisCicilan = JenisCicilan::all();
-        return view('fe.pengajuan.pengajuan', compact('motors', 'jenisCicilan'), [
+        $asuransiList = Asuransi::all();
+        return view('fe.pengajuan.pengajuan', compact('motors', 'jenisCicilan', 'asuransiList'), [
             'title' => 'Pengajuan'
         ]);
     }
@@ -28,6 +30,7 @@ class PengajuanController extends Controller
             'id_motor' => 'required|exists:motor,id',
             'dp' => 'required|numeric|min:0',
             'id_jenis_cicilan' => 'required|exists:jenis_cicilan,id',
+            'id_asuransi' => 'required|exists:asuransi,id',
             'url_kk' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
             'url_ktp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
             'url_npwp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
@@ -37,6 +40,7 @@ class PengajuanController extends Controller
 
         $motor = Motor::findOrFail($request->id_motor);
         $cicilan = JenisCicilan::findOrFail($request->id_jenis_cicilan);
+        $asuransi = Asuransi::findOrFail($request->id_asuransi);
 
         $hargaCash = $motor->harga_jual; // Pastikan field harga_jual ada di tabel motor
         $dp = $request->dp; // Uang muka yang dibayarkan
@@ -44,9 +48,10 @@ class PengajuanController extends Controller
         $bunga = $cicilan->margin_kredit; // misal: 0.12 (12% per tahun)
 
         $pokokKredit = $hargaCash - $dp; // Pokok kredit setelah DP
-        $totalBunga = $pokokKredit * $bunga * ($tenor / 12); // Total bunga selama tenor
+        $totalBunga = $pokokKredit * $bunga * ($tenor); // Total bunga selama tenor
         $totalKredit = $pokokKredit + $totalBunga; // Total kredit yang harus dibayar
         $cicilanPerBulan = $totalKredit / $tenor; // Cicilan per bulan
+        $asuransiPerBulan = $motor->harga_jual * $asuransi->margin_asuransi / $tenor; // Asuransi per bulan
 
         $kkPath =  $request->file('url_kk')->store('dokumen', 'private');
         $ktpPath = $request->file('url_ktp')->store('dokumen', 'private');
@@ -62,6 +67,8 @@ class PengajuanController extends Controller
             'dp' => $dp,
             'id_jenis_cicilan' => $request->id_jenis_cicilan,
             'harga_kredit' => $totalKredit,
+            'id_asuransi' => $request->id_asuransi,
+            'biaya_asuransi_perbulan' => $asuransiPerBulan,
             'cicilan_perbulan' => $cicilanPerBulan,
             'url_kk' => $kkPath,
             'url_ktp' => $ktpPath,

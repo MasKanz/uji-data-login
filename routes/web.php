@@ -18,6 +18,7 @@ use App\Http\Middleware\CheckPelanggan;
 use App\Http\Middleware\LoginUserCheck;
 use App\Http\Middleware\MasukPelangganCheck;
 use App\Http\Controllers\MotorController;
+use App\Http\Controllers\AsuransiController;
 
 
 // Front Page

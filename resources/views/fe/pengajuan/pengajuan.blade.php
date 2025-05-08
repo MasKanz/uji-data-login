@@ -13,7 +13,7 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
     <form action="{{ route('pengajuan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -33,6 +33,14 @@
             <select name="id_jenis_cicilan" class="form-control" required>
                 @foreach($jenisCicilan as $cicilan)
                     <option value="{{ $cicilan->id }}">{{ $cicilan->lama_cicilan }} bulan (Bunga: {{ $cicilan->margin_kredit * 100 }}%)</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="id_asuransi">Pilih Asuransi</label>
+            <select name="id_asuransi" class="form-control" required>
+                @foreach($asuransiList as $asuransi)
+                    <option value="{{ $asuransi->id }}">{{ $asuransi->nama_asuransi }} ({{ $asuransi->nama_perusahaan_asuransi }}, {{ $asuransi->margin_asuransi }})</option>
                 @endforeach
             </select>
         </div>

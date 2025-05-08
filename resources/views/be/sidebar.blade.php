@@ -82,6 +82,17 @@
           </a>
         </li>
 
+
+        <li class="pc-item">
+          <a href="/asuransi" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="file-text"></i>
+            </span>
+            <span class="pc-mtext">Asuransi Management</span>
+          </a>
+        </li>
+
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">
