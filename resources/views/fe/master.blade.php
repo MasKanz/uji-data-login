@@ -42,12 +42,18 @@
 
   <style>
     .carousel-img {
+    height: 500px;           /* Set your desired height */
+    object-fit: cover;       /* or 'contain' if you want the whole image visible */
+    object-position: center; /* Center the image */
+    }
+
+    .carousel-img {
     height: 350px;
     max-width: 500px;
+    margin: 0 auto;
     object-fit: cover;
     object-position: center;
-    margin: 0 auto;
-}
+    }
   </style>
 </head>
 

@@ -18,15 +18,17 @@
             <div class="carousel">
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ asset('storage/' . $motor->foto1) }}" class="d-block w-100 carousel-img" alt="Foto 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('storage/' . $motor->foto2) }}" class="d-block w-100 carousel-img" alt="Foto 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('storage/' . $motor->foto3) }}" class="d-block w-100 carousel-img" alt="Foto 3">
-                        </div>
+                        @php
+                            $fotos = [];
+                            if ($motor->foto1) $fotos[] = $motor->foto1;
+                            if ($motor->foto2) $fotos[] = $motor->foto2;
+                            if ($motor->foto3) $fotos[] = $motor->foto3;
+                        @endphp
+                        @foreach($fotos as $i => $foto)
+                            <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
+                                <img src="{{ asset('storage/' . $foto) }}" class="d-block w-100 carousel-img">
+                            </div>
+                        @endforeach
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
