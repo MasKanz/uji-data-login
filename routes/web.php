@@ -27,8 +27,9 @@ Route::get('/shop', [ProductPageController::class, 'index']);
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/abouts', [AboutController::class, 'index']);
 Route::get('/pengajuan', [PengajuanController::class, 'index'])->middleware(CheckPelanggan::class);
-Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);Route::get('/pembayaran', [PembayaranController::class, 'index']);
-Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->middleware(CheckPelanggan::class);
+Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
+Route::get('/pembayaran', [PembayaranController::class, 'index']);
+Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->name('pelanggan.profile')->middleware(CheckPelanggan::class);
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
 
@@ -96,6 +97,24 @@ Route::get('/jenis-motors/{id}/edit', [MotorController::class, 'editJenisMotorPa
 Route::put('/jenis-motors/{id}', [MotorController::class, 'updateJenisMotor'])->name('jenis-motors.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/jenis-motors/{id}', [MotorController::class, 'destroyJenisMotor'])->name('jenis-motors.destroy')->middleware(CheckUserRole::class . ':admin');
 Route::get('/jenis-motors/{id}', [MotorController::class, 'showJenisMotorDetail'])->name('jenis-motors.detail')->middleware(CheckUserRole::class . ':admin');
+
+
+// Admin's Jenis Cicilan Management
+Route::get('/jenis-cicilan', [PengajuanController::class, 'indexJenisCicilan'])->name('jenis-cicilan')->middleware(CheckUserRole::class . ':admin');
+Route::get('/jenis-cicilan/create', [PengajuanController::class, 'createJenisCicilanPage'])->name('jenis-cicilan.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/jenis-cicilan', [PengajuanController::class, 'storeJenisCicilan'])->name('jenis-cicilan.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/jenis-cicilan/{id}/edit', [PengajuanController::class, 'editJenisCicilanPage'])->name('jenis-cicilan.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/jenis-cicilan/{id}', [PengajuanController::class, 'updateJenisCicilan'])->name('jenis-cicilan.update')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/jenis-cicilan/{id}', [PengajuanController::class, 'destroyJenisCicilan'])->name('jenis-cicilan.destroy')->middleware(CheckUserRole::class . ':admin');
+
+
+// Admin's Asuransi Management
+Route::get('/asuransi', [AsuransiController::class, 'index'])->name('asuransi')->middleware(CheckUserRole::class . ':admin');
+Route::get('/asuransi/create', [AsuransiController::class, 'create'])->name('asuransi.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/asuransi', [AsuransiController::class, 'store'])->name('asuransi.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/asuransi/{id}/edit', [AsuransiController::class, 'edit'])->name('asuransi.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/asuransi/{id}', [AsuransiController::class, 'update'])->name('asuransi.update')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/asuransi/{id}', [AsuransiController::class, 'destroy'])->name('asuransi.destroy')->middleware(CheckUserRole::class . ':admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

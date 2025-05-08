@@ -28,68 +28,122 @@ class PengajuanController extends Controller
             'id_motor' => 'required|exists:motor,id',
             'dp' => 'required|numeric|min:0',
             'id_jenis_cicilan' => 'required|exists:jenis_cicilan,id',
-            'url_ktp' => 'required|file|mimes:jpeg,png,jpg,pdf',
-            // tambahkan validasi dokumen lain
+            'url_kk' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
+            'url_ktp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
+            'url_npwp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
+            'url_slip_gaji' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
+            'url_foto' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
         ]);
 
-        $ktpPath = $request->file('url_ktp')->store('dokumen', 'public');
+        $motor = Motor::findOrFail($request->id_motor);
+        $cicilan = JenisCicilan::findOrFail($request->id_jenis_cicilan);
+
+        $hargaCash = $motor->harga_jual; // Pastikan field harga_jual ada di tabel motor
+        $dp = $request->dp; // Uang muka yang dibayarkan
+        $tenor = $cicilan->lama_cicilan; // misal: 12 bulan
+        $bunga = $cicilan->margin_kredit; // misal: 0.12 (12% per tahun)
+
+        $pokokKredit = $hargaCash - $dp; // Pokok kredit setelah DP
+        $totalBunga = $pokokKredit * $bunga * ($tenor / 12); // Total bunga selama tenor
+        $totalKredit = $pokokKredit + $totalBunga; // Total kredit yang harus dibayar
+        $cicilanPerBulan = $totalKredit / $tenor; // Cicilan per bulan
+
+        $kkPath =  $request->file('url_kk')->store('dokumen', 'private');
+        $ktpPath = $request->file('url_ktp')->store('dokumen', 'private');
+        $npwpPath = $request->file('url_npwp')->store('dokumen', 'private');
+        $slipGajiPath = $request->file('url_slip_gaji')->store('dokumen', 'private');
+        $fotoPath = $request->file('url_foto')->store('dokumen', 'private');
 
         PengajuanKredit::create([
             'tgl_pengajuan_kredit' => now(),
             'id_pelanggan' => Auth::guard('pelanggan')->id(),
             'id_motor' => $request->id_motor,
-            'dp' => $request->dp,
+            'harga_cash' => $hargaCash,
+            'dp' => $dp,
             'id_jenis_cicilan' => $request->id_jenis_cicilan,
+            'harga_kredit' => $totalKredit,
+            'cicilan_perbulan' => $cicilanPerBulan,
+            'url_kk' => $kkPath,
             'url_ktp' => $ktpPath,
+            'url_npwp' => $npwpPath,
+            'url_slip_gaji' => $slipGajiPath,
+            'url_foto' => $fotoPath,
             'status_pengajuan' => 'Menunggu Konfirmasi',
             'keterangan_status_pengajuan' => '',
             // tambahkan field lain sesuai kebutuhan
         ]);
 
-        return redirect()->route('profilepelanggan')->with('success', 'Pengajuan kredit berhasil dikirim!');
+        return redirect()->route('pelanggan.profile')->with('success', 'Pengajuan kredit berhasil dikirim!');
+    }
+
+
+    /**
+     * Display resources
+     */
+    public function indexJenisCicilan()
+    {
+        $jenisCicilan = JenisCicilan::all();
+        return view('be.jeniscicilan.index', compact('jenisCicilan'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show create page.
      */
-    public function create()
+    public function createJenisCicilanPage()
     {
-        //
+        return view('be.jeniscicilan.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store the newly create resource.
      */
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function storeJenisCicilan(Request $request)
     {
-        //
+        $request->validate([
+            'lama_cicilan' => 'required|integer|min:1',
+            'margin_kredit' => 'required|numeric|min:0',
+        ]);
+
+        JenisCicilan::create([
+            'lama_cicilan' => $request->lama_cicilan,
+            'margin_kredit' => $request->margin_kredit,
+        ]);
+
+        return redirect()->route('jenis-cicilan')->with('success', 'Jenis cicilan berhasil ditambahkan.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show Edit Page
      */
-    public function edit(string $id)
+    public function editJenisCicilanPage($id)
     {
-        //
+        $jenisCicilan = JenisCicilan::findOrFail($id);
+        return view('be.jeniscicilan.edit', compact('jenisCicilan'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource from storage.
      */
-    public function update(Request $request, string $id)
+    public function updateJenisCicilan(Request $request, $id)
     {
-        //
+        $request->validate([
+            'lama_cicilan' => 'required|integer|min:1',
+            'margin_kredit' => 'required|numeric|min:0',
+        ]);
+
+        $cicilan = JenisCicilan::findOrFail($id);
+        $cicilan->update([
+            'lama_cicilan' => $request->lama_cicilan,
+            'margin_kredit' => $request->margin_kredit,
+        ]);
+
+        return redirect()->route('jenis-cicilan')->with('success', 'Jenis cicilan berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroyJenisCicilan($id)
     {
-        //
+        $cicilan = JenisCicilan::findOrFail($id);
+        $cicilan->delete();
+        return redirect()->route('jenis-cicilan')->with('success', 'Jenis cicilan berhasil dihapus.');
     }
 }

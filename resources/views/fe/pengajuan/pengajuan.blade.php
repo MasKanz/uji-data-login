@@ -5,10 +5,19 @@
 @section('content')
 <div class="container mt-5">
     <h2>Ajukan Kredit Motor</h2>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <form action="{{ route('pengajuan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="motor">Pilih Motor</label>
+            <label for="id_motor">Pilih Motor</label>
             <select name="id_motor" class="form-control" required>
                 @foreach($motors as $motor)
                     <option value="{{ $motor->id }}">{{ $motor->nama_motor }}</option>
@@ -20,19 +29,33 @@
             <input type="number" name="dp" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="tenor">Tenor (bulan)</label>
+            <label for="id_jenis_cicilan">Tenor (bulan)</label>
             <select name="id_jenis_cicilan" class="form-control" required>
                 @foreach($jenisCicilan as $cicilan)
-                    <option value="{{ $cicilan->id }}">{{ $cicilan->tenor }} bulan</option>
+                    <option value="{{ $cicilan->id }}">{{ $cicilan->lama_cicilan }} bulan (Bunga: {{ $cicilan->margin_kredit * 100 }}%)</option>
                 @endforeach
             </select>
         </div>
-        <!-- Upload dokumen -->
+        <div class="mb-3">
+            <label for="url_kk">Upload KK</label>
+            <input type="file" name="url_kk" class="form-control" required>
+        </div>
         <div class="mb-3">
             <label for="url_ktp">Upload KTP</label>
             <input type="file" name="url_ktp" class="form-control" required>
         </div>
-        <!-- Tambahkan upload KK, NPWP, Slip Gaji, Foto Diri sesuai kebutuhan -->
+        <div class="mb-3">
+            <label for="url_npwp">Upload NPWP</label>
+            <input type="file" name="url_npwp" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="url_slip_gaji">Upload Slip Gaji</label>
+            <input type="file" name="url_slip_gaji" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="url_foto">Upload Foto Diri</label>
+            <input type="file" name="url_foto" class="form-control">
+        </div>
         <button type="submit" class="btn btn-primary">Ajukan Kredit</button>
     </form>
 </div>

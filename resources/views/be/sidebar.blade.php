@@ -73,6 +73,15 @@
           </a>
         </li>
 
+        <li class="pc-item">
+          <a href="/jenis-cicilan" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="list"></i>
+            </span>
+            <span class="pc-mtext">Jenis Cicilan Management</span>
+          </a>
+        </li>
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">
