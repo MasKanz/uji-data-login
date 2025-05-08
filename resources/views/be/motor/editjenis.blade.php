@@ -20,20 +20,20 @@
         <div class="mb-3">
             <label for="jenis" class="form-label">Jenis</label>
             <select class="form-control" id="jenis" name="jenis" required>
-                <option value="Bebek" {{ $jenis_motor->role === 'Bebek' ? 'selected' : '' }}>Bebek</option>
-                <option value="Skuter" {{ $jenis_motor->role === 'Skuter' ? 'selected' : '' }}>Skuter</option>
-                <option value="Dual Sport" {{ $jenis_motor->role === 'Dual Sport' ? 'selected' : '' }}>Dual Sport</option>
-                <option value="Naked Sport" {{ $jenis_motor->role === 'Naked Sport' ? 'selected' : '' }}>Naked Sport</option>
-                <option value="Sport Bike" {{ $jenis_motor->role === 'Sport Bike' ? 'selected' : '' }}>Sport Bike</option>
-                <option value="Retro" {{ $jenis_motor->role === 'Retro' ? 'selected' : '' }}>Retro</option>
-                <option value="Cruiser" {{ $jenis_motor->role === 'Cruiser' ? 'selected' : '' }}>Cruiser</option>
-                <option value="Sport Touring" {{ $jenis_motor->role === 'Sport Touring' ? 'selected' : '' }}>Sport Touring</option>
-                <option value="Dirt Bike" {{ $jenis_motor->role === 'Dirt Bike' ? 'selected' : '' }}>Dirt Bike</option>
-                <option value="Motocross" {{ $jenis_motor->role === 'Motocross' ? 'selected' : '' }}>Motocross</option>
-                <option value="Scrambler" {{ $jenis_motor->role === 'Scrambler' ? 'selected' : '' }}>Scrambler</option>
-                <option value="ATV" {{ $jenis_motor->role === 'ATV' ? 'selected' : '' }}>ATV</option>
-                <option value="Motor Adventure" {{ $jenis_motor->role === 'Motor Adventure' ? 'selected' : '' }}>Motor Adventure</option>
-                <option value="Lainnya" {{ $jenis_motor->role === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                <option value="Bebek" {{ $jenis_motor->jenis === 'Bebek' ? 'selected' : '' }}>Bebek</option>
+                <option value="Skuter" {{ $jenis_motor->jenis === 'Skuter' ? 'selected' : '' }}>Skuter</option>
+                <option value="Dual Sport" {{ $jenis_motor->jenis === 'Dual Sport' ? 'selected' : '' }}>Dual Sport</option>
+                <option value="Naked Sport" {{ $jenis_motor->jenis === 'Naked Sport' ? 'selected' : '' }}>Naked Sport</option>
+                <option value="Sport Bike" {{ $jenis_motor->jenis === 'Sport Bike' ? 'selected' : '' }}>Sport Bike</option>
+                <option value="Retro" {{ $jenis_motor->jenis === 'Retro' ? 'selected' : '' }}>Retro</option>
+                <option value="Cruiser" {{ $jenis_motor->jenis === 'Cruiser' ? 'selected' : '' }}>Cruiser</option>
+                <option value="Sport Touring" {{ $jenis_motor->jenis === 'Sport Touring' ? 'selected' : '' }}>Sport Touring</option>
+                <option value="Dirt Bike" {{ $jenis_motor->jenis === 'Dirt Bike' ? 'selected' : '' }}>Dirt Bike</option>
+                <option value="Motocross" {{ $jenis_motor->jenis === 'Motocross' ? 'selected' : '' }}>Motocross</option>
+                <option value="Scrambler" {{ $jenis_motor->jenis === 'Scrambler' ? 'selected' : '' }}>Scrambler</option>
+                <option value="ATV" {{ $jenis_motor->jenis === 'ATV' ? 'selected' : '' }}>ATV</option>
+                <option value="Motor Adventure" {{ $jenis_motor->jenis === 'Motor Adventure' ? 'selected' : '' }}>Motor Adventure</option>
+                <option value="Lainnya" {{ $jenis_motor->jenis === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
 
             </select>
         </div>

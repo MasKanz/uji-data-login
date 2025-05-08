@@ -68,7 +68,7 @@
             <h1>Kredit motor gampang dengan KA-redit</h1>
             <p>Mau kredit motor? Di sini aja tempatnya</p>
             <div class="d-flex">
-              <a href="#about" class="btn-get-started">Get Started</a>
+              <a href="{{ route('products') }}" class="btn-get-started">Get Started</a>
               <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"></a>
             </div>
           </div>

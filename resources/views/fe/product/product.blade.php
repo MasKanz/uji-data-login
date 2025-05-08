@@ -5,9 +5,23 @@
 @section('content')
 <div class="container mt-5">
     <h2>Daftar Motor</h2>
+    <form method="GET" action="{{ route('products') }}" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+            <select name="jenis" class="form-control" onchange="this.form.submit()">
+                <option value="">-- Semua Jenis --</option>
+                @foreach($jenisList as $jenis)
+                    <option value="{{ $jenis->jenis }}" {{ request('jenis') == $jenis->jenis ? 'selected' : '' }}>
+                        {{ $jenis->jenis }}
+                    </option>
+                @endforeach
+            </select>
+            </div>
+        </div>
+    </form>
     <div class="row">
         @foreach($motors as $motor)
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up">
             <div class="card h-100">
                 @if($motor->foto1)
                     <img src="{{ asset('storage/' . $motor->foto1) }}" class="card-img-top" alt="{{ $motor->nama_motor }}" style="height: 80%; object-fit: cover;">
