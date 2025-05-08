@@ -1,19 +1,10 @@
 @extends('fe.master')
 @section('navbar')
-    @include('fe.navbar')
+    @include('fe.components.navbar')
 @endsection
 @section('content')
 <div class="container mt-5">
     <h2>Ajukan Kredit Motor</h2>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
     <form action="{{ route('pengajuan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -67,4 +58,28 @@
         <button type="submit" class="btn btn-primary">Ajukan Kredit</button>
     </form>
 </div>
+
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "@foreach ($errors->all() as $error) {{ $error }} @endforeach",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
 @endsection

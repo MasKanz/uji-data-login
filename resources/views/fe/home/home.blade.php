@@ -1,10 +1,10 @@
 @extends('fe.master')
 @section('navbar')
-    @include('fe.navbar')
+    @include('fe.components.navbar')
 @endsection
 @section('features')
-    @include('fe.features')
+    @include('fe.components.features')
 @endsection
 @section('testimonies')
-    @include('fe.testimonies')
+    @include('fe.components.testimonies')
 @endsection

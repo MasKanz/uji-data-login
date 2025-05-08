@@ -1,28 +1,28 @@
 @extends('be.master')
 @section('sidebar')
-    @include('be.sidebar')
+    @include('be.components.sidebar')
 @endsection
 @section('header')
-    @include('be.header')
+    @include('be.components.header')
 @endsection
 @section('dailysales')
-    @include('be.dailysales')
+    @include('be.components.dailysales')
 @endsection
 @section('monthlysales')
-    @include('be.monthlysales')
+    @include('be.components.monthlysales')
 @endsection
 @section('yearlysales')
-    @include('be.yearlysales')
+    @include('be.components.yearlysales')
 @endsection
 @section('statisticyear')
-    @include('be.statisticyear')
+    @include('be.components.statisticyear')
 @endsection
 @section('socialmedia')
-    @include('be.socialmedia')
+    @include('be.components.socialmedia')
 @endsection
 @section('ratinglist')
-    @include('be.ratinglist')
+    @include('be.components.ratinglist')
 @endsection
 @section('recentusers')
-    @include('be.recentusers')
+    @include('be.components.recentusers')
 @endsection

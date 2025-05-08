@@ -1,7 +1,7 @@
 @extends('fe.master')
 @section('navbar')
-    @include('fe.navbar')
+    @include('fe.components.navbar')
 @endsection
 @section('contact')
-    @include('fe.contact')
+    @include('fe.components.contact')
 @endsection

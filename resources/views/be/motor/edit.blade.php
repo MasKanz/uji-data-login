@@ -1,9 +1,9 @@
 @extends('be.master')
 @section('sidebar')
-    @include('be.sidebar')
+    @include('be.components.sidebar')
 @endsection
 @section('header')
-    @include('be.header')
+    @include('be.components.header')
 @endsection
 @section('content')
 
