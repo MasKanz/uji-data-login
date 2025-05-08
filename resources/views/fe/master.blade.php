@@ -40,6 +40,15 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+  <style>
+    .carousel-img {
+    height: 350px;
+    max-width: 500px;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto;
+}
+  </style>
 </head>
 
 <body class="index-page">

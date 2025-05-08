@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Motor;
 
 class ProductPageController extends Controller
 {
@@ -11,7 +12,8 @@ class ProductPageController extends Controller
      */
     public function index()
     {
-        return view ('fe.product.product', [
+        $motors = Motor::with('jenisMotor')->get();
+        return view ('fe.product.product', compact('motors'), [
             'title' => 'Shop',
         ]);
     }
@@ -37,7 +39,10 @@ class ProductPageController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $motor = Motor::with('jenisMotor')->findOrFail($id);
+        return view('fe.product.details', compact('motor'), [
+            'title' => 'Shop'
+        ]);
     }
 
     /**

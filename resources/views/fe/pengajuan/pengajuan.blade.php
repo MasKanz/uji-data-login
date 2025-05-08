@@ -11,7 +11,9 @@
             <label for="id_motor">Pilih Motor</label>
             <select name="id_motor" class="form-control" required>
                 @foreach($motors as $motor)
-                    <option value="{{ $motor->id }}">{{ $motor->nama_motor }}</option>
+                    <option value="{{ $motor->id }}" {{ request('id_motor') == $motor->id ? 'selected' : '' }}>
+                        {{ $motor->nama_motor }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -56,6 +58,8 @@
             <input type="file" name="url_foto" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Ajukan Kredit</button>
+        <a href="{{ route('products') }}" class="btn btn-secondary">Kembali ke Produk-Produk</a>
+
     </form>
 </div>
 
