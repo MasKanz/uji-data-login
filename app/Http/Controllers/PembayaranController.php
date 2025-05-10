@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kredit;
+use App\Models\Angsuran;
 
 class PembayaranController extends Controller
 {
@@ -11,8 +13,14 @@ class PembayaranController extends Controller
      */
     public function index()
     {
+        // Ambil kredit milik pelanggan yang sedang login
+        $kredits = Kredit::whereHas('pengajuanKredit', function($q) {
+            $q->where('id_pelanggan', auth('pelanggan')->id());
+        })->get();
+
         return view('fe.pembayaran.pembayaran', [
             'title' => 'Pembayaran',
+            'kredits' => $kredits,
         ]);
     }
 
@@ -29,7 +37,32 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_kredit' => 'required|exists:kredit,id',
+            'total_bayar' => 'required|numeric|min:1',
+            'bukti_bayar' => 'required|file|mimes:jpeg,png,jpg,pdf,webp|max:2048',
+        ]);
+
+        $kredit = Kredit::findOrFail($request->id_kredit);
+
+        // Simpan bukti bayar
+        $buktiPath = $request->file('bukti_bayar')->store('bukti_bayar', 'public');
+
+        // Buat angsuran baru
+        Angsuran::create([
+            'id_kredit' => $kredit->id,
+            'tgl_bayar' => now(),
+            'angsuran_ke' => ($kredit->angsuran()->count() + 1),
+            'total_bayar' => $request->total_bayar,
+            'bukti_bayar' => $buktiPath,
+            'keterangan' => 'Menunggu Verifikasi',
+        ]);
+
+        // Update sisa kredit
+        $kredit->sisa_kredit -= $request->total_bayar;
+        $kredit->save();
+
+        return redirect()->route('pembayaran')->with('success', 'Pembayaran berhasil dikirim, menunggu verifikasi.');
     }
 
     /**
