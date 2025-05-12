@@ -93,6 +93,26 @@
         </li>
 
 
+        <li class="pc-item">
+          <a href="/pengajuan-kredit" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="file-text"></i>
+            </span>
+            <span class="pc-mtext">Pengajuan Management</span>
+          </a>
+        </li>
+
+
+        <li class="pc-item">
+          <a href="/kredit" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="file-text"></i>
+            </span>
+            <span class="pc-mtext">Kredit Management</span>
+          </a>
+        </li>
+
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">

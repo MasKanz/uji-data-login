@@ -19,6 +19,7 @@ use App\Http\Middleware\LoginUserCheck;
 use App\Http\Middleware\MasukPelangganCheck;
 use App\Http\Controllers\MotorController;
 use App\Http\Controllers\AsuransiController;
+use App\Http\Controllers\KreditController;
 
 
 // Front Page
@@ -30,6 +31,9 @@ Route::get('/abouts', [AboutController::class, 'index']);
 
 Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
+Route::get('/pengajuan-kredit', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengajuan-kredit/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
+
 
 Route::get('/shop/{id}', [ProductPageController::class, 'show'])->name('products.show');
 Route::get('/pembayaran', [PembayaranController::class, 'index']);
@@ -123,6 +127,10 @@ Route::post('/asuransi', [AsuransiController::class, 'store'])->name('asuransi.s
 Route::get('/asuransi/{id}/edit', [AsuransiController::class, 'edit'])->name('asuransi.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/asuransi/{id}', [AsuransiController::class, 'update'])->name('asuransi.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/asuransi/{id}', [AsuransiController::class, 'destroy'])->name('asuransi.destroy')->middleware(CheckUserRole::class . ':admin');
+
+
+// Admin's Kredit Management
+Route::get('/kredit', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':admin,marketing');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

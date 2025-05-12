@@ -153,4 +153,16 @@ class PengajuanController extends Controller
         $cicilan->delete();
         return redirect()->route('jenis-cicilan')->with('success', 'Jenis cicilan berhasil dihapus.');
     }
+
+    public function indexPengajuanKredit()
+    {
+        $pengajuanList = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->latest()->get();
+        return view('be.pengajuan.index', compact('pengajuanList'));
+    }
+
+    public function showPengajuanDetail($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->findOrFail($id);
+        return view('be.pengajuan.detail', compact('pengajuan'));
+    }
 }
