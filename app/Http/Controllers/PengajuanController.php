@@ -53,11 +53,11 @@ class PengajuanController extends Controller
         $cicilanPerBulan = $totalKredit / $tenor; // Cicilan per bulan
         $asuransiPerBulan = $motor->harga_jual * $asuransi->margin_asuransi / $tenor; // Asuransi per bulan
 
-        $kkPath =  $request->file('url_kk')->store('dokumen', 'private');
-        $ktpPath = $request->file('url_ktp')->store('dokumen', 'private');
-        $npwpPath = $request->file('url_npwp')->store('dokumen', 'private');
-        $slipGajiPath = $request->file('url_slip_gaji')->store('dokumen', 'private');
-        $fotoPath = $request->file('url_foto')->store('dokumen', 'private');
+        $kkPath =  $request->file('url_kk')->store('dokumen', 'public');
+        $ktpPath = $request->file('url_ktp')->store('dokumen', 'public');
+        $npwpPath = $request->file('url_npwp')->store('dokumen', 'public');
+        $slipGajiPath = $request->file('url_slip_gaji')->store('dokumen', 'public');
+        $fotoPath = $request->file('url_foto')->store('dokumen', 'public');
 
         PengajuanKredit::create([
             'tgl_pengajuan_kredit' => now(),
@@ -164,5 +164,40 @@ class PengajuanController extends Controller
     {
         $pengajuan = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->findOrFail($id);
         return view('be.pengajuan.detail', compact('pengajuan'));
+    }
+
+    public function konfirmasiPengajuan($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::with(['jenisCicilan', 'asuransi'])->findOrFail($id);
+
+        // Update status pengajuan
+        $pengajuan->status_pengajuan = 'Diterima';
+        $pengajuan->keterangan_status_pengajuan = 'Pengajuan disetujui';
+        $pengajuan->save();
+
+        // Buat data kredit
+        \App\Models\Kredit::create([
+            'id_pengajuan_kredit' => $pengajuan->id,
+            'id_metode_bayar' => 1, // Ganti sesuai kebutuhan/metode bayar default
+            'tgl_mulai_kredit' => now(),
+            'tgl_selesai_kredit' => now()->addMonths($pengajuan->jenisCicilan->lama_cicilan),
+            'sisa_kredit' => $pengajuan->harga_kredit + ($pengajuan->biaya_asuransi_perbulan * $pengajuan->jenisCicilan->lama_cicilan),
+            'status_kredit' => 'Dicicil',
+            'keterangan_status_kredit' => 'Kredit aktif',
+        ]);
+
+        return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
+    }
+
+    public function batalPengajuan($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
+
+        // Update status pengajuan menjadi Dibatalkan
+        $pengajuan->status_pengajuan = 'Dibatalkan Penjual';
+        $pengajuan->keterangan_status_pengajuan = 'Pengajuan dibatalkan oleh admin';
+        $pengajuan->save();
+
+        return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dibatalkan.');
     }
 }

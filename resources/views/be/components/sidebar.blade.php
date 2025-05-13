@@ -96,7 +96,7 @@
         <li class="pc-item">
           <a href="/pengajuan-kredit" class="pc-link">
             <span class="pc-micon">
-              <i data-feather="file-text"></i>
+              <i data-feather="inbox"></i>
             </span>
             <span class="pc-mtext">Pengajuan Management</span>
           </a>
@@ -106,9 +106,18 @@
         <li class="pc-item">
           <a href="/kredit" class="pc-link">
             <span class="pc-micon">
-              <i data-feather="file-text"></i>
+              <i data-feather="file"></i>
             </span>
             <span class="pc-mtext">Kredit Management</span>
+          </a>
+        </li>
+
+        <li class="pc-item">
+          <a href="/metode-bayar" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="credit-card"></i>
+            </span>
+            <span class="pc-mtext">Metode Pembayaran</span>
           </a>
         </li>
 

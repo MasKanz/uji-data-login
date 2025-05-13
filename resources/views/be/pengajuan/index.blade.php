@@ -41,7 +41,16 @@
                 </td>
                 <td>
                     <a href="{{ route('pengajuan-kredit.show', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a>
-                    {{-- Tambahkan tombol proses/approve/tolak sesuai kebutuhan --}}
+                    @if($pengajuan->status_pengajuan == 'Menunggu Konfirmasi')
+                        <form action="{{ route('pengajuan-kredit.konfirmasi', $pengajuan->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Konfirmasi pengajuan ini?')">Konfirmasi</button>
+                        </form>
+                        <form action="{{ route('pengajuan-kredit.batal', $pengajuan->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Batalkan pengajuan ini?')">Batalkan</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

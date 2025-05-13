@@ -20,6 +20,7 @@ use App\Http\Middleware\MasukPelangganCheck;
 use App\Http\Controllers\MotorController;
 use App\Http\Controllers\AsuransiController;
 use App\Http\Controllers\KreditController;
+use App\Http\Controllers\MetodeBayarController;
 
 
 // Front Page
@@ -129,8 +130,23 @@ Route::put('/asuransi/{id}', [AsuransiController::class, 'update'])->name('asura
 Route::delete('/asuransi/{id}', [AsuransiController::class, 'destroy'])->name('asuransi.destroy')->middleware(CheckUserRole::class . ':admin');
 
 
+
+Route::get('/metode-bayar', [MetodeBayarController::class, 'index'])->name('metode-bayar')->middleware(CheckUserRole::class . ':admin');
+Route::get('/metode-bayar/create', [MetodeBayarController::class, 'create'])->name('metode-bayar.create')->middleware(CheckUserRole::class . ':admin');
+Route::post('/metode-bayar', [MetodeBayarController::class, 'store'])->name('metode-bayar.store')->middleware(CheckUserRole::class . ':admin');
+Route::get('/metode-bayar/{id}/edit', [MetodeBayarController::class, 'edit'])->name('metode-bayar.edit')->middleware(CheckUserRole::class . ':admin');
+Route::put('/metode-bayar/{id}', [MetodeBayarController::class, 'update'])->name('metode-bayar.update')->middleware(CheckUserRole::class . ':admin');
+Route::delete('/metode-bayar/{id}', [MetodeBayarController::class, 'destroy'])->name('metode-bayar.destroy')->middleware(CheckUserRole::class . ':admin');
+
 // Admin's Kredit Management
 Route::get('/kredit', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/kredit/{id}', [KreditController::class, 'show'])->name('kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/kredit/{id}/edit', [KreditController::class, 'edit'])->name('kredit.edit')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::put('/kredit/{id}', [KreditController::class, 'update'])->name('kredit.update')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::delete('/kredit/{id}', [KreditController::class, 'destroy'])->name('kredit.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
+
+Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
