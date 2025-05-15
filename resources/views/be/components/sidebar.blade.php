@@ -132,6 +132,8 @@
           </a>
         </li>
 
+
+
         @elseif (auth()->user()->role == 'marketing')
         <li class="pc-item">
           <a href="/marketing" class="pc-link">
@@ -144,7 +146,7 @@
 
 
         <li class="pc-item">
-          <a href="/pengajuan-kredit" class="pc-link">
+          <a href="/pengajuan-kredit-marketing" class="pc-link">
             <span class="pc-micon">
               <i data-feather="inbox"></i>
             </span>
@@ -154,7 +156,7 @@
 
 
         <li class="pc-item">
-          <a href="/kredit" class="pc-link">
+          <a href="/kredit-marketing" class="pc-link">
             <span class="pc-micon">
               <i data-feather="file"></i>
             </span>

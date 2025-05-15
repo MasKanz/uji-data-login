@@ -35,6 +35,8 @@ Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajua
 Route::get('/pengajuan-kredit', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/pengajuan-kredit/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
 
+Route::get('/pengajuan-kredit-marketing', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':marketing');
+Route::get('/pengajuan-kredit-marketing/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':marketing');
 
 Route::get('/shop/{id}', [ProductPageController::class, 'show'])->name('products.show');
 Route::get('/pembayaran', [PembayaranController::class, 'index']);
@@ -70,7 +72,7 @@ Route::get('/marketing', [MarketingController::class, 'index'])->middleware(Chec
 Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
 
 
-// Admin's Dashboard Users Management
+// Dashboard Users Management
 Route::get('/users', [AuthController::class, 'updateUserPage'])->name('users')->middleware(CheckUserRole::class . ':admin');
 Route::get('/users/create', [AuthController::class, 'createUserPage'])->name('users.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/users', [AuthController::class, 'storeUser'])->name('users.store')->middleware(CheckUserRole::class . ':admin');
@@ -81,7 +83,7 @@ Route::patch('/users/{id}/toggle-active', [AuthController::class, 'toggleActive'
 
 
 
-// Admin's Pelanggan Management
+// Pelanggan Management
 Route::get('/pelanggans', [PelangganController::class, 'showPelangganPage'])->name('pelanggans')->middleware(CheckUserRole::class . ':admin');
 Route::get('/pelanggans/create', [PelangganController::class, 'createPelangganPage'])->name('pelanggans.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/pelanggans', [PelangganController::class, 'storePelanggan'])->name('pelanggans.store')->middleware(CheckUserRole::class . ':admin');
@@ -92,7 +94,7 @@ Route::patch('/pelanggans/{id}/toggle-aktif', [PelangganController::class, 'togg
 
 
 
-// Admin's Motor Management
+// Motor Management
 Route::get('/motors', [MotorController::class, 'index'])->name('motors')->middleware(CheckUserRole::class . ':admin');
 Route::get('/motors/create', [MotorController::class, 'createMotorPage'])->name('motors.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/motors', [MotorController::class, 'storeMotor'])->name('motors.store')->middleware(CheckUserRole::class . ':admin');
@@ -102,7 +104,7 @@ Route::put('/motors/{id}', [MotorController::class, 'updateMotor'])->name('motor
 Route::delete('/motors/{id}', [MotorController::class, 'destroyMotor'])->name('motors.destroy')->middleware(CheckUserRole::class . ':admin');
 
 
-// Admin's Jenis Motor Management
+// Jenis Motor Management
 Route::get('/jenis-motors', [MotorController::class, 'indexJenisMotor'])->name('jenis-motors')->middleware(CheckUserRole::class . ':admin');
 Route::get('/jenis-motors/create', [MotorController::class, 'createJenisMotorPage'])->name('jenis-motors.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/jenis-motors', [MotorController::class, 'storeJenisMotor'])->name('jenis-motors.store')->middleware(CheckUserRole::class . ':admin');
@@ -112,7 +114,8 @@ Route::delete('/jenis-motors/{id}', [MotorController::class, 'destroyJenisMotor'
 Route::get('/jenis-motors/{id}', [MotorController::class, 'showJenisMotorDetail'])->name('jenis-motors.detail')->middleware(CheckUserRole::class . ':admin');
 
 
-// Admin's Jenis Cicilan Management
+
+// Jenis Cicilan Management
 Route::get('/jenis-cicilan', [PengajuanController::class, 'indexJenisCicilan'])->name('jenis-cicilan')->middleware(CheckUserRole::class . ':admin');
 Route::get('/jenis-cicilan/create', [PengajuanController::class, 'createJenisCicilanPage'])->name('jenis-cicilan.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/jenis-cicilan', [PengajuanController::class, 'storeJenisCicilan'])->name('jenis-cicilan.store')->middleware(CheckUserRole::class . ':admin');
@@ -121,7 +124,7 @@ Route::put('/jenis-cicilan/{id}', [PengajuanController::class, 'updateJenisCicil
 Route::delete('/jenis-cicilan/{id}', [PengajuanController::class, 'destroyJenisCicilan'])->name('jenis-cicilan.destroy')->middleware(CheckUserRole::class . ':admin');
 
 
-// Admin's Asuransi Management
+// Asuransi Management
 Route::get('/asuransi', [AsuransiController::class, 'index'])->name('asuransi')->middleware(CheckUserRole::class . ':admin');
 Route::get('/asuransi/create', [AsuransiController::class, 'create'])->name('asuransi.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/asuransi', [AsuransiController::class, 'store'])->name('asuransi.store')->middleware(CheckUserRole::class . ':admin');
@@ -138,16 +141,25 @@ Route::get('/metode-bayar/{id}/edit', [MetodeBayarController::class, 'edit'])->n
 Route::put('/metode-bayar/{id}', [MetodeBayarController::class, 'update'])->name('metode-bayar.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/metode-bayar/{id}', [MetodeBayarController::class, 'destroy'])->name('metode-bayar.destroy')->middleware(CheckUserRole::class . ':admin');
 
-// Admin's Kredit Management
+// Kredit Management
 Route::get('/kredit', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/kredit/{id}', [KreditController::class, 'show'])->name('kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/kredit/{id}/edit', [KreditController::class, 'edit'])->name('kredit.edit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::put('/kredit/{id}', [KreditController::class, 'update'])->name('kredit.update')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::delete('/kredit/{id}', [KreditController::class, 'destroy'])->name('kredit.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
 
+Route::get('/kredit-marketing', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':marketing');
+Route::get('/kredit-marketing/{id}', [KreditController::class, 'show'])->name('kredit.show')->middleware(CheckUserRole::class . ':marketing');
+Route::get('/kredit-marketing/{id}/edit', [KreditController::class, 'edit'])->name('kredit.edit')->middleware(CheckUserRole::class . ':marketing');
+Route::put('/kredit-marketing/{id}', [KreditController::class, 'update'])->name('kredit.update')->middleware(CheckUserRole::class . ':marketing');
+Route::delete('/kredit-marketing/{id}', [KreditController::class, 'destroy'])->name('kredit.destroy')->middleware(CheckUserRole::class . ':marketing');
+
+
 Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
 
+Route::post('/pengajuan-kredit-marketing/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':marketing');
+Route::post('/pengajuan-kredit-marketing/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':marketing');
 
 Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPengajuanPelanggan'])->name('pengajuan.pelanggan.batal')->middleware(CheckPelanggan::class);

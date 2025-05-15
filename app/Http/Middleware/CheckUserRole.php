@@ -12,6 +12,8 @@ class CheckUserRole
     {
         if (!Auth::check() || Auth::user()->role !== $role) {
 
+            $rolesArray = explode(',', $role);
+
             if (!Auth::check()) {
                 return redirect()->intended('/login');
             } elseif (Auth::user()->role === 'admin') {
