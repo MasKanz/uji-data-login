@@ -102,4 +102,46 @@ class PembayaranController extends Controller
     {
         //
     }
+
+    public function verifikasiList()
+    {
+        $angsuranList = \App\Models\Angsuran::with('kredit.pengajuanKredit.pelanggan')
+            ->where('keterangan', 'Menunggu Verifikasi')
+            ->get();
+        return view('be.angsuran.verifikasi', compact('angsuranList'));
+    }
+
+    public function terimaAngsuran($id)
+    {
+        $angsuran = \App\Models\Angsuran::findOrFail($id);
+        if ($angsuran->keterangan !== 'Menunggu Verifikasi') {
+            return back()->with('error', 'Angsuran sudah diverifikasi.');
+        }
+
+        $kredit = $angsuran->kredit;
+        $kredit->sisa_kredit -= $angsuran->total_bayar;
+        if ($kredit->sisa_kredit <= 0) {
+            $kredit->sisa_kredit = 0;
+            $kredit->status_kredit = 'Lunas';
+            $kredit->keterangan_status_kredit = 'Kredit telah lunas';
+        }
+        $kredit->save();
+
+        $angsuran->keterangan = 'Diterima';
+        $angsuran->save();
+
+        return redirect()->route('angsuran-verifikasi')->with('success', 'Pembayaran angsuran diterima dan sisa kredit dikurangi.');
+    }
+
+    public function tolakAngsuran($id)
+    {
+        $angsuran = \App\Models\Angsuran::findOrFail($id);
+        if ($angsuran->keterangan !== 'Menunggu Verifikasi') {
+            return back()->with('error', 'Angsuran sudah diverifikasi.');
+        }
+        $angsuran->keterangan = 'Ditolak';
+        $angsuran->save();
+
+        return redirect()->route('angsuran-verifikasi')->with('success', 'Pembayaran angsuran ditolak.');
+    }
 }

@@ -7,18 +7,18 @@
       <a href="/admin" class="b-brand text-primary">
 <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
-        <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
+        <!-- <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" /> -->
       </a>
         @elseif (auth()->user()->role == 'ceo')
       <a href="/admin" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
-        <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
+        <!-- <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" /> -->
         @elseif (auth()->user()->role == 'marketing')
       <a href="/marketing" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <h3 style="color: white;">KA-redit</h3>
-        <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" />
+        <!-- <img src="{{asset('be/assets/images/logo-white.svg')}}" class="img-fluid logo-lg" alt="logo" /> -->
         @endif
 
     </div>
@@ -122,6 +122,16 @@
         </li>
 
 
+        <li class="pc-item">
+          <a href="/angsuran-verifikasi" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="credit-card"></i>
+            </span>
+            <span class="pc-mtext">Angsuran Verifikasi</span>
+          </a>
+        </li>
+
+
         @elseif (auth()->user()->role == 'ceo')
         <li class="pc-item">
           <a href="/ceo" class="pc-link">
@@ -146,7 +156,7 @@
 
 
         <li class="pc-item">
-          <a href="/pengajuan-kredit-marketing" class="pc-link">
+          <a href="/pengajuan-kredit" class="pc-link">
             <span class="pc-micon">
               <i data-feather="inbox"></i>
             </span>
@@ -156,11 +166,21 @@
 
 
         <li class="pc-item">
-          <a href="/kredit-marketing" class="pc-link">
+          <a href="/kredit" class="pc-link">
             <span class="pc-micon">
               <i data-feather="file"></i>
             </span>
             <span class="pc-mtext">Kredit Management</span>
+          </a>
+        </li>
+
+
+        <li class="pc-item">
+          <a href="/angsuran-verifikasi" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="credit-card"></i>
+            </span>
+            <span class="pc-mtext">Angsuran Verifikasi</span>
           </a>
         </li>
         @endif

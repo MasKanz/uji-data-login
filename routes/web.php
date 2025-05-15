@@ -32,11 +32,6 @@ Route::get('/abouts', [AboutController::class, 'index']);
 
 Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
-Route::get('/pengajuan-kredit', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::get('/pengajuan-kredit/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
-
-Route::get('/pengajuan-kredit-marketing', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':marketing');
-Route::get('/pengajuan-kredit-marketing/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':marketing');
 
 Route::get('/shop/{id}', [ProductPageController::class, 'show'])->name('products.show');
 Route::get('/pembayaran', [PembayaranController::class, 'index']);
@@ -47,6 +42,10 @@ Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembay
 Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->name('pelanggan.profile')->middleware(CheckPelanggan::class);
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
+
+Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
+Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPengajuanPelanggan'])->name('pengajuan.pelanggan.batal')->middleware(CheckPelanggan::class);
+Route::get('/kredit-saya', [PengajuanController::class, 'listKreditPelanggan'])->name('kredit.pelanggan')->middleware(CheckPelanggan::class);
 
 
 // Pelanggan Auth
@@ -133,13 +132,21 @@ Route::put('/asuransi/{id}', [AsuransiController::class, 'update'])->name('asura
 Route::delete('/asuransi/{id}', [AsuransiController::class, 'destroy'])->name('asuransi.destroy')->middleware(CheckUserRole::class . ':admin');
 
 
-
+// Metode Bayar Management
 Route::get('/metode-bayar', [MetodeBayarController::class, 'index'])->name('metode-bayar')->middleware(CheckUserRole::class . ':admin');
 Route::get('/metode-bayar/create', [MetodeBayarController::class, 'create'])->name('metode-bayar.create')->middleware(CheckUserRole::class . ':admin');
 Route::post('/metode-bayar', [MetodeBayarController::class, 'store'])->name('metode-bayar.store')->middleware(CheckUserRole::class . ':admin');
 Route::get('/metode-bayar/{id}/edit', [MetodeBayarController::class, 'edit'])->name('metode-bayar.edit')->middleware(CheckUserRole::class . ':admin');
 Route::put('/metode-bayar/{id}', [MetodeBayarController::class, 'update'])->name('metode-bayar.update')->middleware(CheckUserRole::class . ':admin');
 Route::delete('/metode-bayar/{id}', [MetodeBayarController::class, 'destroy'])->name('metode-bayar.destroy')->middleware(CheckUserRole::class . ':admin');
+
+
+// Pengajuan Kredit Management
+Route::get('/pengajuan-kredit', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengajuan-kredit/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
+
 
 // Kredit Management
 Route::get('/kredit', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':admin,marketing');
@@ -148,22 +155,11 @@ Route::get('/kredit/{id}/edit', [KreditController::class, 'edit'])->name('kredit
 Route::put('/kredit/{id}', [KreditController::class, 'update'])->name('kredit.update')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::delete('/kredit/{id}', [KreditController::class, 'destroy'])->name('kredit.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
 
-Route::get('/kredit-marketing', [KreditController::class, 'index'])->name('kredit')->middleware(CheckUserRole::class . ':marketing');
-Route::get('/kredit-marketing/{id}', [KreditController::class, 'show'])->name('kredit.show')->middleware(CheckUserRole::class . ':marketing');
-Route::get('/kredit-marketing/{id}/edit', [KreditController::class, 'edit'])->name('kredit.edit')->middleware(CheckUserRole::class . ':marketing');
-Route::put('/kredit-marketing/{id}', [KreditController::class, 'update'])->name('kredit.update')->middleware(CheckUserRole::class . ':marketing');
-Route::delete('/kredit-marketing/{id}', [KreditController::class, 'destroy'])->name('kredit.destroy')->middleware(CheckUserRole::class . ':marketing');
 
-
-Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
-
-Route::post('/pengajuan-kredit-marketing/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':marketing');
-Route::post('/pengajuan-kredit-marketing/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':marketing');
-
-Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
-Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPengajuanPelanggan'])->name('pengajuan.pelanggan.batal')->middleware(CheckPelanggan::class);
-Route::get('/kredit-saya', [PengajuanController::class, 'listKreditPelanggan'])->name('kredit.pelanggan')->middleware(CheckPelanggan::class);
+// Angsuran Management
+Route::get('/angsuran-verifikasi', [PembayaranController::class, 'verifikasiList'])->name('angsuran-verifikasi')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/angsuran-verifikasi/{id}/terima', [PembayaranController::class, 'terimaAngsuran'])->name('angsuran-verifikasi.terima')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/angsuran-verifikasi/{id}/tolak', [PembayaranController::class, 'tolakAngsuran'])->name('angsuran-verifikasi.tolak')->middleware(CheckUserRole::class . ':admin,marketing');
 
 
 Route::middleware('auth')->group(function () {

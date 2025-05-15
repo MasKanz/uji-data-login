@@ -8,21 +8,23 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckUserRole
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
 
-            $rolesArray = explode(',', $role);
+        if (!Auth::check()) {
+            return redirect()->intended('/login');
+        }
 
-            if (!Auth::check()) {
-                return redirect()->intended('/login');
-            } elseif (Auth::user()->role === 'admin') {
-                return redirect()->intended('/admin');
-            } elseif (Auth::user()->role === 'marketing') {
-                return redirect()->intended('/marketing');
-            } elseif (Auth::user()->role === 'ceo') {
-                return redirect()->intended('/ceo');
-            }
+        $userRole = Auth::user()->role;
+        $allowedRoles = array_map('trim', $roles);
+
+
+        // Debug output
+        // Hapus komentar untuk melihat hasil di browser
+        // dd($userRole, $allowedRoles, $roles, Auth::user());
+
+        if (!in_array($userRole, $allowedRoles)) {
+            return back();
         }
 
         return $next($request);
