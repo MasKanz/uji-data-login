@@ -24,7 +24,7 @@ class CheckUserRole
         // dd($userRole, $allowedRoles, $roles, Auth::user());
 
         if (!in_array($userRole, $allowedRoles)) {
-            return back();
+            return redirect()->intended('/' . $userRole);
         }
 
         return $next($request);
