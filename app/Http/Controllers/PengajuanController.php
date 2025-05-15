@@ -20,7 +20,10 @@ class PengajuanController extends Controller
         $jenisCicilan = JenisCicilan::all();
         $asuransiList = Asuransi::all();
         return view('fe.pengajuan.pengajuan', compact('motors', 'jenisCicilan', 'asuransiList'), [
-            'title' => 'Pengajuan'
+            'title' => 'Pengajuan',
+            'motors' => $motors,
+            'jenisCicilan' => $jenisCicilan,
+            'asuransiList' => $asuransiList,
         ]);
     }
 
