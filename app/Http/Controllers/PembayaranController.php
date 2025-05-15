@@ -105,7 +105,7 @@ class PembayaranController extends Controller
 
     public function verifikasiList()
     {
-        $angsuranList = \App\Models\Angsuran::with('kredit.pengajuanKredit.pelanggan')
+        $angsuranList = Angsuran::with('kredit.pengajuanKredit.pelanggan')
             ->where('keterangan', 'Menunggu Verifikasi')
             ->get();
         return view('be.angsuran.verifikasi', compact('angsuranList'));

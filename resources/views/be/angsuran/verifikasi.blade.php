@@ -25,6 +25,7 @@
                 <td>{{ $angsuran->kredit->pengajuanKredit->motor->nama_motor ?? '-' }}</td>
                 <td>Rp{{ number_format($angsuran->total_bayar,0,',','.') }}</td>
                 <td>
+                    {{ dd($angsuran->bukti_bayar) }}
                     <a href="{{ asset('storage/'.$angsuran->bukti_bayar) }}" target="_blank">Lihat Bukti</a>
                 </td>
                 <td>
