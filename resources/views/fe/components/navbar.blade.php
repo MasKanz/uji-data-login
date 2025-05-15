@@ -50,7 +50,8 @@
     <li style="text-align: center;"><img src="{{ asset('storage/' . Auth::guard('pelanggan')->user()->foto) }}" alt="Foto Pelanggan" width="100" style="border-radius: 10%;"></li>
     <li><a class="dropdown-item" href="/profilepelanggan">Halaman Profile</a></li>
     <li><a class="dropdown-item" href="/updatepelanggan">Lengkapi Alamat</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><a class="dropdown-item" href="/pengajuan-saya">Daftar Pengajuan</a></li>
+    <li><a class="dropdown-item" href="/kredit-saya">Daftar Kredit</a></li>
     <li><hr class="dropdown-divider"></li>
     <li style="text-align: center;">
       <form method="POST" action="{{ url('/keluar') }}">

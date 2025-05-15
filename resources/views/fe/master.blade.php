@@ -246,6 +246,39 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "@foreach ($errors->all() as $error) {{ $error }} @endforeach",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+    @if(session('notif_pengajuan_batal'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Pengajuan Kredit Dibatalkan',
+            html: `<b>Alasan:</b> {{ session('notif_pengajuan_batal.alasan') }}`,
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
 </body>
 
 </html>

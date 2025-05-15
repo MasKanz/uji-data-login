@@ -42,7 +42,6 @@
             <div class="row">
                 <!-- Motor Information -->
                 <div class="col-md-6">
-                    <p><strong>ID:</strong> {{ $motor->id }}</p>
                     <p><strong>Jenis Motor:</strong> {{ $motor->jenisMotor->merk }} - {{ $motor->jenisMotor->jenis }}</p>
                     <p><strong>Harga Jual:</strong> Rp {{ number_format($motor->harga_jual, 0, ',', '.') }}</p>
                     <p><strong>Deskripsi:</strong> {{ $motor->deskripsi_motor }}</p>

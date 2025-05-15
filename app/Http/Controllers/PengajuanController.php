@@ -43,12 +43,23 @@ class PengajuanController extends Controller
         $asuransi = Asuransi::findOrFail($request->id_asuransi);
 
         $hargaCash = $motor->harga_jual; // Pastikan field harga_jual ada di tabel motor
-        $dp = $request->dp; // Uang muka yang dibayarkan
         $tenor = $cicilan->lama_cicilan; // misal: 12 bulan
+
+        if ($tenor <= 12) {
+            $persentaseKenaikan = 0.05; // 5%
+        } elseif ($tenor > 12 && $tenor <= 24) {
+            $persentaseKenaikan = 0.10; // 10%
+        } elseif ($tenor > 24 && $tenor <= 36) {
+            $persentaseKenaikan = 0.15; // 15%
+        }
+
+        $hargaMotorKredit = $hargaCash + ($hargaCash * $persentaseKenaikan);
+
+        $dp = $request->dp; // Uang muka yang dibayarkan
         $bunga = $cicilan->margin_kredit; // misal: 0.12 (12% per tahun)
 
-        $pokokKredit = $hargaCash - $dp; // Pokok kredit setelah DP
-        $totalBunga = $pokokKredit * $bunga * ($tenor); // Total bunga selama tenor
+        $pokokKredit = $hargaMotorKredit - $dp; // Pokok kredit setelah DP
+        $totalBunga = $pokokKredit * $bunga * ($tenor / 12); // Total bunga selama tenor
         $totalKredit = $pokokKredit + $totalBunga; // Total kredit yang harus dibayar
         $cicilanPerBulan = $totalKredit / $tenor; // Cicilan per bulan
         $asuransiPerBulan = $motor->harga_jual * $asuransi->margin_asuransi / $tenor; // Asuransi per bulan
@@ -63,7 +74,7 @@ class PengajuanController extends Controller
             'tgl_pengajuan_kredit' => now(),
             'id_pelanggan' => Auth::guard('pelanggan')->id(),
             'id_motor' => $request->id_motor,
-            'harga_cash' => $hargaCash,
+            'harga_cash' => $hargaMotorKredit,
             'dp' => $dp,
             'id_jenis_cicilan' => $request->id_jenis_cicilan,
             'harga_kredit' => $totalKredit,
@@ -80,7 +91,7 @@ class PengajuanController extends Controller
             // tambahkan field lain sesuai kebutuhan
         ]);
 
-        return redirect()->route('pelanggan.profile')->with('success', 'Pengajuan kredit berhasil dikirim!');
+        return redirect()->route('pengajuan.pelanggan')->with('success', 'Pengajuan kredit berhasil dikirim!');
     }
 
 
@@ -189,15 +200,69 @@ class PengajuanController extends Controller
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
     }
 
-    public function batalPengajuan($id)
+    public function batalPengajuan(Request $request, $id)
     {
+        $request->validate([
+            'alasan_batal' => 'required|string|max:255',
+        ]);
+
         $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
 
-        // Update status pengajuan menjadi Dibatalkan
+        // Update status pengajuan menjadi Dibatalkan Penjual dan simpan alasan
         $pengajuan->status_pengajuan = 'Dibatalkan Penjual';
-        $pengajuan->keterangan_status_pengajuan = 'Pengajuan dibatalkan oleh admin';
+        $pengajuan->keterangan_status_pengajuan = $request->alasan_batal;
         $pengajuan->save();
 
+        // Kirim notifikasi ke pelanggan (opsional: bisa pakai event/email/flash session)
+        // Contoh: flash session untuk pelanggan
+        session()->flash('notif_pengajuan_batal', [
+            'pesan' => 'Pengajuan Anda dibatalkan oleh admin/marketing.',
+            'alasan' => $request->alasan_batal
+        ]);
+
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dibatalkan.');
+    }
+
+
+    public function listPengajuanPelanggan()
+    {
+        $pengajuans = \App\Models\PengajuanKredit::with(['motor', 'jenisCicilan', 'asuransi'])
+            ->where('id_pelanggan', auth('pelanggan')->id())
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('fe.pengajuan.list', [
+            'title' => 'Pengajuan Saya',
+            'pengajuans' => $pengajuans,
+        ]);
+    }
+
+    public function listKreditPelanggan()
+    {
+        $kredits = \App\Models\Kredit::with(['pengajuanKredit.motor', 'pengajuanKredit.jenisCicilan'])
+            ->whereHas('pengajuanKredit', function($q) {
+                $q->where('id_pelanggan', auth('pelanggan')->id());
+            })
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('fe.kredit.list', [
+            'title' => 'Kredit Berjalan',
+            'kredits' => $kredits,
+        ]);
+    }
+
+    public function batalPengajuanPelanggan($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::where('id', $id)
+            ->where('id_pelanggan', auth('pelanggan')->id())
+            ->where('status_pengajuan', 'Menunggu Konfirmasi')
+            ->firstOrFail();
+
+        $pengajuan->status_pengajuan = 'Dibatalkan Pembeli';
+        $pengajuan->keterangan_status_pengajuan = 'Dibatalkan oleh pelanggan';
+        $pengajuan->save();
+
+        return redirect()->route('pengajuan.pelanggan')->with('success', 'Pengajuan berhasil dibatalkan.');
     }
 }

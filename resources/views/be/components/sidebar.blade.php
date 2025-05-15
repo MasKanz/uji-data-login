@@ -141,6 +141,26 @@
             <span class="pc-mtext">Dashboard</span>
           </a>
         </li>
+
+
+        <li class="pc-item">
+          <a href="/pengajuan-kredit" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="inbox"></i>
+            </span>
+            <span class="pc-mtext">Pengajuan Management</span>
+          </a>
+        </li>
+
+
+        <li class="pc-item">
+          <a href="/kredit" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="file"></i>
+            </span>
+            <span class="pc-mtext">Kredit Management</span>
+          </a>
+        </li>
         @endif
 
 

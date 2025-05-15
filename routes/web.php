@@ -148,6 +148,12 @@ Route::delete('/kredit/{id}', [KreditController::class, 'destroy'])->name('kredi
 Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
 
+
+Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
+Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPengajuanPelanggan'])->name('pengajuan.pelanggan.batal')->middleware(CheckPelanggan::class);
+Route::get('/kredit-saya', [PengajuanController::class, 'listKreditPelanggan'])->name('kredit.pelanggan')->middleware(CheckPelanggan::class);
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 });
