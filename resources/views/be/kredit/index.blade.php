@@ -39,6 +39,16 @@
                 <td>{{ $kredit->tgl_selesai_kredit }}</td>
                 <td>
                     <a href="{{ route('kredit.show', $kredit->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    @if($kredit->status_kredit == 'Lunas')
+                        <form action="{{ route('kredit.destroy', $kredit->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data kredit dan pengajuan ini?')">
+                            Hapus Kredit & Pengajuan
+                        </button>
+                    </form>
+                    <br>
+                    @endif
                 </td>
             </tr>
             @endforeach

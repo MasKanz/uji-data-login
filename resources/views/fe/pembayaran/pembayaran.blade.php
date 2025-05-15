@@ -12,7 +12,9 @@
         <select name="id_kredit" class="form-control" required>
             @foreach($kredits as $kredit)
                 <option value="{{ $kredit->id }}">
-                    {{ $kredit->pengajuanKredit->motor->nama_motor ?? '-' }} - Sisa: Rp {{ number_format($kredit->sisa_kredit, 0, ',', '.') }}
+                    {{ $kredit->pengajuanKredit->motor->nama_motor ?? '-' }} -
+                    Sisa: Rp {{ number_format($kredit->sisa_kredit, 0, ',', '.') }} -
+                    Cicilan per Bulan: Rp{{ number_format($kredit->pengajuanKredit->cicilan_perbulan ?? 0, 0, ',', '.') }}
                 </option>
             @endforeach
         </select>
