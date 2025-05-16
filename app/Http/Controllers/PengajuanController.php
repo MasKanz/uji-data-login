@@ -42,6 +42,10 @@ class PengajuanController extends Controller
         ]);
 
         $motor = Motor::findOrFail($request->id_motor);
+
+        if ($motor->stok <= 0) {
+            return back()->withErrors(['stok' => 'Stok motor habis, pengajuan kredit tidak dapat diproses.'])->withInput();
+        }
         $cicilan = JenisCicilan::findOrFail($request->id_jenis_cicilan);
         $asuransi = Asuransi::findOrFail($request->id_asuransi);
 
@@ -275,4 +279,12 @@ class PengajuanController extends Controller
 
         return redirect()->route('pengajuan.pelanggan')->with('success', 'Pengajuan berhasil dibatalkan.');
     }
+    public function showPengajuanDetailPelanggan($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->findOrFail($id);
+        return view('fe.pengajuan.details', compact('pengajuan'), [
+            'title' => 'Detail Pengajuan',
+        ]);
+    }
+
 }

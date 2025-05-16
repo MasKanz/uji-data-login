@@ -48,7 +48,13 @@
                     <p><strong>Warna:</strong> {{ $motor->warna }}</p>
                     <p><strong>Kapasitas Mesin:</strong> {{ $motor->kapasitas_mesin }}</p>
                     <p><strong>Tahun Produksi:</strong> {{ $motor->tahun_produksi }}</p>
-                    <p><strong>Stok:</strong> <span class="badge bg-success">{{ $motor->stok }}</span></p>
+                    @if( $motor->stok > 0 && $motor->stok <= 10)
+                        <p><strong>Stok:</strong> <span class="badge bg-warning">{{ $motor->stok }}</span></p>
+                    @elseif( $motor->stok > 10)
+                        <p><strong>Stok:</strong> <span class="badge bg-success">{{ $motor->stok }}</span></p>
+                    @else
+                        <p><strong>Stok:</strong> <span class="badge bg-danger">Habis</span></p>
+                    @endif
                 </div>
 
                 <!-- Motor Images -->

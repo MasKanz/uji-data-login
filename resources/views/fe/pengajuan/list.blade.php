@@ -34,7 +34,7 @@
                 </td>
                 <td>{{ $pengajuan->keterangan_status_pengajuan }}</td>
                 <td>
-                    <a href="{{ route('pengajuan-kredit.show', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{{ route('pengajuan.pelanggan-details', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a>
                     @if($pengajuan->status_pengajuan == 'Menunggu Konfirmasi')
                     <form action="{{ route('pengajuan.pelanggan.batal', $pengajuan->id) }}" method="POST" style="display:inline;">
                         @csrf

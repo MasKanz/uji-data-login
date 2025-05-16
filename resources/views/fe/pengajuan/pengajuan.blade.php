@@ -59,6 +59,8 @@
         </div>
 
 
+
+
         <!-- Rincian Kredit -->
         <div class="mb-3">
             <h5>Rincian Kredit</h5>
@@ -71,6 +73,7 @@
                 <div><b>Total Asuransi:</b> <span id="total-asuransi">-</span></div>
                 <div><b>Cicilan per Bulan:</b> <span id="cicilan-bulanan">-</span></div>
                 <div><b>Total yang Harus Dibayar:</b> <span id="total-bayar">-</span></div>
+
 
                 <script>
                     // Data motor, cicilan, dan asuransi dari backend (dalam bentuk JS object)
@@ -162,5 +165,5 @@
     </script>
     @endif
 
-    
+
 @endsection

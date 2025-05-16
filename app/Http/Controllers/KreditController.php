@@ -78,4 +78,12 @@ class KreditController extends Controller
         $kredit->delete();
         return redirect()->route('kredit')->with('success', 'Data kredit berhasil dihapus.');
     }
+
+    public function showPelangganDetails($id)
+    {
+        $kredit = Kredit::with(['pengajuanKredit.pelanggan', 'pengajuanKredit.motor', 'pengajuanKredit.jenisCicilan', 'pengajuanKredit.asuransi', 'angsuran'])->findOrFail($id);
+        return view('fe.kredit.details', compact('kredit'), [
+            'title' => 'Kredit Details',
+        ]);
+    }
 }

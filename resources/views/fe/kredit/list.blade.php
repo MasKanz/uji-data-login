@@ -31,7 +31,7 @@
                 <td>{{ $kredit->tgl_mulai_kredit }}</td>
                 <td>{{ $kredit->tgl_selesai_kredit }}</td>
                 <td>
-                    <a href="{{ route('kredit.show', $kredit->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{{ route('kredit.pelanggan-details', $kredit->id) }}" class="btn btn-info btn-sm">Detail</a>
                 </td>
             </tr>
             @endforeach

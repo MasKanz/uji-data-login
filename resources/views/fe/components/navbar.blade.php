@@ -13,8 +13,8 @@
         <li><a href="/shop"  @if($title === 'Shop') class="active" @endif>Produk</a></li>
         <li><a href="/pengajuan"  @if($title === 'Pengajuan') class="active" @endif>Pengajuan Kredit</a></li>
         <li><a href="/pembayaran"  @if($title === 'Pembayaran') class="active" @endif>Pembayaran</a></li>
-        <li><a href="/abouts"  @if($title === 'Abouts') class="active" @endif>About</a></li>
-        <li><a href="/contacts"  @if($title === 'Contacts') class="active" @endif>Contact</a></li>
+        <!-- <li><a href="/abouts"  @if($title === 'Abouts') class="active" @endif>About</a></li> -->
+        <!-- <li><a href="/contacts"  @if($title === 'Contacts') class="active" @endif>Contact</a></li> -->
 
           <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>

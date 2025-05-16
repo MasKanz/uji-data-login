@@ -34,6 +34,13 @@
                         Warna: {{ $motor->warna }}<br>
                         Tahun: {{ $motor->tahun_produksi }}
                     </p>
+                    @if( $motor->stok > 0 && $motor->stok <= 10)
+                        <p><strong>Stok:</strong> <span class="badge bg-warning">{{ $motor->stok }}</span></p>
+                    @elseif( $motor->stok > 10)
+                        <p><strong>Stok:</strong> <span class="badge bg-success">{{ $motor->stok }}</span></p>
+                    @else
+                        <p><strong>Stok:</strong> <span class="badge bg-danger">Habis</span></p>
+                    @endif
                     <div style="display: inline-flex;">
                         <form action="{{ route('pengajuan') }}" method="GET" style="display: inline-flex; width: 50%">
                             @csrf

@@ -44,8 +44,10 @@ Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->midd
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
 
 Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
+Route::get('/pengajuan-saya-detail/{id}', [PengajuanController::class, 'showPengajuanDetailPelanggan'])->name('pengajuan.pelanggan-details')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPengajuanPelanggan'])->name('pengajuan.pelanggan.batal')->middleware(CheckPelanggan::class);
 Route::get('/kredit-saya', [PengajuanController::class, 'listKreditPelanggan'])->name('kredit.pelanggan')->middleware(CheckPelanggan::class);
+Route::get('/kredit-saya/{id}', [KreditController::class, 'showPelangganDetails'])->name('kredit.pelanggan-details')->middleware(CheckPelanggan::class);
 
 
 // Pelanggan Auth
