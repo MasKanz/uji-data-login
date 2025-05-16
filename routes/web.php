@@ -34,10 +34,10 @@ Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan
 Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
 
 Route::get('/shop/{id}', [ProductPageController::class, 'show'])->name('products.show');
-Route::get('/pembayaran', [PembayaranController::class, 'index']);
 
 Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran')->middleware(CheckPelanggan::class);
 Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store')->middleware(CheckPelanggan::class);
+Route::get('/pembayaran-saya', [PembayaranController::class, 'listPembayaranPelanggan'])->name('pembayaran.pelanggan')->middleware(CheckPelanggan::class);
 
 Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->name('pelanggan.profile')->middleware(CheckPelanggan::class);
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);

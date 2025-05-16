@@ -189,6 +189,13 @@ class PengajuanController extends Controller
         $pengajuan->keterangan_status_pengajuan = 'Pengajuan disetujui';
         $pengajuan->save();
 
+        $pengajuan = PengajuanKredit::findOrFail($id);
+        $motor = $pengajuan->motor;
+        if ($motor->stok > 0) {
+            $motor->stok -= 1;
+            $motor->save();
+        }
+
         // Buat data kredit
         \App\Models\Kredit::create([
             'id_pengajuan_kredit' => $pengajuan->id,

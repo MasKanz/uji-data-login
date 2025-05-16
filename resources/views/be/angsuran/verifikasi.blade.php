@@ -25,7 +25,6 @@
                 <td>{{ $angsuran->kredit->pengajuanKredit->motor->nama_motor ?? '-' }}</td>
                 <td>Rp{{ number_format($angsuran->total_bayar,0,',','.') }}</td>
                 <td>
-                    {{ dd($angsuran->bukti_bayar) }}
                     <a href="{{ asset('storage/'.$angsuran->bukti_bayar) }}" target="_blank">Lihat Bukti</a>
                 </td>
                 <td>
@@ -33,10 +32,36 @@
                         @csrf
                         <button class="btn btn-success btn-sm" onclick="return confirm('Terima pembayaran ini?')">Terima</button>
                     </form>
-                    <form action="{{ url('angsuran-verifikasi.tolak',$angsuran->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('angsuran-verifikasi.tolak',$angsuran->id) }}" method="POST" style="display:inline;">
                         @csrf
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Tolak pembayaran ini?')">Tolak</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Tolak pembayaran ini?')" data-bs-toggle="modal" data-bs-target="#batalModal{{ $angsuran->id }}">
+                            Tolak
+                        </button>
+                        <!-- <button class="btn btn-danger btn-sm" onclick="return confirm('Tolak pembayaran ini?')">Tolak</button> -->
                     </form>
+
+                    <div class="modal fade" id="batalModal{{ $angsuran->id }}" tabindex="-1" role="dialog" aria-labelledby="batalModalLabel{{ $angsuran->id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form action="{{ route('angsuran-verifikasi.tolak', $angsuran->id) }}" method="POST">
+                                @csrf
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="batalModalLabel{{ $angsuran->id }}">Alasan Pembatalan</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                    <label for="alasan_batal">Alasan pembatalan:</label>
+                                    <textarea name="alasan_batal" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Kirim</button>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
                 </td>
             </tr>
             @endforeach

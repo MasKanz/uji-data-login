@@ -68,7 +68,7 @@ class PembayaranController extends Controller
         }
         $kredit->save();
 
-        return redirect()->route('kredit.pelanggan')->with('success', 'Pembayaran berhasil dikirim, menunggu verifikasi.');
+        return redirect()->route('pembayaran.pelanggan')->with('success', 'Pembayaran berhasil dikirim, menunggu verifikasi.');
     }
 
     /**
@@ -143,5 +143,21 @@ class PembayaranController extends Controller
         $angsuran->save();
 
         return redirect()->route('angsuran-verifikasi')->with('success', 'Pembayaran angsuran ditolak.');
+    }
+
+    public function listPembayaranPelanggan()
+    {
+        $angsuran = \App\Models\Angsuran::with('kredit.pengajuanKredit.motor')
+            ->whereHas('kredit.pengajuanKredit', function($q) {
+                $q->where('id_pelanggan', auth('pelanggan')->id());
+            })
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('fe.pembayaran.list', compact('angsuran'), [
+            'title' => 'List Pembayaran',
+            'angsuran' => $angsuran,
+        ]);
+
     }
 }
