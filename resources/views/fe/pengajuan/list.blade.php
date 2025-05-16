@@ -44,6 +44,19 @@
                 </td>
             </tr>
             @endforeach
+            @foreach($pengajuans as $pengajuan)
+                @if($pengajuan->status_pengajuan == 'Dibatalkan Penjual' && $pengajuan->keterangan_status_pengajuan)
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Pengajuan Kredit Dibatalkan',
+                            html: `<b>Alasan:</b> {{ $pengajuan->keterangan_status_pengajuan }}`,
+                            confirmButtonText: 'OK'
+                        });
+                    </script>
+                    @break
+                @endif
+            @endforeach
         </tbody>
     </table>
 </div>

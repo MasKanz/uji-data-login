@@ -211,6 +211,25 @@ class PengajuanController extends Controller
             'keterangan_status_kredit' => 'Kredit aktif',
         ]);
 
+        $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
+
+        // ...proses konfirmasi pengajuan...
+
+        // Buat data kredit jika perlu
+        $kredit = \App\Models\Kredit::create([
+            // ...data kredit...
+        ]);
+
+        // Buat data pengiriman otomatis
+        \App\Models\Pengiriman::create([
+            'id_kredit' => $kredit->id,
+            'id_kurir' => null, // atau pilih kurir default/jika sudah ada
+            'tgl_pengiriman' => now(),
+            'status_pengiriman' => 'Sedang Dikirim',
+            'bukti_foto' => null,
+            'keterangan' => 'Pengiriman otomatis setelah konfirmasi kredit',
+        ]);
+
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
     }
 
@@ -235,6 +254,7 @@ class PengajuanController extends Controller
         ]);
 
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dibatalkan.');
+
     }
 
 
