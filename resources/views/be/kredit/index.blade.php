@@ -25,7 +25,7 @@
         <tbody>
             @foreach($kreditList as $kredit)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $loop->iteration + ($kreditList->firstItem() - 1) }}</td>
                 <td>{{ $kredit->pengajuanKredit->pelanggan->nama_pelanggan ?? '-' }}</td>
                 <td>{{ $kredit->pengajuanKredit->motor->nama_motor ?? '-' }}</td>
                 <td>{{ $kredit->pengajuanKredit->jenisCicilan->lama_cicilan ?? '-' }} bulan</td>
@@ -54,5 +54,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $kreditList->links() }}
 </div>
 @endsection

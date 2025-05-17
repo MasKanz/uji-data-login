@@ -3,6 +3,28 @@
     @include('fe.components.navbar')
 @endsection
 @section('content')
+
+@foreach($pengajuans as $pengajuan)
+    @if($pengajuan->status_pengajuan == 'Dibatalkan Penjual' && $pengajuan->keterangan_status_pengajuan && !$pengajuan->notif_ditolak_dibaca)
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Pengajuan Kredit Dibatalkan',
+                    html: `<b>Alasan:</b> {{ $pengajuan->keterangan_status_pengajuan }}`,
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    document.getElementById('notif-baca-{{ $pengajuan->id }}').submit();
+                });
+            });
+        </script>
+        <form id="notif-baca-{{ $pengajuan->id }}" action="{{ route('pengajuan.notifdibaca', $pengajuan->id) }}" method="POST" style="display:none;">
+            @csrf
+        </form>
+        @break
+    @endif
+@endforeach
+
 <div class="container mt-5">
     <h2>Pengajuan Kredit Saya</h2>
     @if(session('success'))
@@ -11,6 +33,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Tanggal</th>
                 <th>Motor</th>
                 <th>Tenor</th>
@@ -23,6 +46,7 @@
         <tbody>
             @foreach($pengajuans as $pengajuan)
             <tr>
+                <td>{{ $loop->iteration + ($pengajuans->firstItem() - 1) }}</td>
                 <td>{{ $pengajuan->tgl_pengajuan_kredit }}</td>
                 <td>{{ $pengajuan->motor->nama_motor ?? '-' }}</td>
                 <td>{{ $pengajuan->jenisCicilan->lama_cicilan ?? '-' }} bulan</td>
@@ -44,20 +68,9 @@
                 </td>
             </tr>
             @endforeach
-            @foreach($pengajuans as $pengajuan)
-                @if($pengajuan->status_pengajuan == 'Dibatalkan Penjual' && $pengajuan->keterangan_status_pengajuan)
-                    <script>
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Pengajuan Kredit Dibatalkan',
-                            html: `<b>Alasan:</b> {{ $pengajuan->keterangan_status_pengajuan }}`,
-                            confirmButtonText: 'OK'
-                        });
-                    </script>
-                    @break
-                @endif
-            @endforeach
         </tbody>
     </table>
+
+    {{ $pengajuans->links() }}
 </div>
 @endsection

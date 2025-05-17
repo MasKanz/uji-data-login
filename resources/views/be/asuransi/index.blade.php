@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Nama Perusahaan</th>
                 <th>Nama Asuransi</th>
                 <th>Margin (%)</th>
@@ -23,6 +24,7 @@
         <tbody>
             @foreach($asuransiList as $asuransi)
             <tr>
+                <td>{{ $loop->iteration + ($asuransiList->firstItem() - 1) }}</td>
                 <td>{{ $asuransi->nama_perusahaan_asuransi }}</td>
                 <td>{{ $asuransi->nama_asuransi }}</td>
                 <td>{{ $asuransi->margin_asuransi * 100 }}</td>
@@ -44,6 +46,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $asuransiList->links() }}
 </div>
 
 

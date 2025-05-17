@@ -11,14 +11,14 @@ class MotorController extends Controller
     // Menampilkan semua data motor
     public function index()
     {
-        $motors = Motor::with('jenisMotor')->get();
+        $motors = Motor::with('jenisMotor')->paginate(10);
         return view('be.motor.index', compact('motors'));
     }
 
     // Menampilkan form tambah motor
     public function createMotorPage()
     {
-        $jenisList = JenisMotor::all();
+        $jenisList = JenisMotor::paginate(10);
         return view('be.motor.create', compact('jenisList'));
     }
 
@@ -69,7 +69,7 @@ class MotorController extends Controller
     public function editMotorPage($id)
     {
         $motor = Motor::findOrFail($id);
-        $jenisList = JenisMotor::all();
+        $jenisList = JenisMotor::paginate(10);
         return view('be.motor.edit', compact('motor', 'jenisList'));
     }
 
@@ -118,7 +118,7 @@ class MotorController extends Controller
     }
 
     public function indexJenisMotor() {
-        $jenisList = JenisMotor::all();
+        $jenisList = JenisMotor::paginate(10);
         return view('be.motor.indexjenis', compact('jenisList'));
     }
 

@@ -19,6 +19,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -29,6 +30,7 @@
         <tbody>
             @foreach ($users as $user)
             <tr>
+                <td>{{ $loop->iteration + ($users->firstItem() - 1) }}</td>
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
@@ -62,6 +64,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $users->links() }}
 </div>
 
 

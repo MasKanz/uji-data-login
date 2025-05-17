@@ -157,7 +157,7 @@ class PelangganController extends Controller
     }
 
     public function showPelangganPage() {
-        $pelanggans = Pelanggan::all();
+        $pelanggans = Pelanggan::paginate(10);
         return view('be.pelangganstable.pelanggans', compact('pelanggans'));
     }
 

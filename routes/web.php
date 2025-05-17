@@ -38,10 +38,12 @@ Route::get('/shop/{id}', [ProductPageController::class, 'show'])->name('products
 Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran')->middleware(CheckPelanggan::class);
 Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store')->middleware(CheckPelanggan::class);
 Route::get('/pembayaran-saya', [PembayaranController::class, 'listPembayaranPelanggan'])->name('pembayaran.pelanggan')->middleware(CheckPelanggan::class);
+Route::post('/pembayaran/notifdibaca/{id}', [PembayaranController::class, 'notifDitolakDibaca'])->name('pembayaran.notifdibaca')->middleware(CheckPelanggan::class);
 
 Route::get('/profilepelanggan', [PelangganController::class, 'profilePelanggan'])->name('pelanggan.profile')->middleware(CheckPelanggan::class);
 Route::get('/updatepelanggan', [PelangganController::class, 'updatePage'])->middleware(CheckPelanggan::class);
 Route::post('/pelanggan/update-alamat', [PelangganController::class, 'updateAlamat'])->name('pelanggan.updateAlamat');
+Route::post('/pengajuan/notifdibaca/{id}', [PengajuanController::class, 'notifDitolakDibaca'])->name('pengajuan.notifdibaca')->middleware(CheckPelanggan::class);
 
 Route::get('/pengajuan-saya', [PengajuanController::class, 'listPengajuanPelanggan'])->name('pengajuan.pelanggan')->middleware(CheckPelanggan::class);
 Route::get('/pengajuan-saya-detail/{id}', [PengajuanController::class, 'showPengajuanDetailPelanggan'])->name('pengajuan.pelanggan-details')->middleware(CheckPelanggan::class);

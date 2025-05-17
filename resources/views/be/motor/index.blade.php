@@ -19,6 +19,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Nama Motor</th>
                 <th>Id Jenis</th>
@@ -36,6 +37,7 @@
         <tbody>
             @foreach ($motors as $motor)
             <tr>
+                <td>{{ $loop->iteration + ($motors->firstItem() - 1) }}</td>
                 <td>{{ $motor->id }}</td>
                 <td>{{ $motor->nama_motor }}</td>
                 <td>{{ $motor->idjenis }}</td>
@@ -121,6 +123,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $motors->links() }}
 </div>
 
 

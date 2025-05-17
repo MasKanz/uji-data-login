@@ -12,7 +12,7 @@ class AsuransiController extends Controller
      */
     public function index()
     {
-        $asuransiList = Asuransi::all();
+        $asuransiList = Asuransi::paginate(10);
         return view('be.asuransi.index', compact('asuransiList'));
     }
 

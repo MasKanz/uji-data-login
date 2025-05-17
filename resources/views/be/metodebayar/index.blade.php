@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Metode</th>
                 <th>Tempat Bayar</th>
                 <th>No Rekening</th>
@@ -22,6 +23,7 @@
         <tbody>
             @foreach($metodeList as $metode)
             <tr>
+                <td>{{ $loop->iteration + ($metodeList->firstItem() - 1) }}</td>
                 <td>{{ $metode->metode_pembayaran }}</td>
                 <td>{{ $metode->tempat_bayar }}</td>
                 <td>{{ $metode->no_rekening }}</td>
@@ -42,5 +44,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $metodeList->links() }}
 </div>
 @endsection

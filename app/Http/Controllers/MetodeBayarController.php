@@ -9,7 +9,7 @@ class MetodeBayarController extends Controller
 {
     public function index()
     {
-        $metodeList = MetodeBayar::all();
+        $metodeList = MetodeBayar::paginate(10);
         return view('be.metodebayar.index', compact('metodeList'));
     }
 

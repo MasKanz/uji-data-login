@@ -18,6 +18,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Nama</th>
                 <th>Email</th>
@@ -28,6 +29,7 @@
         <tbody>
             @foreach ($pelanggans as $pelanggan)
             <tr>
+                <td>{{ $loop->iteration + ($pelanggans->firstItem() - 1) }}</td>
                 <td>{{ $pelanggan->id }}</td>
                 <td>{{ $pelanggan->nama_pelanggan }}</td>
                 <td>{{ $pelanggan->email }}</td>
@@ -134,6 +136,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $pelanggans->links() }}
 </div>
 
 

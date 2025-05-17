@@ -13,7 +13,7 @@ class KreditController extends Controller
      */
     public function index()
     {
-        $kreditList = Kredit::with(['pengajuanKredit.pelanggan', 'pengajuanKredit.motor', 'pengajuanKredit.jenisCicilan', 'pengajuanKredit.asuransi', 'angsuran'])->latest()->get();
+        $kreditList = Kredit::with(['pengajuanKredit.pelanggan', 'pengajuanKredit.motor', 'pengajuanKredit.jenisCicilan', 'pengajuanKredit.asuransi', 'angsuran'])->latest()->paginate(10);
         return view('be.kredit.index', compact('kreditList'));
     }
 

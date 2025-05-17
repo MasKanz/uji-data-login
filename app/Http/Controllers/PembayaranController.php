@@ -16,7 +16,7 @@ class PembayaranController extends Controller
         // Ambil kredit milik pelanggan yang sedang login
         $kredits = Kredit::whereHas('pengajuanKredit', function($q) {
             $q->where('id_pelanggan', auth('pelanggan')->id());
-        })->get();
+        })->paginate(10);
 
 
         return view('fe.pembayaran.pembayaran', [
@@ -152,12 +152,27 @@ class PembayaranController extends Controller
                 $q->where('id_pelanggan', auth('pelanggan')->id());
             })
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(10);
 
         return view('fe.pembayaran.list', compact('angsuran'), [
             'title' => 'List Pembayaran',
             'angsuran' => $angsuran,
         ]);
 
+
     }
+    public function notifDitolakDibaca($id)
+    {
+        $angsuran = \App\Models\Angsuran::where('id', $id)
+            ->whereHas('kredit.pengajuanKredit', function($q) {
+                $q->where('id_pelanggan', auth('pelanggan')->id());
+            })
+            ->firstOrFail();
+
+        $angsuran->notif_ditolak_dibaca = true;
+        $angsuran->save();
+
+        return response()->noContent();
+    }
+
 }

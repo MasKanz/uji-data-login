@@ -8,6 +8,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Motor</th>
                 <th>Tenor</th>
                 <th>Sisa Kredit</th>
@@ -20,6 +21,7 @@
         <tbody>
             @foreach($kredits as $kredit)
             <tr>
+                <td>{{ $loop->iteration + ($kredits->firstItem() - 1) }}</td>
                 <td>{{ $kredit->pengajuanKredit->motor->nama_motor ?? '-' }}</td>
                 <td>{{ $kredit->pengajuanKredit->jenisCicilan->lama_cicilan ?? '-' }} bulan</td>
                 <td>Rp {{ number_format($kredit->sisa_kredit,0,',','.') }}</td>
@@ -37,5 +39,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $kredits->links() }}
 </div>
 @endsection

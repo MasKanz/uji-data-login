@@ -8,6 +8,8 @@ use App\Models\Motor;
 use App\Models\JenisCicilan;
 use App\Models\Asuransi;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kredit;
+use App\Models\Pengiriman;
 
 class PengajuanController extends Controller
 {
@@ -107,7 +109,7 @@ class PengajuanController extends Controller
      */
     public function indexJenisCicilan()
     {
-        $jenisCicilan = JenisCicilan::all();
+        $jenisCicilan = JenisCicilan::paginate(10);
         return view('be.jeniscicilan.index', compact('jenisCicilan'));
     }
 
@@ -174,7 +176,7 @@ class PengajuanController extends Controller
 
     public function indexPengajuanKredit()
     {
-        $pengajuanList = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->latest()->get();
+        $pengajuanList = \App\Models\PengajuanKredit::with(['pelanggan', 'motor', 'jenisCicilan', 'asuransi'])->latest()->paginate(10);
         return view('be.pengajuan.index', compact('pengajuanList'));
     }
 
@@ -201,9 +203,9 @@ class PengajuanController extends Controller
         }
 
         // Buat data kredit
-        \App\Models\Kredit::create([
+        Kredit::create([
             'id_pengajuan_kredit' => $pengajuan->id,
-            'id_metode_bayar' => 1, // Ganti sesuai kebutuhan/metode bayar default
+            'id_metode_bayar' => 1,
             'tgl_mulai_kredit' => now(),
             'tgl_selesai_kredit' => now()->addMonths($pengajuan->jenisCicilan->lama_cicilan),
             'sisa_kredit' => $pengajuan->harga_kredit + ($pengajuan->biaya_asuransi_perbulan * $pengajuan->jenisCicilan->lama_cicilan),
@@ -211,23 +213,22 @@ class PengajuanController extends Controller
             'keterangan_status_kredit' => 'Kredit aktif',
         ]);
 
-        $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
-
         // ...proses konfirmasi pengajuan...
 
         // Buat data kredit jika perlu
-        $kredit = \App\Models\Kredit::create([
-            // ...data kredit...
-        ]);
+        $kredit = \App\Models\Kredit::where('id_pengajuan_kredit', $pengajuan->id)->first();
 
         // Buat data pengiriman otomatis
-        \App\Models\Pengiriman::create([
-            'id_kredit' => $kredit->id,
-            'id_kurir' => null, // atau pilih kurir default/jika sudah ada
-            'tgl_pengiriman' => now(),
-            'status_pengiriman' => 'Sedang Dikirim',
-            'bukti_foto' => null,
-            'keterangan' => 'Pengiriman otomatis setelah konfirmasi kredit',
+        Pengiriman::create([
+            'id_kredit'     => $kredit->id,
+            'no_invoice'    => 'INV-' . date('YmdHis') . '-' . $kredit->id,
+            'tgl_kirim'     => now(),
+            'tgl_tiba'      => null, // jika nullable
+            'status_kirim'  => 'Sedang Dikirim',
+            'nama_kurir'    => '-', // atau isi nama kurir jika sudah ada
+            'telpon_kurir'  => '-', // atau isi telpon kurir jika sudah ada
+            'bukti_foto'    => null,
+            'keterangan'    => 'Pengiriman otomatis setelah konfirmasi kredit',
         ]);
 
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
@@ -263,7 +264,8 @@ class PengajuanController extends Controller
         $pengajuans = \App\Models\PengajuanKredit::with(['motor', 'jenisCicilan', 'asuransi'])
             ->where('id_pelanggan', auth('pelanggan')->id())
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(10);
+
 
         return view('fe.pengajuan.list', [
             'title' => 'Pengajuan Saya',
@@ -278,7 +280,7 @@ class PengajuanController extends Controller
                 $q->where('id_pelanggan', auth('pelanggan')->id());
             })
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(10);
 
         return view('fe.kredit.list', [
             'title' => 'Kredit Berjalan',
@@ -305,6 +307,18 @@ class PengajuanController extends Controller
         return view('fe.pengajuan.details', compact('pengajuan'), [
             'title' => 'Detail Pengajuan',
         ]);
+    }
+
+    public function notifDitolakDibaca($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::where('id', $id)
+            ->where('id_pelanggan', auth('pelanggan')->id())
+            ->firstOrFail();
+
+        $pengajuan->notif_ditolak_dibaca = true;
+        $pengajuan->save();
+
+        return response()->noContent();
     }
 
 }

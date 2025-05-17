@@ -62,7 +62,7 @@ class AuthController extends Controller
                 Auth::logout();
                 return back()->withErrors(['email' => 'Akun Anda nonaktif.']);
             }
-            
+
             if ($request->user()->role === 'admin') {
                 return redirect()->intended('/admin');
             } elseif ($request->user()->role === 'marketing') {
@@ -85,7 +85,7 @@ class AuthController extends Controller
 
     public function updateUserPage()
     {
-        $users = User::all(); // Fetch all users
+        $users = User::paginate(10); // Fetch all users
         return view('be.userstable.users', compact('users'));
     }
 

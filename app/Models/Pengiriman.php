@@ -10,9 +10,12 @@ class Pengiriman extends Model
 
     protected $fillable = [
         'id_kredit',
-        'id_kurir',
-        'tgl_pengiriman',
-        'status_pengiriman',
+        'no_invoice',
+        'tgl_kirim',
+        'tgl_tiba',
+        'status_kirim',
+        'nama_kurir',
+        'telpon_kurir',
         'bukti_foto',
         'keterangan',
     ];

@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Lama Cicilan (bulan)</th>
                 <th>Margin Kredit (%)</th>
@@ -21,6 +22,7 @@
         <tbody>
             @foreach($jenisCicilan as $cicilan)
             <tr>
+                <td>{{ $loop->iteration + ($jenisCicilan->firstItem() - 1) }}</td>
                 <td>{{ $cicilan->id }}</td>
                 <td>{{ $cicilan->lama_cicilan }}</td>
                 <td>{{ $cicilan->margin_kredit * 100 }}</td>
@@ -36,5 +38,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $jenisCicilan->links() }}
 </div>
 @endsection

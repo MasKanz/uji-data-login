@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('no_invoice')->unique();
             $table->dateTime('tgl_kirim');
-            $table->dateTime('tgl_tiba');
-            $table->enum('status_kirim', ['Sedang Dikirim', 'Tiba Di Tujuan']);
-            $table->string('nama_kurir');
-            $table->string('telpon_kurir');
-            $table->string('bukti_foto');
-            $table->text('keterangan');
+            $table->dateTime('tgl_tiba')->nullable();
+            $table->enum('status_kirim', ['Sedang Dikirim', 'Tiba Di Tujuan'])->nullable();
+            $table->string('nama_kurir')->nullable();
+            $table->string('telpon_kurir')->nullable();
+            $table->string('bukti_foto')->nullable();
+            $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('id_kredit');
             $table->foreign('id_kredit')->references('id')->on('kredit')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

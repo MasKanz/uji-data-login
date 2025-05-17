@@ -26,7 +26,7 @@
         <tbody>
             @foreach($pengajuanList as $pengajuan)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $loop->iteration + ($pengajuanList->firstItem() - 1) }}</td>
                 <td>{{ $pengajuan->tgl_pengajuan_kredit }}</td>
                 <td>{{ $pengajuan->pelanggan->nama_pelanggan ?? '-' }}</td>
                 <td>{{ $pengajuan->motor->nama_motor ?? '-' }}</td>
@@ -82,5 +82,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $pengajuanList->links() }}
 </div>
 @endsection
