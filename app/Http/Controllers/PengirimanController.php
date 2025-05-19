@@ -14,7 +14,7 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        $pengirimanList = \App\Models\Pengiriman::with(['kredit.pengajuanKredit.pelanggan', 'kurir'])->orderByDesc('created_at')->get();
+        $pengirimanList = \App\Models\Pengiriman::with(['kredit.pengajuanKredit.pelanggan', 'kurir'])->orderByDesc('created_at')->paginate(10);
         return view('be.pengiriman.index', compact('pengirimanList'));
     }
 
@@ -35,9 +35,11 @@ class PengirimanController extends Controller
     {
         $request->validate([
             'id_kredit' => 'required|exists:kredit,id',
-            'id_kurir' => 'required|exists:users,id',
-            'tgl_pengiriman' => 'required|date',
-            'status_pengiriman' => 'required|in:Sedang Dikirim,Tiba Di Tujuan',
+            'no_invoice' => 'required|unique:pengiriman,no_invoice',
+            'tgl_kirim' => 'required|date',
+            'status_kirim' => 'required|in:Sedang Dikirim,Tiba Di Tujuan',
+            'nama_kurir' => 'required|string|max:255',
+            'telpon_kurir' => 'required|string|max:20',
             'bukti_foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'keterangan' => 'nullable|string',
         ]);
@@ -49,9 +51,12 @@ class PengirimanController extends Controller
 
         \App\Models\Pengiriman::create([
             'id_kredit' => $request->id_kredit,
-            'id_kurir' => $request->id_kurir,
-            'tgl_pengiriman' => $request->tgl_pengiriman,
-            'status_pengiriman' => $request->status_pengiriman,
+            'no_invoice' => $request->no_invoice,
+            'tgl_kirim' => $request->tgl_kirim,
+            'tgl_tiba' => null,
+            'status_kirim' => $request->status_kirim,
+            'nama_kurir' => $request->nama_kurir,
+            'telpon_kurir' => $request->telpon_kurir,
             'bukti_foto' => $buktiFoto,
             'keterangan' => $request->keterangan,
         ]);

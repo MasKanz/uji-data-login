@@ -21,6 +21,7 @@ use App\Http\Controllers\MotorController;
 use App\Http\Controllers\AsuransiController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\MetodeBayarController;
+use App\Http\Controllers\PengirimanController;
 
 
 // Front Page
@@ -165,6 +166,13 @@ Route::get('/angsuran-verifikasi', [PembayaranController::class, 'verifikasiList
 Route::post('/angsuran-verifikasi/{id}/terima', [PembayaranController::class, 'terimaAngsuran'])->name('angsuran-verifikasi.terima')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::post('/angsuran-verifikasi/{id}/tolak', [PembayaranController::class, 'tolakAngsuran'])->name('angsuran-verifikasi.tolak')->middleware(CheckUserRole::class . ':admin,marketing');
 
+Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengiriman/{id}', [PengirimanController::class, 'show'])->name('pengiriman.show')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengiriman/{id}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
