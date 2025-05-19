@@ -6,6 +6,28 @@
     @include('be.components.header')
 @endsection
 @section('content')
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "@foreach ($errors->all() as $error) {{ $error }} @endforeach",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
 <div class="container mt-5">
     <h2>Daftar Pengajuan Kredit</h2>
     <table class="table table-bordered table-striped">
