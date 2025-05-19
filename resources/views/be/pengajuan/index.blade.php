@@ -35,17 +35,29 @@
                 <td>{{ isset($pengajuan->jenisCicilan) ? ($pengajuan->jenisCicilan->margin_kredit * 100) . '%' : '-' }}</td>
                 <td>{{ $pengajuan->asuransi->nama_asuransi ?? '-' }}</td>
                 <td>
-                    <span class="badge bg-{{ $pengajuan->status_pengajuan == 'Menunggu Konfirmasi' ? 'warning' : ($pengajuan->status_pengajuan == 'Diterima' ? 'success' : 'danger') }}">
+                    <span class="badge bg-{{ $pengajuan->status_pengajuan == 'Menunggu Konfirmasi' ? 'warning' : ($pengajuan->status_pengajuan == 'Diterima' ? 'success' : ($pengajuan->status_pengajuan == 'Diproses' ? 'primary' : 'danger')) }}">
                         {{ $pengajuan->status_pengajuan }}
                     </span>
                 </td>
                 <td>
-                    <a href="{{ route('pengajuan-kredit.show', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    <!-- <a href="{{ route('pengajuan-kredit.show', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a> -->
                     @if($pengajuan->status_pengajuan == 'Menunggu Konfirmasi')
+                    <form action="{{ route('pengajuan-kredit.proses', $pengajuan->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('Proses pengajuan ini?')">Proses</button>
+                    </form>
+                    @endif
+
+                    @if(in_array($pengajuan->status_pengajuan, ['Diproses', 'Diterima']))
+                        <a href="{{ route('pengajuan-kredit.show', $pengajuan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    @endif
+
+                    @if ($pengajuan->status_pengajuan == 'Diproses')
                         <form action="{{ route('pengajuan-kredit.konfirmasi', $pengajuan->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Konfirmasi pengajuan ini?')">Konfirmasi</button>
                         </form>
+
                         <form action="{{ route('pengajuan-kredit.batal', $pengajuan->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Batalkan pengajuan ini?')">Batalkan</button> -->
@@ -77,6 +89,7 @@
                         </div>
                         </div>
                     @endif
+
                 </td>
             </tr>
             @endforeach

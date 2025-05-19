@@ -186,6 +186,18 @@ class PengajuanController extends Controller
         return view('be.pengajuan.detail', compact('pengajuan'));
     }
 
+    public function prosesPengajuan($id)
+    {
+        $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
+        if ($pengajuan->status_pengajuan == 'Menunggu Konfirmasi') {
+            $pengajuan->status_pengajuan = 'Diproses';
+            $pengajuan->keterangan_status_pengajuan = 'Pengajuan sedang diproses';
+            $pengajuan->save();
+            return back()->with('success', 'Pengajuan berhasil diproses.');
+        }
+        return back()->with('error', 'Pengajuan tidak valid untuk diproses.');
+    }
+
     public function konfirmasiPengajuan($id)
     {
         $pengajuan = \App\Models\PengajuanKredit::with(['jenisCicilan', 'asuransi'])->findOrFail($id);

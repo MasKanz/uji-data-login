@@ -149,6 +149,7 @@ Route::delete('/metode-bayar/{id}', [MetodeBayarController::class, 'destroy'])->
 // Pengajuan Kredit Management
 Route::get('/pengajuan-kredit', [PengajuanController::class, 'indexPengajuanKredit'])->name('pengajuan-kredit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/pengajuan-kredit/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('pengajuan-kredit.show')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::post('/pengajuan-kredit/{id}/proses', [PengajuanController::class, 'prosesPengajuan'])->name('pengajuan-kredit.proses');
 Route::post('/pengajuan-kredit/{id}/konfirmasi', [PengajuanController::class, 'konfirmasiPengajuan'])->name('pengajuan-kredit.konfirmasi')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::post('/pengajuan-kredit/{id}/batal', [PengajuanController::class, 'batalPengajuan'])->name('pengajuan-kredit.batal')->middleware(CheckUserRole::class . ':admin,marketing');
 

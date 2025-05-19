@@ -60,12 +60,7 @@ class PembayaranController extends Controller
         ]);
 
         // Update sisa kredit
-        $kredit->sisa_kredit -= $request->total_bayar;
-        if ($kredit->sisa_kredit <= 0) {
-            $kredit->sisa_kredit = 0;
-            $kredit->status_kredit = 'Lunas';
-            $kredit->keterangan_status_kredit = 'Kredit telah lunas';
-        }
+        
         $kredit->save();
 
         return redirect()->route('pembayaran.pelanggan')->with('success', 'Pembayaran berhasil dikirim, menunggu verifikasi.');
