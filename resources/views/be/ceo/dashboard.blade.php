@@ -8,6 +8,9 @@
 @section('content')
 <div class="container mt-5">
     <h2>Dashboard CEO - Ringkasan Laporan</h2>
+    <a href="{{ route('ceo.dashboard.pdf') }}" class="btn btn-danger mb-3" target="_blank">
+        <i class="fa fa-file-pdf"></i> Download PDF Ringkasan
+    </a>
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card text-white bg-primary mb-3">
@@ -44,7 +47,7 @@
         <div class="col-md-3">
             <div class="card text-white bg-secondary mb-3">
                 <div class="card-header">Angsuran Belum Lunas</div>
-                <div class="card-body"><h3>{{ $angsuranBelumLunas }}</h3></div>
+                <div class="card-body"><h3 style="color: white;">{{ $angsuranBelumLunas }}</h3></div>
             </div>
         </div>
         <div class="col-md-3">
@@ -56,7 +59,7 @@
         <div class="col-md-3">
             <div class="card text-white bg-dark mb-3">
                 <div class="card-header">Rata-rata Margin Kredit</div>
-                <div class="card-body"><h3>{{ number_format($avgMargin * 100, 2) }}%</h3></div>
+                <div class="card-body"><h3 style="color: white;">{{ number_format($avgMargin * 100, 2) }}%</h3></div>
             </div>
         </div>
     </div>

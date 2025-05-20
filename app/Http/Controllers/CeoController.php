@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CeoController extends Controller
 {
@@ -50,6 +51,32 @@ class CeoController extends Controller
             'angsuranLunas', 'angsuranBelumLunas', 'totalPendapatan',
             'avgMargin', 'pengirimanBerhasil', 'pengajuanPerBulan'
         ));
+    }
+
+    public function dashboardPdf()
+    {
+        // Query data agregat sama seperti dashboard()
+        $totalPengajuan = \App\Models\PengajuanKredit::count();
+        $pengajuanDisetujui = \App\Models\PengajuanKredit::where('status_pengajuan', 'Diterima')->count();
+        $pengajuanDitolak = \App\Models\PengajuanKredit::where('status_pengajuan', 'Dibatalkan Penjual')->count();
+        $angsuranLunas = \App\Models\Kredit::where('status_kredit', 'Lunas')->count();
+        $angsuranBelumLunas = \App\Models\Kredit::where('status_kredit', 'Dicicil')->count();
+        $totalPendapatan = \App\Models\Angsuran::where('keterangan', 'Diterima')->sum('total_bayar');
+        $avgMargin = \App\Models\JenisCicilan::avg('margin_kredit');
+        $pengirimanBerhasil = \App\Models\Pengiriman::where('status_kirim', 'Tiba Di Tujuan')->count();
+        $pengajuanPerBulan = \App\Models\PengajuanKredit::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as bulan, COUNT(*) as total')
+            ->where('created_at', '>=', now()->subMonths(12))
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
+
+        $pdf = Pdf::loadView('be.ceo.dashboard_pdf', compact(
+            'totalPengajuan', 'pengajuanDisetujui', 'pengajuanDitolak',
+            'angsuranLunas', 'angsuranBelumLunas', 'totalPendapatan',
+            'avgMargin', 'pengirimanBerhasil', 'pengajuanPerBulan'
+        ));
+
+        return $pdf->download('dashboard-ceo-ringkasan.pdf');
     }
 
     /**

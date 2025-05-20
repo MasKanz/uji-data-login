@@ -176,7 +176,7 @@ Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->nam
 
 
 // Laporan
-
+Route::get('/ceo/dashboard/pdf', [CeoController::class, 'dashboardPdf'])->name('ceo.dashboard.pdf')->middleware(CheckUserRole::class . ':ceo');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
