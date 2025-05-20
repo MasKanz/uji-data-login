@@ -153,6 +153,7 @@
 
 
 
+
         @elseif (auth()->user()->role == 'marketing')
         <li class="pc-item">
           <a href="/marketing" class="pc-link">

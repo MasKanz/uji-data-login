@@ -74,7 +74,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 // Dashboard
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
-Route::get('/ceo', [CeoController::class, 'index'])->middleware(CheckUserRole::class . ':ceo');
+Route::get('/ceo', [CeoController::class, 'dashboard'])->name('ceo.dashboard')->middleware(CheckUserRole::class . ':ceo');
 
 
 // Dashboard Users Management
@@ -173,6 +173,10 @@ Route::get('/pengiriman/{id}', [PengirimanController::class, 'show'])->name('pen
 Route::get('/pengiriman/{id}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
+
+
+// Laporan
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
