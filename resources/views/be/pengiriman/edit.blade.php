@@ -39,11 +39,11 @@
         </div>
         <div class="mb-3">
             <label for="tgl_kirim" class="form-label">Tanggal Kirim</label>
-            <input type="datetime-local" name="tgl_kirim" class="form-control" value="{{ old('tgl_kirim', $pengiriman->tgl_kirim ? date('Y-m-d\TH:i', strtotime($pengiriman->tgl_kirim)) : '') }}" required>
+            <input type="date" name="tgl_kirim" class="form-control" value="{{ old('tgl_kirim', $pengiriman->tgl_kirim ? date('Y-m-d\TH:i', strtotime($pengiriman->tgl_kirim)) : '') }}" required>
         </div>
         <div class="mb-3">
             <label for="tgl_tiba" class="form-label">Tanggal Tiba</label>
-            <input type="datetime-local" name="tgl_tiba" class="form-control" value="{{ old('tgl_tiba', $pengiriman->tgl_tiba ? date('Y-m-d\TH:i', strtotime($pengiriman->tgl_tiba)) : '') }}">
+            <input type="date" name="tgl_tiba" class="form-control" value="{{ old('tgl_tiba', $pengiriman->tgl_tiba ? date('Y-m-d\TH:i', strtotime($pengiriman->tgl_tiba)) : '') }}">
         </div>
         <div class="mb-3">
             <label for="status_kirim" class="form-label">Status Kirim</label>

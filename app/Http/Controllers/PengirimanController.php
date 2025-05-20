@@ -116,6 +116,21 @@ class PengirimanController extends Controller
         return redirect()->route('pengiriman')->with('success', 'Pengiriman berhasil diupdate.');
     }
 
+    public function listPengirimanPelanggan()
+    {
+        $pengirimanList = \App\Models\Pengiriman::with(['kredit.pengajuanKredit.motor'])
+            ->whereHas('kredit.pengajuanKredit', function($q) {
+                $q->where('id_pelanggan', auth('pelanggan')->id());
+            })
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        return view('fe.pengiriman.list', [
+            'title' => 'Daftar Pengiriman',
+            'pengirimanList' => $pengirimanList,
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

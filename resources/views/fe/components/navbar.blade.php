@@ -53,6 +53,7 @@
     <li><a class="dropdown-item" href="/pengajuan-saya">Daftar Pengajuan</a></li>
     <li><a class="dropdown-item" href="/kredit-saya">Daftar Kredit</a></li>
     <li><a class="dropdown-item" href="/pembayaran-saya">Daftar Pembayaran</a></li>
+    <li><a class="dropdown-item" href="/pengiriman-saya">Daftar Pengiriman</a></li>
     <li><hr class="dropdown-divider"></li>
     <li style="text-align: center;">
       <form method="POST" action="{{ url('/keluar') }}">

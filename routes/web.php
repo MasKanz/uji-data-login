@@ -52,6 +52,7 @@ Route::post('/pengajuan-saya/{id}/batal', [PengajuanController::class, 'batalPen
 Route::get('/kredit-saya', [PengajuanController::class, 'listKreditPelanggan'])->name('kredit.pelanggan')->middleware(CheckPelanggan::class);
 Route::get('/kredit-saya/{id}', [KreditController::class, 'showPelangganDetails'])->name('kredit.pelanggan-details')->middleware(CheckPelanggan::class);
 
+Route::get('/pengiriman-saya', [PengirimanController::class, 'listPengirimanPelanggan'])->name('pengiriman.pelanggan')->middleware(CheckPelanggan::class);
 
 // Pelanggan Auth
 Route::get('/daftar', [PelangganController::class, 'page_daftar'])->name('daftar');
@@ -168,8 +169,6 @@ Route::post('/angsuran-verifikasi/{id}/terima', [PembayaranController::class, 't
 Route::post('/angsuran-verifikasi/{id}/tolak', [PembayaranController::class, 'tolakAngsuran'])->name('angsuran-verifikasi.tolak')->middleware(CheckUserRole::class . ':admin,marketing');
 
 Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman')->middleware(CheckUserRole::class . ':admin,marketing');
-// Route::get('/pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create')->middleware(CheckUserRole::class . ':admin,marketing');
-// Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/pengiriman/{id}', [PengirimanController::class, 'show'])->name('pengiriman.show')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/pengiriman/{id}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware(CheckUserRole::class . ':admin,marketing');
