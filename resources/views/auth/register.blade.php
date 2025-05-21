@@ -66,6 +66,7 @@
                     <option value="admin">Admin</option>
                     <option value="marketing">Marketing</option>
                     <option value="ceo">CEO</option>
+                    <option value="kurir">Kurir</option>
                 </select></div>
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg btn-block px-5" type="submit">Register</button>

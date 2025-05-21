@@ -37,6 +37,7 @@
                 <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                 <option value="marketing" {{ $user->role === 'marketing' ? 'selected' : '' }}>Marketing</option>
                 <option value="ceo" {{ $user->role === 'ceo' ? 'selected' : '' }}>CEO</option>
+                <option value="kurir" {{ $user->role === 'kurir' ? 'selected' : '' }}>Kurir</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Update User</button>

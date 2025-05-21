@@ -10,6 +10,7 @@ use App\Models\Asuransi;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kredit;
 use App\Models\Pengiriman;
+use App\Models\Notifikasi;
 
 class PengajuanController extends Controller
 {
@@ -191,15 +192,23 @@ class PengajuanController extends Controller
 
     public function prosesPengajuan($id)
     {
-        $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
-        if ($pengajuan->status_pengajuan == 'Menunggu Konfirmasi') {
-            $pengajuan->status_pengajuan = 'Diproses';
-            $pengajuan->keterangan_status_pengajuan = 'Pengajuan sedang diproses';
-            $pengajuan->save();
-            return back()->with('success', 'Pengajuan berhasil diproses.');
-        }
-        return back()->with('error', 'Pengajuan tidak valid untuk diproses.');
+    $pengajuan = \App\Models\PengajuanKredit::findOrFail($id);
+    if ($pengajuan->status_pengajuan == 'Menunggu Konfirmasi') {
+        $pengajuan->status_pengajuan = 'Diproses';
+        $pengajuan->keterangan_status_pengajuan = 'Pengajuan sedang diproses';
+        $pengajuan->save();
+
+        Notifikasi::create([
+            'id_pelanggan' => $pengajuan->id_pelanggan,
+            'judul' => 'Pengajuan Diproses',
+            'pesan' => 'Pengajuan Anda sedang diproses oleh marketing/admin.',
+        ]);
+
+        return back()->with('success', 'Pengajuan berhasil diproses.');
     }
+
+    return back()->with('error', 'Pengajuan tidak valid untuk diproses.');
+}
 
     public function konfirmasiPengajuan($id)
     {
@@ -246,6 +255,12 @@ class PengajuanController extends Controller
             'keterangan'    => 'Pengiriman otomatis setelah konfirmasi kredit',
         ]);
 
+        Notifikasi::create([
+            'id_pelanggan' => $pengajuan->id_pelanggan,
+            'judul' => 'Pengajuan Dikonfirmasi',
+            'pesan' => 'Pengajuan Anda telah disetujui. Silakan cek detail kredit Anda.',
+        ]);
+
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
     }
 
@@ -262,12 +277,19 @@ class PengajuanController extends Controller
         $pengajuan->keterangan_status_pengajuan = $request->alasan_batal;
         $pengajuan->save();
 
+        Notifikasi::create([
+            'id_pelanggan' => $pengajuan->id_pelanggan,
+            'judul' => 'Pengajuan Dibatalkan',
+            'pesan' => 'Pengajuan Anda dibatalkan. Alasan: ' . $request->alasan_batal,
+        ]);
+
         // Kirim notifikasi ke pelanggan (opsional: bisa pakai event/email/flash session)
         // Contoh: flash session untuk pelanggan
         session()->flash('notif_pengajuan_batal', [
             'pesan' => 'Pengajuan Anda dibatalkan oleh admin/marketing.',
             'alasan' => $request->alasan_batal
         ]);
+
 
         return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dibatalkan.');
 

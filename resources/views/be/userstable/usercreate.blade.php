@@ -32,6 +32,7 @@
                 <option value="admin">Admin</option>
                 <option value="marketing">Marketing</option>
                 <option value="ceo">CEO</option>
+                <option value="kurir">Kurir</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Create User</button>

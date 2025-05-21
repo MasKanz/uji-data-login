@@ -54,7 +54,30 @@
     object-fit: cover;
     object-position: center;
     }
+
+    .notif-dropdown {
+        right: 0 !important;
+        left: auto !important;
+        min-width: 320px;
+        max-width: 95vw;
+        word-break: break-word;
+        white-space: normal;
+    }
+    @media (max-width: 400px) {
+        .notif-dropdown {
+            min-width: 200px;
+        }
+    }
+    
+    .notif-dropdown .dropdown-item {
+        white-space: normal !important;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body class="index-page">
@@ -289,7 +312,7 @@
             confirmButtonText: 'OK'
         });
     </script>
-    
+
 @endif
 
 

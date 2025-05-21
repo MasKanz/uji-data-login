@@ -1,4 +1,5 @@
-<header id="header" class="header d-flex align-items-center sticky-top" style="background: linear-gradient(168deg, rgba(226, 226, 226, 0.97) 0%, rgba(247,247,247,1) 23%, rgba(255,255,255,1) 91%);">
+
+<header id="header" class="header d-flex align-items-center sticky-top" style="background: linear-gradient(168deg, rgba(226, 226, 226, 0.97) 0%, rgba(247,247,247,1) 23%, rgba(255,255,255,1) 91%); width: 100%;">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="/home" class="logo d-flex align-items-center me-auto">
@@ -13,6 +14,36 @@
         <li><a href="/shop"  @if($title === 'Shop') class="active" @endif>Produk</a></li>
         <li><a href="/pengajuan"  @if($title === 'Pengajuan') class="active" @endif>Pengajuan Kredit</a></li>
         <li><a href="/pembayaran"  @if($title === 'Pembayaran') class="active" @endif>Pembayaran</a></li>
+        @php
+            $notifs = \App\Models\Notifikasi::where('id_pelanggan', Auth::guard('pelanggan')->id())
+                ->orderByDesc('created_at')->take(10)->get();
+            $unreadCount = $notifs->where('dibaca', false)->count();
+        @endphp
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-regular fa-bell"></i>
+                @if($unreadCount > 0)
+                    <span class="badge bg-danger">{{ $unreadCount }}</span>
+                @endif
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end notif-dropdown" aria-labelledby="notifDropdown" style="width: 320px; max-width: 95vw;">
+                <li class="dropdown-header">Notifikasi</li>
+                @foreach($notifs as $notif)
+                <li class="dropdown-item{{ $notif->dibaca ? '' : ' fw-bold' }}">
+                    <div>{{ $notif->judul }}</div>
+                    <small>{{ $notif->pesan }}</small>
+                    <br>
+                    <small class="text-muted">{{ $notif->created_at->diffForHumans() }}</small>
+                    @if(!$notif->dibaca)
+                        <form action="{{ route('notifikasi.read', $notif->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link btn-sm p-0 text-primary">Read</button>
+                        </form>
+                    @endif
+                </li>
+            @endforeach
+            </ul>
+        </li>
         <!-- <li><a href="/abouts"  @if($title === 'Abouts') class="active" @endif>About</a></li> -->
         <!-- <li><a href="/contacts"  @if($title === 'Contacts') class="active" @endif>Contact</a></li> -->
 

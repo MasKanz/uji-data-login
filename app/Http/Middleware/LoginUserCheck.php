@@ -26,13 +26,6 @@ class LoginUserCheck
 
             }
 
-            if (Auth::user()->role === 'admin') {
-                return redirect()->intended('/admin');
-            } elseif (Auth::user()->role === 'marketing') {
-                return redirect()->intended('/marketing');
-            } elseif (Auth::user()->role === 'ceo') {
-                return redirect()->intended('/ceo');
-            }
         }
             // ...lanjutkan proses login
 

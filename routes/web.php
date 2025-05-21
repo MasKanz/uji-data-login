@@ -22,6 +22,8 @@ use App\Http\Controllers\AsuransiController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\MetodeBayarController;
 use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\KurirController;
 
 
 // Front Page
@@ -30,6 +32,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/shop', [ProductPageController::class, 'index'])->name('products');
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/abouts', [AboutController::class, 'index']);
+Route::post('/notifikasi/read/{id}', [NotifikasiController::class, 'read'])->name('notifikasi.read')->middleware(CheckPelanggan::class);
 
 Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
@@ -75,6 +78,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
 Route::get('/ceo', [CeoController::class, 'dashboard'])->name('ceo.dashboard')->middleware(CheckUserRole::class . ':ceo');
+Route::get('/kurir', [KurirController::class, 'index'])->middleware(CheckUserRole::class . ':kurir');
+
 
 
 // Dashboard Users Management
@@ -168,11 +173,11 @@ Route::get('/angsuran-verifikasi', [PembayaranController::class, 'verifikasiList
 Route::post('/angsuran-verifikasi/{id}/terima', [PembayaranController::class, 'terimaAngsuran'])->name('angsuran-verifikasi.terima')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::post('/angsuran-verifikasi/{id}/tolak', [PembayaranController::class, 'tolakAngsuran'])->name('angsuran-verifikasi.tolak')->middleware(CheckUserRole::class . ':admin,marketing');
 
-Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::get('/pengiriman/{id}', [PengirimanController::class, 'show'])->name('pengiriman.show')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::get('/pengiriman/{id}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware(CheckUserRole::class . ':admin,marketing');
-Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy')->middleware(CheckUserRole::class . ':admin,marketing');
+Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman')->middleware(CheckUserRole::class . ':admin,marketing,kurir');
+Route::get('/pengiriman/{id}', [PengirimanController::class, 'show'])->name('pengiriman.show')->middleware(CheckUserRole::class . ':admin,marketing,kurir');
+Route::get('/pengiriman/{id}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit')->middleware(CheckUserRole::class . ':admin,marketing,kurir');
+Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware(CheckUserRole::class . ':admin,marketing,kurir');
+Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy')->middleware(CheckUserRole::class . ':admin,marketing,kurir');
 
 
 // Laporan

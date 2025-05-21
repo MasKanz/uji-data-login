@@ -22,7 +22,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,marketing,ceo',
+            'role' => 'required|in:admin,marketing,ceo,kurir',
         ]);
 
         $user = User::create([
@@ -69,6 +69,8 @@ class AuthController extends Controller
                 return redirect()->intended('/marketing');
             } elseif ($request->user()->role === 'ceo') {
                 return redirect()->intended('/ceo');
+            } elseif ($request->user()->role === 'kurir') {
+                return redirect()->intended('/kurir');
             }
         }
 
@@ -109,7 +111,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,marketing,ceo',
+            'role' => 'required|in:admin,marketing,ceo,kurir',
         ]);
 
         User::create([
@@ -134,7 +136,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:admin,marketing,ceo',
+            'role' => 'required|in:admin,marketing,ceo,kurir',
         ]);
 
         $user = User::findOrFail($id);

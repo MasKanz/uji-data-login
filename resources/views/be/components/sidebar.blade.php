@@ -193,6 +193,28 @@
             <span class="pc-mtext">Angsuran Verifikasi</span>
           </a>
         </li>
+
+        @elseif (auth()->user()->role == 'kurir')
+        <li class="pc-item">
+          <a href="/kurir" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="home"></i>
+            </span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+
+
+        <li class="pc-item">
+          <a href="/pengiriman" class="pc-link">
+            <span class="pc-micon">
+              <i data-feather="credit-card"></i>
+            </span>
+            <span class="pc-mtext">Pengiriman</span>
+          </a>
+        </li>
+
+
         @endif
 
 
