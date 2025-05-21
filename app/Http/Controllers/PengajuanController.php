@@ -21,7 +21,8 @@ class PengajuanController extends Controller
         $motors = Motor::all();
         $jenisCicilan = JenisCicilan::all();
         $asuransiList = Asuransi::all();
-        return view('fe.pengajuan.pengajuan', compact('motors', 'jenisCicilan', 'asuransiList'), [
+        $metodeBayarList = \App\Models\MetodeBayar::all();
+        return view('fe.pengajuan.pengajuan', compact('motors', 'jenisCicilan', 'asuransiList', 'metodeBayarList'), [
             'title' => 'Pengajuan',
             'motors' => $motors,
             'jenisCicilan' => $jenisCicilan,
@@ -36,6 +37,7 @@ class PengajuanController extends Controller
             'dp' => 'required|numeric|min:0',
             'id_jenis_cicilan' => 'required|exists:jenis_cicilan,id',
             'id_asuransi' => 'required|exists:asuransi,id',
+            'id_metode_bayar' => 'required|exists:metode_bayar,id',
             'url_kk' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
             'url_ktp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
             'url_npwp' => 'required|file|mimes:jpeg,png,jpg,pdf,webp',
@@ -90,6 +92,7 @@ class PengajuanController extends Controller
             'id_asuransi' => $request->id_asuransi,
             'biaya_asuransi_perbulan' => $asuransiPerBulan,
             'cicilan_perbulan' => $cicilanPerBulan,
+            'id_metode_bayar' => $request->id_metode_bayar,
             'url_kk' => $kkPath,
             'url_ktp' => $ktpPath,
             'url_npwp' => $npwpPath,
@@ -217,7 +220,7 @@ class PengajuanController extends Controller
         // Buat data kredit
         Kredit::create([
             'id_pengajuan_kredit' => $pengajuan->id,
-            'id_metode_bayar' => 1,
+            'id_metode_bayar' => $pengajuan->id_metode_bayar,
             'tgl_mulai_kredit' => now(),
             'tgl_selesai_kredit' => now()->addMonths($pengajuan->jenisCicilan->lama_cicilan),
             'sisa_kredit' => $pengajuan->harga_kredit + ($pengajuan->biaya_asuransi_perbulan * $pengajuan->jenisCicilan->lama_cicilan),

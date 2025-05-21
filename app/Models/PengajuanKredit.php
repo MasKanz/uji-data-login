@@ -20,6 +20,7 @@ class PengajuanKredit extends Model
         'id_asuransi',
         'biaya_asuransi_perbulan',
         'cicilan_perbulan',
+        'id_metode_bayar',
         'url_kk',
         'url_ktp',
         'url_npwp',

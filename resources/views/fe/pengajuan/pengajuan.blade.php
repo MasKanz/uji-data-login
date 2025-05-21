@@ -38,6 +38,15 @@
             </select>
         </div>
         <div class="mb-3">
+            <label for="id_metode_bayar">Pilih Metode Bayar</label>
+            <select name="id_metode_bayar" class="form-control" required>
+                <option value="">-- Pilih Metode Bayar --</option>
+                @foreach($metodeBayarList as $metode)
+                    <option value="{{ $metode->id }}">{{ $metode->metode_pembayaran }} - {{ $metode->tempat_bayar }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="url_kk">Upload KK</label>
             <input type="file" name="url_kk" class="form-control" required>
         </div>
