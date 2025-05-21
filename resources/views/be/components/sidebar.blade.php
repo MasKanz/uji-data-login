@@ -131,14 +131,6 @@
           </a>
         </li>
 
-        <li class="pc-item">
-          <a href="/pengiriman" class="pc-link">
-            <span class="pc-micon">
-              <i data-feather="credit-card"></i>
-            </span>
-            <span class="pc-mtext">Pengiriman</span>
-          </a>
-        </li>
 
 
         @elseif (auth()->user()->role == 'ceo')

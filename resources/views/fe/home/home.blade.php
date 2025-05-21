@@ -2,9 +2,4 @@
 @section('navbar')
     @include('fe.components.navbar')
 @endsection
-@section('features')
-    @include('fe.components.features')
-@endsection
-@section('testimonies')
-    @include('fe.components.testimonies')
-@endsection
+

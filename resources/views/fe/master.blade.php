@@ -68,7 +68,7 @@
             min-width: 200px;
         }
     }
-    
+
     .notif-dropdown .dropdown-item {
         white-space: normal !important;
         word-break: break-word;
@@ -148,45 +148,35 @@
 
         <!-- Carousel Motor -->
 
-<div class="d-flex flex-row">
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 500px; width: 50%;">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100"  src="{{asset('fe/img/motor/Aerox_Alpha.png')}}" alt="First slide" width="500px important" height="500px" scale="30%">
+<div id="carouselMotor" class="carousel slide carousel-fade mb-5" data-ride="carousel" data-interval="3500" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <ol class="carousel-indicators">
+        @foreach($motors as $i => $motor)
+            <li data-target="#carouselMotor" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
+        @endforeach
+    </ol>
+    <div class="carousel-inner">
+        @foreach($motors as $i => $motor)
+        <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+            <a href="{{ route('products.show', $motor->id) }}">
+                <img class="d-block w-100 carousel-img" src="{{ asset('storage/' . $motor->foto1) }}" alt="{{ $motor->nama_motor }}" style="height: 500px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                    <h5>{{ $motor->nama_motor }}</h5>
+                    <p>{{ $motor->jenisMotor->merk ?? '' }} - {{ $motor->jenisMotor->jenis ?? '' }}</p>
+                </div>
+            </a>
+        </div>
+        @endforeach
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100"  src="{{asset('fe/img/motor/Honda_Beat_Sporty.jpg')}}" alt="Second slide" width="500px important" height="500px" scale="30%">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="{{asset('fe/img/motor/Kawasaki_W230.png')}}" alt="Third slide" width="500px important" scale="30%">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-
-
-
-<div style="width: 40%; padding:50px;" class="title-new-motor">
-    <h1>Motor Terbaru</h1>
-    <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque minus perferendis ab. Rerum, ad! Minus at voluptas, nulla dolor rem debitis saepe laborum repellendus. Perspiciatis totam asperiores fuga dignissimos dolorum.
-    </p>
-</div>
-
-
+    <!-- Chevron Kiri -->
+    <a class="carousel-control-prev" href="#carouselMotor" role="button" data-slide="prev" style="width: 5%; filter: none;">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #222; border-radius: 50%;"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <!-- Chevron Kanan -->
+    <a class="carousel-control-next" href="#carouselMotor" role="button" data-slide="next" style="width: 5%; filter: none;">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #222; border-radius: 50%;"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
     <!-- /Carouser Motor -->
 
@@ -268,6 +258,15 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<script>
+    $(document).ready(function(){
+        $('#carouselMotor').carousel({
+            interval: 3500,
+            ride: 'carousel',
+            pause: false
+        });
+    });
+</script>
 
 @if(session('success'))
     <script>
