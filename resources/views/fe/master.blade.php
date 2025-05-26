@@ -41,6 +41,14 @@
 
 
   <style>
+
+    body, html {
+        overflow-x: hidden !important;
+        width: 100vw;
+        max-width: 100vw;
+    }
+
+
     .carousel-img {
     height: 500px;           /* Set your desired height */
     object-fit: cover;       /* or 'contain' if you want the whole image visible */
