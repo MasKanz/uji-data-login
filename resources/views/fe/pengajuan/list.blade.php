@@ -52,7 +52,7 @@
                 <td>{{ $pengajuan->jenisCicilan->lama_cicilan ?? '-' }} bulan</td>
                 <td>Rp {{ number_format($pengajuan->dp,0,',','.') }}</td>
                 <td>
-                    <span class="badge bg-{{ $pengajuan->status_pengajuan == 'Menunggu Konfirmasi' ? 'warning' : ($pengajuan->status_pengajuan == 'Diterima' ? 'success' : 'danger') }}">
+                    <span class="badge bg-{{ $pengajuan->status_pengajuan == 'Menunggu Konfirmasi' ? 'warning' : ($pengajuan->status_pengajuan == 'Diterima' ? 'success' : ($pengajuan->status_pengajuan == 'Diproses' ? 'primary' : 'danger')) }}">
                         {{ $pengajuan->status_pengajuan }}
                     </span>
                 </td>

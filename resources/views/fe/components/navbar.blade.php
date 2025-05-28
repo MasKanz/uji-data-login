@@ -37,6 +37,7 @@
                     @if(!$notif->dibaca)
                         <form action="{{ route('notifikasi.read', $notif->id) }}" method="POST" style="display:inline;">
                             @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-link btn-sm p-0 text-primary">Read</button>
                         </form>
                     @endif

@@ -72,6 +72,12 @@ class NotifikasiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $notif = \App\Models\Notifikasi::where('id', $id)
+            ->where('id_pelanggan', auth('pelanggan')->id())
+            ->firstOrFail();
+
+        $notif->delete();
+
+        return back();
     }
 }

@@ -32,7 +32,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/shop', [ProductPageController::class, 'index'])->name('products');
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/abouts', [AboutController::class, 'index']);
-Route::post('/notifikasi/read/{id}', [NotifikasiController::class, 'read'])->name('notifikasi.read')->middleware(CheckPelanggan::class);
+Route::delete('/notifikasi/read/{id}', [NotifikasiController::class, 'destroy'])->name('notifikasi.read')->middleware(CheckPelanggan::class);
 
 Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware(CheckPelanggan::class);
 Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store')->middleware(CheckPelanggan::class);
