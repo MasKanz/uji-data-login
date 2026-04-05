@@ -1,4 +1,13 @@
 <!-- [ Header Topbar ] start -->
+<style>
+.border-left-4 {
+  border-left: 4px solid #ffc107 !important;
+}
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+</style>
 <header class="pc-header">
   <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
 <div class="me-auto pc-mob-drp">
@@ -46,101 +55,79 @@
         aria-expanded="false"
       >
         <i data-feather="bell"></i>
-        <span class="badge bg-success pc-h-badge">3</span>
+        @php
+          $adminNotif = collect();
+          $adminNotifCount = 0;
+          if(auth()->check() && auth()->user()->role === 'admin') {
+            $adminNotif = \App\Models\AdminNotifikasi::where('dibaca', false)
+              ->with(['pengajuan', 'kredit.angsuran', 'kredit.pengajuanKredit.pelanggan', 'pelanggan'])
+              ->orderBy('created_at', 'desc')
+              ->limit(5)
+              ->get();
+            $adminNotifCount = \App\Models\AdminNotifikasi::where('dibaca', false)->count();
+          }
+        @endphp
+        <span class="badge bg-success pc-h-badge">{{ $adminNotifCount > 0 ? $adminNotifCount : '0' }}</span>
       </a>
       <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
-          <h5 class="m-0">Notifications</h5>
-          <a href="#!" class="btn btn-link btn-sm">Mark all read</a>
+          <h5 class="m-0">Notifikasi</h5>
+          @if($adminNotifCount > 0)
+          <a href="#!" class="btn btn-link btn-sm" id="markAllNotifRead">Tandai semua dibaca</a>
+          @endif
         </div>
         <div class="dropdown-body text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-          <p class="text-span">Today</p>
-          <div class="card mb-0">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="img-radius avtar rounded-0" src="{{asset('be/assets/images/user/avatar-1.jpg')}}" alt="Generic placeholder image" />
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <span class="float-end text-sm text-muted">2 min ago</span>
-                  <h5 class="text-body mb-2">UI/UX Design</h5>
-                  <p class="mb-0"
-                    >Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type</p
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-0">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="img-radius avtar rounded-0" src="{{asset('be/assets/images/user/avatar-2.jpg')}}" alt="Generic placeholder image" />
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <span class="float-end text-sm text-muted">1 hour ago</span>
-                  <h5 class="text-body mb-2">Message</h5>
-                  <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="text-span">Yesterday</p>
-          <div class="card mb-0">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="img-radius avtar rounded-0" src="{{asset('be/assets/images/user/avatar-3.jpg')}}" alt="Generic placeholder image" />
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <span class="float-end text-sm text-muted">2 hour ago</span>
-                  <h5 class="text-body mb-2">Forms</h5>
-                  <p class="mb-0"
-                    >Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type</p
-                  >
+          @if($adminNotif->count() > 0)
+            <p class="text-span">Pengajuan Terbaru</p>
+            @foreach($adminNotif as $notif)
+            <div class="card mb-0 @if(!$notif->dibaca) border-left-4 border-warning @endif">
+              <div class="card-body">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avtar @if($notif->tipe === 'pengajuan') bg-warning @elseif($notif->tipe === 'pembayaran') bg-success @else bg-info @endif">
+                      @if($notif->tipe === 'pengajuan')
+                        <i class="fas fa-file-contract"></i>
+                      @elseif($notif->tipe === 'pembayaran')
+                        <i class="fas fa-money-bill-wave"></i>
+                      @else
+                        <i class="fas fa-truck"></i>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <span class="float-end text-sm text-muted">{{ $notif->created_at->diffForHumans() }}</span>
+                    <h5 class="text-body mb-2">{{ $notif->judul }}</h5>
+                    <p class="mb-1" style="font-size: 0.85rem;">
+                      {{ Str::limit($notif->pesan, 60) }}
+                    </p>
+                    <div class="mt-2">
+                      @if(!$notif->dibaca)
+                      <form action="{{ route('admin.mark-notifikasi', $notif->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button class="btn btn-xs btn-success" type="submit">
+                          <i class="fas fa-check"></i> Dibaca
+                        </button>
+                      </form>
+                      @endif
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card mb-0">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="img-radius avtar rounded-0" src="{{asset('be/assets/images/user/avatar-4.jpg')}}" alt="Generic placeholder image" />
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <span class="float-end text-sm text-muted">12 hour ago</span>
-                  <h5 class="text-body mb-2">Challenge invitation</h5>
-                  <p class="mb-2"><span class="text-dark">Jonny aber</span> invites to join the challenge</p>
-                  <button class="btn btn-sm btn-outline-secondary me-2">Decline</button>
-                  <button class="btn btn-sm btn-primary">Accept</button>
-                </div>
-              </div>
+
+            @endforeach
+          @else
+            <div class="text-center py-4">
+              <i class="fas fa-inbox text-muted" style="font-size: 2rem;"></i>
+              <p class="text-muted mt-2">Tidak ada notifikasi baru</p>
             </div>
-          </div>
-          <div class="card mb-0">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="img-radius avtar rounded-0" src="{{asset('be/assets/images/user/avatar-5.jpg')}}" alt="Generic placeholder image" />
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <span class="float-end text-sm text-muted">5 hour ago</span>
-                  <h5 class="text-body mb-2">Security</h5>
-                  <p class="mb-0"
-                    >Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                    type and scrambled it to make a type</p
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
+          @endif
         </div>
+        @if($adminNotif->count() > 0)
         <div class="text-center py-2">
-          <a href="#!" class="link-danger">Clear all Notifications</a>
+          <a href="/admin" class="link-primary">Lihat semua notifikasi</a>
         </div>
+        @endif
       </div>
     </li>
     <li class="dropdown pc-h-item header-user-profile">

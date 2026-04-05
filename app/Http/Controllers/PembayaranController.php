@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kredit;
 use App\Models\Angsuran;
+use App\Models\AdminNotifikasi;
 
 class PembayaranController extends Controller
 {
@@ -50,7 +51,7 @@ class PembayaranController extends Controller
         $buktiPath = $request->file('bukti_bayar')->store('bukti_bayar', 'public');
 
         // Buat angsuran baru
-        Angsuran::create([
+        $angsuran = Angsuran::create([
             'id_kredit' => $kredit->id,
             'tgl_bayar' => now(),
             'angsuran_ke' => ($kredit->angsuran()->count() + 1),
@@ -59,8 +60,19 @@ class PembayaranController extends Controller
             'keterangan' => 'Menunggu Verifikasi',
         ]);
 
+        // Buat notifikasi untuk admin
+        $pelanggan = $kredit->pengajuanKredit->pelanggan;
+        AdminNotifikasi::create([
+            'id_pengajuan_kredit' => $kredit->id, // Menggunakan id_kredit bukan id_pengajuan_kredit
+            'id_pelanggan' => $pelanggan->id,
+            'judul' => 'Pembayaran Angsuran Baru',
+            'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' telah mengirim pembayaran angsuran ke-' . $angsuran->angsuran_ke . ' sebesar Rp ' . number_format($request->total_bayar, 0, ',', '.'),
+            'tipe' => 'pembayaran',
+            'dibaca' => false
+        ]);
+
         // Update sisa kredit
-        
+
         $kredit->save();
 
         return redirect()->route('pembayaran.pelanggan')->with('success', 'Pembayaran berhasil dikirim, menunggu verifikasi.');

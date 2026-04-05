@@ -84,6 +84,11 @@
         max-width: 100%;
     }
 
+    .main{
+        /* min-height: 400px; */
+        min-height: 50vh;
+    }
+
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>

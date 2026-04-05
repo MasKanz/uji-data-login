@@ -30,6 +30,12 @@ class PengajuanKredit extends Model
         'keterangan_status_pengajuan',
     ];
 
+    protected $casts = [
+        'tgl_pengajuan_kredit' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     // Relasi ke pelanggan
     public function pelanggan()
     {

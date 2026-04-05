@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Kredit;
 use App\Models\Pengiriman;
 use App\Models\Notifikasi;
+use App\Models\AdminNotifikasi;
+use App\Models\Pelanggan;
 
 class PengajuanController extends Controller
 {
@@ -82,7 +84,7 @@ class PengajuanController extends Controller
         $slipGajiPath = $request->file('url_slip_gaji')->store('dokumen', 'public');
         $fotoPath = $request->file('url_foto')->store('dokumen', 'public');
 
-        PengajuanKredit::create([
+        $pengajuan = PengajuanKredit::create([
             'tgl_pengajuan_kredit' => now(),
             'id_pelanggan' => Auth::guard('pelanggan')->id(),
             'id_motor' => $request->id_motor,
@@ -101,7 +103,17 @@ class PengajuanController extends Controller
             'url_foto' => $fotoPath,
             'status_pengajuan' => 'Menunggu Konfirmasi',
             'keterangan_status_pengajuan' => '',
-            // tambahkan field lain sesuai kebutuhan
+        ]);
+
+        // Buat notifikasi untuk admin
+        $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
+        AdminNotifikasi::create([
+            'id_pengajuan_kredit' => $pengajuan->id,
+            'id_pelanggan' => Auth::guard('pelanggan')->id(),
+            'judul' => 'Pengajuan Kredit Baru',
+            'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' telah mengajukan kredit untuk motor ' . $motor->nama_motor,
+            'tipe' => 'pengajuan',
+            'dibaca' => false
         ]);
 
         return redirect()->route('pengajuan.pelanggan')->with('success', 'Pengajuan kredit berhasil dikirim!');
@@ -261,7 +273,7 @@ class PengajuanController extends Controller
             'pesan' => 'Pengajuan Anda telah disetujui. Silakan cek detail kredit Anda.',
         ]);
 
-        return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi & data kredit dibuat.');
+        return redirect()->route('pengajuan-kredit')->with('success', 'Pengajuan berhasil dikonfirmasi dan data kredit dibuat.');
     }
 
     public function batalPengajuan(Request $request, $id)

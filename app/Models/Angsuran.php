@@ -17,6 +17,10 @@ class Angsuran extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'tgl_bayar' => 'datetime',
+    ];
+
     public function kredit()
     {
         return $this->belongsTo(Kredit::class, 'id_kredit');

@@ -5,22 +5,22 @@
 
         <!-- Alamat 1 -->
         <div class="mb-4">
-            <label>Alamat 1</label>
+            <label>Alamat 1<span style="color: red;">*</span></label>
             <input type="textarea" name="alamat1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
-            <label>Kota 1</label>
+            <label>Kota 1<span style="color: red;">*</span></label>
             <input type="textarea" name="kota1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
-            <label>Provinsi 1</label>
+            <label>Provinsi 1<span style="color: red;">*</span></label>
             <input type="textarea" name="propinsi1" class="w-full border rounded p-2" required>
         </div>
 
         <div class="mb-4">
-            <label>Kode Pos 1</label>
+            <label>Kode Pos 1<span style="color: red;">*</span></label>
             <input type="textarea" name="kodepos1" class="w-full border rounded p-2" required>
         </div>
 
