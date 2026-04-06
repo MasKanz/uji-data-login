@@ -89,7 +89,7 @@
 }
 
 .carousel-img {
-    height: 350px;
+    min-height: 350px;
     max-width: 500px;
     margin: 0 auto;
     object-fit: cover;
