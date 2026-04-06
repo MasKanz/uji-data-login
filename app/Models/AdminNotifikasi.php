@@ -13,6 +13,7 @@ class AdminNotifikasi extends Model
         'judul',
         'pesan',
         'tipe',
+        'role',
         'dibaca'
     ];
 

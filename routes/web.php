@@ -76,7 +76,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 // Dashboard
 Route::get('/admin', [AdminController::class, 'index'])->middleware(CheckUserRole::class . ':admin');
-Route::post('/admin/notifikasi/{id}/mark-read', [AdminController::class, 'markNotifikasiAsRead'])->name('admin.mark-notifikasi')->middleware(CheckUserRole::class . ':admin');
+Route::post('/admin/notifikasi/{id}/mark-read', [AdminController::class, 'markNotifikasiAsRead'])->name('admin.mark-notifikasi')->middleware(CheckUserRole::class . ':admin,marketing');
 Route::get('/marketing', [MarketingController::class, 'index'])->middleware(CheckUserRole::class . ':marketing');
 Route::get('/ceo', [CeoController::class, 'dashboard'])->name('ceo.dashboard')->middleware(CheckUserRole::class . ':ceo');
 Route::get('/kurir', [KurirController::class, 'index'])->middleware(CheckUserRole::class . ':kurir');

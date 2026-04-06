@@ -86,6 +86,12 @@ class AdminController extends Controller
     public function markNotifikasiAsRead($id)
     {
         $notifikasi = \App\Models\AdminNotifikasi::findOrFail($id);
+
+        // Pastikan user hanya bisa menandai notifikasi yang sesuai dengan rolenya
+        if ($notifikasi->role !== auth()->user()->role) {
+            return back()->with('error', 'Anda tidak memiliki akses ke notifikasi ini');
+        }
+
         $notifikasi->update(['dibaca' => true]);
         return back()->with('success', 'Notifikasi sudah ditandai sebagai dibaca');
     }

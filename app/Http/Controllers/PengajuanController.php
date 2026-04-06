@@ -113,6 +113,18 @@ class PengajuanController extends Controller
             'judul' => 'Pengajuan Kredit Baru',
             'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' telah mengajukan kredit untuk motor ' . $motor->nama_motor,
             'tipe' => 'pengajuan',
+            'role' => 'admin',
+            'dibaca' => false
+        ]);
+
+        // Buat notifikasi untuk marketing
+        AdminNotifikasi::create([
+            'id_pengajuan_kredit' => $pengajuan->id,
+            'id_pelanggan' => Auth::guard('pelanggan')->id(),
+            'judul' => 'Pengajuan Kredit Baru',
+            'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' mengajukan kredit untuk motor ' . $motor->nama_motor . '. Silakan hubungi pelanggan untuk follow up.',
+            'tipe' => 'pengajuan',
+            'role' => 'marketing',
             'dibaca' => false
         ]);
 

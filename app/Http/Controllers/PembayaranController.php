@@ -68,6 +68,18 @@ class PembayaranController extends Controller
             'judul' => 'Pembayaran Angsuran Baru',
             'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' telah mengirim pembayaran angsuran ke-' . $angsuran->angsuran_ke . ' sebesar Rp ' . number_format($request->total_bayar, 0, ',', '.'),
             'tipe' => 'pembayaran',
+            'role' => 'admin',
+            'dibaca' => false
+        ]);
+
+        // Buat notifikasi untuk marketing (sama persis dengan admin)
+        AdminNotifikasi::create([
+            'id_pengajuan_kredit' => $kredit->id,
+            'id_pelanggan' => $pelanggan->id,
+            'judul' => 'Pembayaran Angsuran Baru',
+            'pesan' => 'Pelanggan ' . $pelanggan->nama_pelanggan . ' telah mengirim pembayaran angsuran ke-' . $angsuran->angsuran_ke . ' sebesar Rp ' . number_format($request->total_bayar, 0, ',', '.'),
+            'tipe' => 'pembayaran',
+            'role' => 'marketing',
             'dibaca' => false
         ]);
 

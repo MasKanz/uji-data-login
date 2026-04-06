@@ -58,13 +58,15 @@
         @php
           $adminNotif = collect();
           $adminNotifCount = 0;
-          if(auth()->check() && auth()->user()->role === 'admin') {
+          if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'marketing')) {
+            $role = auth()->user()->role;
             $adminNotif = \App\Models\AdminNotifikasi::where('dibaca', false)
+              ->where('role', $role)
               ->with(['pengajuan', 'kredit.angsuran', 'kredit.pengajuanKredit.pelanggan', 'pelanggan'])
               ->orderBy('created_at', 'desc')
               ->limit(5)
               ->get();
-            $adminNotifCount = \App\Models\AdminNotifikasi::where('dibaca', false)->count();
+            $adminNotifCount = \App\Models\AdminNotifikasi::where('dibaca', false)->where('role', $role)->count();
           }
         @endphp
         <span class="badge bg-success pc-h-badge">{{ $adminNotifCount > 0 ? $adminNotifCount : '0' }}</span>
@@ -83,7 +85,6 @@
             <div class="card mb-0 @if(!$notif->dibaca) border-left-4 border-warning @endif">
               <div class="card-body">
                 <div class="d-flex">
-                  <div class="flex-shrink-0">
                     <div class="avtar @if($notif->tipe === 'pengajuan') bg-warning @elseif($notif->tipe === 'pembayaran') bg-success @else bg-info @endif">
                       @if($notif->tipe === 'pengajuan')
                         <i class="fas fa-file-contract"></i>
@@ -93,7 +94,6 @@
                         <i class="fas fa-truck"></i>
                       @endif
                     </div>
-                  </div>
                   <div class="flex-grow-1 ms-3">
                     <span class="float-end text-sm text-muted">{{ $notif->created_at->diffForHumans() }}</span>
                     <h5 class="text-body mb-2">{{ $notif->judul }}</h5>

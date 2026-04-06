@@ -57,7 +57,7 @@
 
     .carousel-img {
     height: 350px;
-    max-width: 500px;
+    max-width: 80vw;
     margin: 0 auto;
     object-fit: cover;
     object-position: center;
@@ -171,7 +171,7 @@
         @foreach($motors as $i => $motor)
         <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
             <a href="{{ route('products.show', $motor->id) }}">
-                <img class="d-block w-100 carousel-img" src="{{ asset('storage/' . $motor->foto1) }}" alt="{{ $motor->nama_motor }}" style="height: 500px; object-fit:cover;">
+                <img class="d-block carousel-img" src="{{ asset('storage/' . $motor->foto1) }}" alt="{{ $motor->nama_motor }}" style="height: 500px; object-fit:cover;">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                     <h5>{{ $motor->nama_motor }}</h5>
                     <p>{{ $motor->jenisMotor->merk ?? '' }} - {{ $motor->jenisMotor->jenis ?? '' }}</p>
