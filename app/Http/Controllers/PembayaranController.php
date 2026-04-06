@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kredit;
 use App\Models\Angsuran;
+use App\Models\Notifikasi;
 use App\Models\AdminNotifikasi;
 
 class PembayaranController extends Controller
@@ -149,17 +150,42 @@ class PembayaranController extends Controller
         $angsuran->keterangan = 'Diterima';
         $angsuran->save();
 
+        $pelanggan = $angsuran->kredit->pengajuanKredit->pelanggan;
+        if ($pelanggan) {
+            Notifikasi::create([
+                'id_pelanggan' => $pelanggan->id,
+                'judul' => 'Pembayaran Angsuran Diterima',
+                'pesan' => 'Pembayaran angsuran ke-' . $angsuran->angsuran_ke . ' sebesar Rp ' . number_format($angsuran->total_bayar, 0, ',', '.') . ' telah diterima.',
+                'dibaca' => false,
+            ]);
+        }
+
         return redirect()->route('angsuran-verifikasi')->with('success', 'Pembayaran angsuran diterima dan sisa kredit dikurangi.');
     }
 
-    public function tolakAngsuran($id)
+    public function tolakAngsuran(Request $request, $id)
     {
+        $request->validate([
+            'alasan_batal' => 'required|string|max:1000',
+        ]);
+
         $angsuran = \App\Models\Angsuran::findOrFail($id);
         if ($angsuran->keterangan !== 'Menunggu Verifikasi') {
             return back()->with('error', 'Angsuran sudah diverifikasi.');
         }
+
         $angsuran->keterangan = 'Ditolak';
         $angsuran->save();
+
+        $pelanggan = $angsuran->kredit->pengajuanKredit->pelanggan;
+        if ($pelanggan) {
+            Notifikasi::create([
+                'id_pelanggan' => $pelanggan->id,
+                'judul' => 'Pembayaran Angsuran Ditolak',
+                'pesan' => 'Pembayaran angsuran ke-' . $angsuran->angsuran_ke . ' sebesar Rp ' . number_format($angsuran->total_bayar, 0, ',', '.') . ' ditolak. Alasan: ' . $request->alasan_batal,
+                'dibaca' => false,
+            ]);
+        }
 
         return redirect()->route('angsuran-verifikasi')->with('success', 'Pembayaran angsuran ditolak.');
     }
